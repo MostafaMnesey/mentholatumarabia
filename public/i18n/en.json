@@ -1,0 +1,922 @@
+{
+  "nav": {
+    "discover": "Discover",
+    "brands": "Brands",
+    "checker": "Symptom Checker",
+    "shop": "Shop",
+    "contact": "Contact Us",
+    "about": "About Us",
+    "environment": "Environment",
+    "blogs": "Blogs",
+    "menu": "Menu",
+    "lang": "Language"
+  },
+
+  "home": {
+    "hero": {
+      "commitment": "Our Commitment",
+      "betterWorld": "To a Better World",
+      "description": "At Mentholatum, we care about people and the planet. We use safe, effective ingredients, support healthy communities, and work to reduce waste. Every day, we aim to make life better — for you and for the world around us."
+    },
+    "features": {
+      "symptomChecker": {
+        "title": "Symptom Checker",
+        "description": "Quickly answer a few questions to find out what's causing your symptoms and which product to use.",
+        "buttonText": "Start Testing"
+      },
+      "blinkTest": {
+        "title": "Blink Test",
+        "description": "Quickly check your blinking to spot dryness or fatigue and get the right care or product.",
+        "buttonText": "Start Testing"
+      }
+    },
+    "productsSlider": {
+      "common": {
+        "discover": "Discover",
+        "navigation": {
+          "previous": "Previous slide",
+          "next": "Next slide"
+        }
+      },
+      "slides": [
+        {
+          "title": "Deep Freeze Range",
+          "id": "24"
+        },
+        {
+          "title": "Deep Heat Range",
+          "id": "23"
+        },
+        {
+          "title": "Hada Labo Tokyo",
+          "id": "26"
+        },
+        {
+          "title": "Deep Relief Range",
+          "id": "25"
+        },
+        {
+          "title": "Rohto Range",
+          "id": "27"
+        }
+      ]
+    },
+    "suitableSlider": {
+      "slide1": {
+        "title": "Find a  ",
+        "titleHighlight": "suitable",
+        "title-p2": "product for you",
+        "description": "Your Skin is Unique. Your Skincare Should Be Too. With thousands of skincare options available, finding the right products can feel overwhelming. That's why we're here to help. Whether you're dealing with dryness, acne, sensitivity, or just looking to enhance your natural glow — we'll guide you to the products that suit your skin.",
+        "button": "VIEW ALL"
+      },
+      "slide2": {
+        "title": "Mind Your Back ",
+        "titleHighlight": "5 Simple S.T.E.P.S",
+        "description": "Your back does more than support you — it reflects your overall wellness. Poor posture can lead to tension, skin creasing, and neglected self-care. At Mentholatum, we encourage full-body care. Stretch regularly, sit mindfully, and don't forget to cleanse and moisturize your back.",
+        "button": "Shop Now"
+      },
+      "slide3": {
+        "title": "Check if you have ",
+        "titleHighlight": "Dry Eye",
+        "description": "Feeling dryness, burning, or tired eyes—especially after screen time? You might have dry eye. Take 2 minutes to check!",
+        "button": "Check Now"
+      }
+    },
+    "videosSection": {
+      "videoCards": {
+        "card1": {
+          "title": "For the sake of your eyes",
+          "subtitle": "#ROHTO",
+          "thumbnailAlt": "For the sake of your eyes - Rohto"
+        },
+        "card2": {
+          "title": "Working Mom",
+          "subtitle": "#DEEPHEAT",
+          "thumbnailAlt": "Video Thumbnail"
+        },
+        "card3": {
+          "title": "Tennis Tournament",
+          "subtitle": "#DEEPFREEZE",
+          "thumbnailAlt": "Video Thumbnail"
+        },
+        "watchButton": "WATCH VIDEO"
+      },
+      "dialog": {
+        "closeLabel": "Close dialog",
+        "videoPlayer": {
+          "loading": "Loading video player..."
+        }
+      },
+      "about": {
+        "sectionTitle": "About Us",
+        "mainHeading": "WE ARE FOR",
+        "mainHeadingHighlight": "SELF CARE FIRST",
+        "description": "Because nurturing yourself isn't a luxury, it's the foundation for living fully, loving deeply, and giving your best to the world.",
+        "discoverMore": "Discover More"
+      }
+    }
+  },
+  "blogsSection": {
+    "header": {
+      "label": "Our Blogs",
+      "title": "THE LATEST UPDATES",
+      "viewAll": "VIEW ALL"
+    },
+    "blogCard": {
+      "imageAlt": "Blog Image",
+      "readMore": "Read More"
+    }
+  },
+  "about": {
+    "heroTitle": "Specialists in family healthcare for over 130 years",
+    "whoWeAre": {
+      "sectionTitle": "Who We Are",
+      "mainHeading": "We are A specialised global company",
+      "paragraph1": "We are a specialised global company dedicated to improving the health and wellness of people throughout the world with effective, innovative and accessible products. Our UK site located in Scotland, is the home of the iconic Deep Heat brand. Here we develop, manufacture and market healthcare products for our UK, European, African and Middle Eastern markets.",
+      "paragraph2": "Innovation is at the heart of what we do. Our consumer research helps drive our passion to create and develop meaningful products and solutions using the latest ingredients, packaging and technology, while being mindful of our sustainability commitments and goals. We are specialists in muscle and joint care and Rohto are world leaders in eyecare and skincare. All our products are designed so you can feel the difference when you use them.",
+      "paragraph3": "Life is for living and our vision is to help everyone live a healthier, happier life with respect and compassion for our environment and society."
+    },
+    "ourHistory": {
+      "sectionTitle": "About Us",
+      "mainHeading": "OUR HISTORY",
+      "mentholatumHistory": "The Mentholatum Company was founded in 1889, Wichita, Kansas making soaps and toiletries then expanded into healthcare products. It has grown into a global health and wellness company, with manufacturing facilities across five locations globally and products marketed and sold in over 150 countries. The company was acquired by Rohto Pharmaceutical Company, Ltd. in 1988.",
+      "rohtoHistory": "Founded in 1899 in Osaka, Japan – Rohto pioneered over the counter medicines and consumer healthcare products. It is now the second largest health company in Japan - establishing its position as a world leader in manufacturing and marketing of pharmaceuticals, eyecare, cosmetics, skincare and healthcare products."
+    },
+    "ourPhilosophy": {
+      "sectionTitle": "Our Philosophy",
+      "events": {
+        "supportingSociety": {
+          "title": "Supporting Society",
+          "description": "We work wholeheartedly to support society, to help create a better world."
+        },
+        "trustAndRespect": {
+          "title": "Trust and Respect",
+          "description": "We place the highest importance in earning the trust and respect of our associates and customers"
+        },
+        "happyCustomers": {
+          "title": "Happy Customers",
+          "description": "We delight in creating meaningful products for our customers."
+        },
+        "ourPeople": {
+          "title": "Our People",
+          "description": "Our people are our greatest asset. Our hard-working culture, spirit of close cooperation, determination and passion drives the company."
+        },
+        "meaningfulExistence": {
+          "title": "Meaningful Existence",
+          "description": "We firmly pledge to serve our colleagues, customers, society and the environment, and are thankful for our meaningful existence."
+        },
+        "continuousImprovement": {
+          "title": "Continuous Improvement",
+          "description": "We are resolved to strive for continuous improvement"
+        },
+        "relentlessPassion": {
+          "title": "Relentless Passion",
+          "description": "We take pride in setting high goals"
+        }
+      }
+    }
+  },
+  "blogs": {
+    "pageTitle": "BLOGS",
+    "readMore": "Read More",
+    "loadMore": "Read More"
+  },
+
+  "brands": {
+    "heroTitle": "OUR BRANDS",
+    "deep_heat": {
+      "title": "Deep Heat Range",
+      "description": "Deep Heat is the UK's No.1 selling topical heat therapy brand. Offering a range of products designed to provide effective targeted relief with the relaxing benefits of heat therapy. Heat increases blood flow to the affected area providing oxygen and nutrients to loosen and soften muscles, helping restore movement..",
+      "shop_now": "Shop Now",
+      "learn_more": "Learn More"
+    },
+    "deep_freeze": {
+      "title": "Deep Freeze Range",
+      "description": "Deep Freeze is the UK's No.1 selling topical freeze brand. The products are suitable for backs, neck & shoulder and legs & feet and provide the benefits of cooling, soothing relief.",
+      "shop_now": "Shop Now",
+      "learn_more": "Learn More"
+    },
+    "deep_relief": {
+      "title": "Deep Relief Range",
+      "description": "Deep Relief is a range of products that provide cooling, soothing relief. Deep Relief Anti-inflammatory Gel and Deep Relief Joint Pain Gel are medicines that contain 2 painkilling ingredients providing powerful, targeted relief from pain and inflammation. Deep Relief Actiflex Patch is a drug free hydrogel patch that provides fast cooling and soothes for up to 12 hours.",
+      "shop_now": "Shop Now",
+      "learn_more": "Learn More"
+    },
+    "hada_labo": {
+      "title": "Hada Labo Tokyo Range",
+      "description": "Hada Labo Tokyo™ contains multiple types of Hyaluronic Acid; wonder ingredients that quench thirsty, dry skin at multiple levels. A proper drink for your skin, if you like. HA helps hydrate and plump your skin. But our special combination of HAs SUPER hydrates and plumps your skin from the inside out. Goodbye dry, hello glow.",
+      "shop_now": "Shop Now",
+      "learn_more": "Learn More"
+    },
+    "rohto": {
+      "title": "Rohto Eyecare Range",
+      "description": "Rohto Dry Aid - from the world's No1 Eye care brand, is an advanced dry eye relief drop which hydrates, restores and protects. Rohto Dry Aid relieves 8 symptoms of dry eye and provides long lasting soothing relief for up to 12 hours.",
+      "shop_now": "Shop Now",
+      "learn_more": "Learn More"
+    }
+  },
+  "symptom": {
+    "header": {
+      "title": "Discover what product to use, where and how",
+      "description": "Quickly check which of our products might suit you best.",
+      "howToUse": {
+        "title": "HOW TO USE",
+        "steps": {
+          "click": "Click on the area of interest",
+          "discover": "Discover which product to use"
+        }
+      }
+    },
+    "pain_relief": {
+      "hands_and_fingers": {
+        "title": "Hands and fingers",
+        "description": "Soothing relief for hands and fingers.",
+        "products": {
+          "deep_freeze_cold_gel": {
+            "name": "Deep Freeze Cold Gel",
+            "description": "Provides fast acting cooling relief from minor aches in muscles and joints.",
+            "slug": "deep-freeze-cold-gel"
+          },
+          "deep_relief_anti_inflammatory_gel": {
+            "name": "Deep Relief Anti-inflammatory Gel",
+            "description": "Powerful, targeted pain and inflammation relief. Starts to work in 10 minutes.",
+            "slug": "deep-relief-anti-inflammatory-gel"
+          }
+        }
+      },
+      "lower_legs": {
+        "title": "Lower legs",
+        "description": "Long days and busy lives can cause minor aches in our legs making them feel tired and heavy. Soothe and relieve with fast acting, targeted relief.",
+        "products": {
+          "deep_heat_pain_relief_spray": {
+            "name": "Deep Heat Pain Relief Spray",
+            "description": "For the relief of pain in muscles, tendons, joints or bones. Can be used before or after exercise.",
+            "slug": "deep-heat-pain-relief-spray"
+          },
+          "deep_freeze_cold_spray": {
+            "name": "Deep Freeze Cold Spray",
+            "description": "Provides fast acting cooling relief for minor aches in muscles and joints. Can be used immediately after exercise.",
+            "slug": "deep-freeze-cold-spray"
+          }
+        }
+      },
+      "ankles": {
+        "title": "Ankles",
+        "description": "Ankles are weight-bearing and work hard to keep the body moving so be sure to look after them when they need attention.",
+        "products": {
+          "deep_freeze_cold_patch": {
+            "name": "Deep Freeze Cold Patch",
+            "description": "Provides long lasting cooling relief.",
+            "slug": "deep-freeze-cold-patch"
+          }
+        }
+      },
+      "hips": {
+        "title": "Hips",
+        "description": "Hips carry our weight and are hard working so it is no surprise that soothing relief might be needed at times.",
+        "products": {
+          "deep_relief_actiflex_patch": {
+            "name": "Deep Relief Actiflex Patch",
+            "description": "Drug-free, fast acting cooling relief. Soothes up to 12 hours.",
+            "slug": "deep-relief-actiflex-patch"
+          }
+        }
+      },
+      "feet": {
+        "title": "Feet",
+        "description": "With the average person taking up to 10,000 steps a day, our feet are likely to need soothing relief after a long day.",
+        "products": {
+          "deep_freeze_cold_gel": {
+            "name": "Deep Freeze Cold Gel",
+            "description": "Provides fast acting cooling relief from minor aches in muscles and joints.",
+            "slug": "deep-freeze-cold-gel"
+          }
+        }
+      },
+      "back": {
+        "title": "Back",
+        "description": "Backs are made for moving however they sometimes need soothing relief.",
+        "products": {
+          "deep_heat_pain_relief_back_patch": {
+            "name": "Deep Heat Pain Relief Back Patch",
+            "description": "Provides long lasting, targeted, odourless, drug-free pain relief for up to 16 hours - for stiff, aching backs.",
+            "slug": "deep-heat-pain-relief-back-patch"
+          },
+
+          "deep_heat_warming_belt": {
+            "name": "Deep Heat Warming Belt",
+            "description": "Provides long lasting, odourless, drug-free, warming pain relief for up to 12 hours - with a non-stick application.",
+            "slug": "deep-heat-warming-belt"
+          },
+          "deep_relief_anti_inflammatory_gel": {
+            "name": "Deep Relief Anti-inflammatory Gel",
+            "description": "Powerful, targeted pain and inflammation relief. Starts to work in 10 minutes.",
+            "slug": "deep-relief-anti-inflammatory-gel"
+          },
+          "deep_freeze_cold_patch_back": {
+            "name": "Deep Freeze Cold Patch",
+            "description": "Soothing relief for the back. Can be used in pregnancy, always check new symptoms with your midwife/GP.",
+            "slug": "deep-freeze-cold-patch"
+          }
+        }
+      },
+      "neck_and_shoulders": {
+        "title": "Neck and shoulders",
+        "description": "Tired, tight, tense neck and shoulder muscles are often caused by the demands of everyday life - occupation and poor posture included.",
+        "products": {
+          "deep_heat_muscle_massage_roll_on": {
+            "name": "Deep Heat Muscle Massage Roll-on Lotion",
+            "description": "Convenient, modern roll-on format which provides heat therapy plus massage therapy.",
+            "slug": "deep-heat-muscle-massage-roll-on-lotion"
+          },
+          "deep_heat_pain_relief_heat_patch": {
+            "name": "Deep Heat Pain Relief Heat Patch",
+            "description": "Provides long lasting, targeted, odourless pain relief for up to 16 hours.",
+            "slug": "deep-heat-pain-relief-heat-patch"
+          }
+        }
+      },
+      "muscles": {
+        "title": "Muscles",
+        "description": "Tired and tense muscles are often brought on by everyday life.",
+        "products": {
+          "deep_freeze_cold_gel": {
+            "name": "Deep Freeze Cold Gel",
+            "description": "Provides fast acting cooling relief from minor aches in muscles and joints.",
+            "slug": "deep-freeze-cold-gel"
+          },
+          "deep_heat_heat_rub": {
+            "name": "Deep Heat Rub",
+            "description": "Provides targeted, warming relief to help ease tight, knotted muscles.",
+            "slug": "deep-heat-rub"
+          }
+        }
+      },
+      "thighs": {
+        "title": "Thighs",
+        "description": "Thigh muscles play a key role in our body so it is important to look after them when needed.",
+        "products": {
+          "deep_heat_heat_rub": {
+            "name": "Deep Heat Rub",
+            "description": "Fast relief from muscular ache and pains",
+            "slug": "deep-heat-rub"
+          },
+          "deep_heat_pain_relief_spray": {
+            "name": "Deep Heat Pain Relief Spray",
+            "description": "For the relief of pain in muscles, tendons, joints or bones. Can be used before or after exercise.",
+            "slug": "deep-heat-pain-relief-spray"
+          },
+          "deep_freeze_cold_spray": {
+            "name": "Deep Freeze Cold Spray",
+            "description": "Fast acting cooling relief from minor aches in muscles and joints. Can be used immediately after exercise.",
+            "slug": "deep-freeze-cold-spray"
+          },
+          "deep_freeze_cold_gel": {
+            "name": "Deep Freeze Cold Gel",
+            "description": "Provides fast acting cooling relief from minor aches in muscles and joints.",
+            "slug": "deep-freeze-cold-gel"
+          }
+        }
+      },
+      "joints": {
+        "title": "Joints",
+        "description": "Joints enable our body to move and at times - for some of us, soothing relief might be needed.",
+        "products": {
+          "deep_freeze_cold_gel": {
+            "name": "Deep Freeze Cold Gel",
+            "description": "Provides fast acting cooling relief from minor aches in muscles and joints.",
+            "slug": "deep-freeze-cold-gel"
+          },
+          "deep_relief_joint_pain_gel": {
+            "name": "Deep Relief Joint Pain Gel",
+            "description": "Provides effective relief of pain from non-serious arthritis.",
+            "slug": "deep-relief-anti-inflammatory-gel"
+          },
+          "deep_relief_actiflex_patch": {
+            "name": "Deep Relief Actiflex Patch",
+            "description": "Drug-free, fast acting cooling relief. Soothes up to 12 hours.",
+            "slug": "deep-relief-actiflex-patch"
+          }
+        }
+      }
+    }
+  },
+  "shop": {
+    "shopNow": "Shop now",
+    "availableCountriesHeader": "Available Countries",
+    "productAvailableText": "This product is available in the following countries:",
+    "buyNow": "Buy Now",
+    "availableInPharmacies": "Available in Pharmacies",
+    "notAvailable": "Not available at the moment"
+  },
+  "contact": {
+    "hero": {
+      "title": "Contact Us",
+      "intro": "Our sales teams across the globe would love to hear from you.",
+      "description": "The Mentholatum Company Ltd, in East Kilbride, Scotland is responsible for the sale and distribution of quality healthcare products in the following regions: The United Kingdom, Ireland, Scandinavia, Mainland Europe, Eastern Europe (Russia and Former Soviet States), Africa and The Middle East."
+    },
+    "contactForm": {
+      "sectionTitle": "Contact Us",
+      "subtitle": "LET’S GET IN TOUCH",
+      "name": "Name",
+      "email": "Email",
+      "type": "Type of Enquiry",
+      "reason": "Reason for Contacting",
+      "submit": "SUBMIT",
+      "successMessage": "Your contact request has been sent successfully. We will get back to you soon."
+    },
+
+    "regions": {
+      "middleEast": "MENA & South Asia"
+    },
+
+    "labels": {
+      "phone": "Phone",
+      "email": "Email"
+    },
+
+
+  "countries": {
+    "bahrain": {
+      "name": "Bahrain",
+      "distributors": [
+        {
+          "company": "Jaffar Pharmacy",
+          "address": "Building 2616, Road 855, Wadyan 608. Sitra, Bahrain",
+          "phone": "+97317731415",
+          "email": "jhruyan@jaffar-h-ruyan.com"
+        }
+      ]
+    },
+    "jordan": {
+      "name": "Jordan",
+      "distributors": [
+        {
+          "company": "Khoury Drug Store",
+          "address": "Umm Metawee Al-Aslameyah St. 8, Amman, Jordan",
+          "phone": "+96265827015",
+          "email": "info@khds.jo"
+        }
+      ]
+    },
+    "kuwait": {
+      "name": "Kuwait",
+      "distributors": [
+        {
+          "company": "Mohamed N. Al-Hajery & Sons Ltd",
+          "address": "Shuwaikh Industrial Area 3, Block D, Bldg No. 73, St. No. 67, P.O.Box 152, Safat 13002, Kuwait",
+          "phone": "+9654831000",
+          "email": "abdullah.mismar@hajery.com"
+        }
+      ]
+    },
+    "oman": {
+      "name": "Oman",
+      "distributors": [
+        {
+          "company": "Taiba Pharmacy",
+          "address": "Head office 564 Russayl Industrial estate, Muscat, Oman",
+          "phone": "+96824442222",
+          "email": "customer.service@taibahealthcare.com"
+        },
+        {
+          "company": "Muscat Pharmacy & Stores LLC",
+          "address": "PO Box 438, PC 100, Muscat 100, Oman",
+          "phone": "+96824814501",
+          "email": "myahya@mpmct.com"
+        }
+      ]
+    },
+    "qatar": {
+      "name": "Qatar",
+      "distributors": [
+        {
+          "company": "Gulf Technical Trading",
+          "address": "P.O. Box 22234, Doha, Qatar",
+          "phone": "+974414664 / +974414088 / +97444414088",
+          "email": "charisma.salariosa@gulftechtrading.com"
+        },
+        {
+          "company": "International Medical Company",
+          "address": "819 Haloul st, Zone 56, Building 168, Al-Maamoura",
+          "phone": "+97444291555",
+          "email": "info@imcqatar.com"
+        }
+      ]
+    },
+    "saudi": {
+      "name": "Saudi Arabia",
+      "distributors": [
+        {
+          "company": "Exeo health Care",
+          "address": "Sharafiyyah District Almaamoun Builiding ali Bin Abi Taleb Street ,PO Box: 19435, Jeddah",
+          "phone": "+966122316163",
+          "email": "info@exeohc.com"
+        }
+      ]
+    },
+    "uae": {
+      "name": "United Arab Emirates",
+      "distributors": [
+        {
+          "company": "GULF DRUG LLC.",
+          "address": "Gulf Drug Tower, 2nd Street, Next to Saleh Bin Lahej Building, Al Barsha 1, Dubai, UAE.",
+          "phone": "+971569968766",
+          "email": "info@gulfdrug.com"
+        }
+      ]
+    },
+    "morocco": {
+      "name": "Morocco",
+      "distributors": [
+        {
+          "company": "Iphabiotics",
+          "address": "6, rue Ibn Khalikane, 20340, Quartier: Palmier, Casablanca, Maroc",
+          "phone": "+212522453200",
+          "email": "contact@cooperpharma.ma"
+        }
+      ]
+    },
+    "palestine": {
+      "name": "Palestine",
+      "distributors": [
+        {
+          "company": "Al Rowwad For Medial Supplies & Services",
+          "address": "Shareket Al Rowwad, Al-Rawdah St., Nablus, Palestine",
+          "phone": "+970923377227",
+          "email": "m.tashtoush@rowwadmss.com"
+        }
+      ]
+    },
+    "pakistan": {
+      "name": "Pakistan",
+      "distributors": [
+        {
+          "company": "Titlis Pharma",
+          "address": "528-A, Sundar Industrial Estate, Raiwind Road, Lahore, Pakistan",
+          "phone": "+923077574843",
+          "email": "faisal@titlispharma.com"
+        }
+      ]
+    },
+    "egypt": {
+      "name": "Egypt",
+      "distributors": [
+        {
+          "company": "Rotabiogen For Pharmaceutical Investment & Chemicals",
+          "address": "39 Gamal Eldien Kassim Street, Nasr City, Cairo, Egypt",
+          "phone": "+20222871991",
+          "email": "hussien.khaled@hefnypharmagroup.com"
+        }
+      ]
+    },
+    "iraq": {
+      "name": "Iraq",
+      "distributors": [
+        {
+          "company": "Global Health",
+          "address": "Queen Alla Int. Airport, Duty Free Zone - In Transit, P.O. Box 852098, Amman 11185, Jordan",
+          "phone": "+962795009061",
+          "email": "jiriesm@globalhealth-fz.com"
+        }
+      ]
+    },
+    "libya": {
+      "name": "Libya",
+      "distributors": [
+        {
+          "company": "Aeeade Alshefa",
+          "address": "Head office Ben Ashor street, Tripoli, Libya",
+          "phone": "+218213620426",
+          "email": "info@aa.med.ly"
+        }
+      ]
+    }
+  }
+
+
+
+
+
+  },
+  "footer": {
+    "brands": {
+      "title": "BRANDS",
+      "items": {
+        "deepHeat": "Deep Heat",
+        "deepFreeze": "Deep Freeze",
+        "deepRelief": "Deep Relief",
+        "hadaLabo": "Hada Labo Tokyo",
+        "rohto": "Rohto",
+        "shop": "Shop"
+      }
+    },
+    "mentholatum": {
+      "title": "MENTHOLATUM",
+      "items": {
+        "discover": "Discover",
+        "symptomChecker": "Symptom Checker",
+        "rohtoMentholatum": "Rohto Mentholatum",
+        "dax": "DAX Cosmetics"
+      }
+    },
+    "customerCare": {
+      "title": "CUSTOMER CARE",
+      "items": {
+        "terms": "Terms and Conditions",
+        "contact": "Contact",
+        "privacy": "Privacy Policy"
+      }
+    },
+    "stayInformed": {
+      "title": "STAY INFORMED",
+      "description": "Sign up to stay up-to-date with all things",
+      "placeholder": "Enter Your Email Address",
+      "agree": "I agree to the",
+      "privacyLink": "Privacy Policy"
+    },
+    "bottom": {
+      "copyright": "Copyright © Mentholatum 2018 - 2025. All rights reserved",
+      "dev": "Website Design & Development by"
+    }
+  },
+  "Single-brand": {
+    "title": "OUR PRODUCTS",
+    "learnMore": "Learn More"
+  },
+  "product": {
+    "brand": "Brand",
+    "shopNow": "Shop now",
+    "about": "About",
+    "noFaq": "No frequently asked questions available for this product.",
+    "availableIn": "Available Countries",
+    "availability": {
+      "message": "This product is available in the following countries:"
+    },
+    "buyNow": "Buy Now",
+    "availableInPharmacies": "Available in Pharmacies",
+    "notAvailable": "Not available at the moment",
+    "related": {
+      "title": "Discover the power of",
+      "cta": "Learn More"
+    },
+    "symptomChecker": {
+      "title": "Symptom Checker",
+      "description": "Find a suitable product for you",
+      "cta": "See More"
+    }
+  },
+  "checker": {
+    "title": "Symptom Checker",
+    "description": "Find a suitable product for you",
+    "cta": "See More"
+  },
+
+  "blog": {
+    "breadcrumb": {
+      "home": "Homepage",
+      "blogs": "Blogs"
+    },
+    "share": {
+      "label": "Share:"
+    },
+    "loading": "Loading blog post..."
+  },
+  "primeng": {
+    "accept": "Yes",
+    "addRule": "Add Rule",
+    "am": "AM",
+    "apply": "Apply",
+    "cancel": "Cancel",
+    "choose": "Choose",
+    "chooseDate": "Choose Date",
+    "chooseMonth": "Choose Month",
+    "chooseYear": "Choose Year",
+    "clear": "Clear",
+    "completed": "Completed",
+    "contains": "Contains",
+    "custom": "Custom",
+    "dateAfter": "Date is after",
+    "dateBefore": "Date is before",
+    "dateFormat": "mm/dd/yy",
+    "dateIs": "Date is",
+    "dateIsNot": "Date is not",
+    "dayNames": [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday"
+    ],
+    "dayNamesMin": ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"],
+    "dayNamesShort": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+    "emptyFilterMessage": "No results found",
+    "emptyMessage": "No available options",
+    "emptySearchMessage": "No results found",
+    "emptySelectionMessage": "No selected item",
+    "endsWith": "Ends with",
+    "equals": "Equals",
+    "fileChosenMessage": "{0} files",
+    "fileSizeTypes": ["B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"],
+    "filter": "Filter",
+    "firstDayOfWeek": 0,
+    "gt": "Greater than",
+    "gte": "Greater than or equal to",
+    "lt": "Less than",
+    "lte": "Less than or equal to",
+    "matchAll": "Match All",
+    "matchAny": "Match Any",
+    "medium": "Medium",
+    "monthNames": [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December"
+    ],
+    "monthNamesShort": [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec"
+    ],
+    "nextDecade": "Next Decade",
+    "nextHour": "Next Hour",
+    "nextMinute": "Next Minute",
+    "nextMonth": "Next Month",
+    "nextSecond": "Next Second",
+    "nextYear": "Next Year",
+    "noFileChosenMessage": "No file chosen",
+    "noFilter": "No Filter",
+    "notContains": "Not contains",
+    "notEquals": "Not equals",
+    "now": "Now",
+    "passwordPrompt": "Enter a password",
+    "pending": "Pending",
+    "pm": "PM",
+    "prevDecade": "Previous Decade",
+    "prevHour": "Previous Hour",
+    "prevMinute": "Previous Minute",
+    "prevMonth": "Previous Month",
+    "prevSecond": "Previous Second",
+    "prevYear": "Previous Year",
+    "reject": "No",
+    "removeRule": "Remove Rule",
+    "searchMessage": "{0} results are available",
+    "selectionMessage": "{0} items selected",
+    "showMonthAfterYear": false,
+    "startsWith": "Starts with",
+    "strong": "Strong",
+    "today": "Today",
+    "upload": "Upload",
+    "weak": "Weak",
+    "weekHeader": "Wk",
+    "aria": {
+      "cancelEdit": "Cancel Edit",
+      "close": "Close",
+      "collapseLabel": "Collapse",
+      "collapseRow": "Row Collapsed",
+      "editRow": "Edit Row",
+      "expandLabel": "Expand",
+      "expandRow": "Row Expanded",
+      "falseLabel": "False",
+      "filterConstraint": "Filter Constraint",
+      "filterOperator": "Filter Operator",
+      "firstPageLabel": "First Page",
+      "gridView": "Grid View",
+      "hideFilterMenu": "Hide Filter Menu",
+      "jumpToPageDropdownLabel": "Jump to Page Dropdown",
+      "jumpToPageInputLabel": "Jump to Page Input",
+      "lastPageLabel": "Last Page",
+      "listLabel": "Option List",
+      "listView": "List View",
+      "moveAllToSource": "Move All to Source",
+      "moveAllToTarget": "Move All to Target",
+      "moveBottom": "Move Bottom",
+      "moveDown": "Move Down",
+      "moveToSource": "Move to Source",
+      "moveToTarget": "Move to Target",
+      "moveTop": "Move Top",
+      "moveUp": "Move Up",
+      "navigation": "Navigation",
+      "next": "Next",
+      "nextPageLabel": "Next Page",
+      "nullLabel": "Not Selected",
+      "otpLabel": "Please enter one time password character {0}",
+      "pageLabel": "Page {page}",
+      "passwordHide": "Hide Password",
+      "passwordShow": "Show Password",
+      "previous": "Previous",
+      "prevPageLabel": "Previous Page",
+      "removeLabel": "Remove",
+      "rotateLeft": "Rotate Left",
+      "rotateRight": "Rotate Right",
+      "rowsPerPageLabel": "Rows per page",
+      "saveEdit": "Save Edit",
+      "scrollTop": "Scroll Top",
+      "selectAll": "All items selected",
+      "selectLabel": "Select",
+      "selectRow": "Row Selected",
+      "showFilterMenu": "Show Filter Menu",
+      "slide": "Slide",
+      "slideNumber": "{slideNumber}",
+      "star": "1 star",
+      "stars": "{star} stars",
+      "trueLabel": "True",
+      "unselectAll": "All items unselected",
+      "unselectLabel": "Unselect",
+      "unselectRow": "Row Unselected",
+      "zoomImage": "Zoom Image",
+      "zoomIn": "Zoom In",
+      "zoomOut": "Zoom Out"
+    }
+  },
+  "privacy_policy": {
+    "title": "Privacy Policy",
+    "subtitle": "Mentholatum Limited Privacy Policy & Website Terms",
+
+    "introduction": {
+      "title": "Introduction",
+      "description": "Location and Registration: Mentholatum Limited (\"Mentholatum Company\") is situated at 1 Redwood Street, Peel Park Campus, East Kilbride, G74 5PE, Scotland, United Kingdom. It is registered in England under number 197071."
+    },
+
+    "data_privacy": {
+      "title": "Data Privacy",
+      "description": "Data Controller: Mentholatum Ltd is responsible for your personal data. We deeply value your privacy."
+    },
+
+    "data_collection": {
+      "title": "Data Collection",
+      "description": "We gather:\n- Types of information you submit via enquiry forms on our website, such as your name, email, contact details, and the nature of your enquiry\n- Traffic, location, and other metadata from your visits to our website"
+    },
+
+    "usage": {
+      "title": "Usage",
+      "description": "Your data enables us to better enhance your inquiries, enhance our offerings, perform marketing research, and comply with legal obligations. We also comply with various digital and regulatory standards."
+    },
+
+    "data_retention": {
+      "title": "Data Retention",
+      "description": "Data from medical product inquiries is held indefinitely for legal reasons. Medical device inquiry data is retained for six years. Other inquiries are removed 12 months after resolution."
+    },
+
+    "data_sharing": {
+      "title": "Data Sharing",
+      "description": "We share personal data across your visits with third parties. This could be to legal services, to address your inquiries, or to ensure the security of Mentholatum Ltd. and our clients. Data sharing only aids in our connection with you and our business."
+    },
+
+    "cookies": {
+      "title": "Cookies",
+      "description": "Our website uses cookies to enhance how the site usage. You can block these cookies in your browser settings."
+    },
+
+    "your_rights": {
+      "title": "Your Rights",
+      "description": "You have rights to:\n- Request a copy of your information\n- Make corrections to your data\n- Ask your data to be deleted\nFor any questions about your data or to exercise your rights, email privacy@mentholatum.co.uk. We typically require proof of identity and will reply within a month."
+    },
+
+    "limited_license": {
+      "title": "Limited License",
+      "description": "We grant you a non-exclusive, revocable license to personally access and use the Mentholatum website. This license is strictly personal and limits you to viewing the website, content operations, and/or engaging with online collection tools."
+    },
+
+    "policy_updates": {
+      "title": "Policy Updates",
+      "description": "This policy may be updated from time to time. The most recent update was on March 16, 2023."
+    },
+
+    "enforceability": {
+      "title": "Enforceability & Jurisdiction",
+      "description": "These you're browsing Mentholatum Limited with your data. Your privacy and security are of utmost importance to us."
+    }
+  },
+  "terms_conditions": {
+    "title": "Terms and Conditions",
+    "subtitle": "Thank you for visiting the Mentholatum website and your interest in our Mentholatum products (the “Products”).",
+    "description": "Access to the Mentholatum website is provided to you by The Mentholatum Company Limited having its principal place of business at 1 Redwood Avenue, Peel Park Campus, East Kilbride G74 5PE, Scotland, UK. Registered in England and Wales under Company Number: 197071 and having its registered office at Tricor Suite, 4th Floor, 50 Mark Lane, London, EC3R 7QR. VAT registration number: 208310014 (“The Mentholatum Company”, “we”, “our”, “us”).Please make sure that you read these terms and conditions and the documents referred to herein (the “Terms & Conditions”) carefully as by using the Mentholatum website, you are acknowledging that you have read, understood, and agreed, without limitation or qualification, to be bound by these Terms & Conditions."
+  },
+  "dax_cosmetics": {
+    "title": "DAX Cosmetics",
+    "subtitle": "One of Europe's leading cosmetic manufacturers.",
+    "paragraph1": "DAX Cosmetics is our sister company. Their mission is to develop and constantly improve skincare, body care and cosmetics based on the newest technology and, innovative ingredients and packaging.",
+    "paragraph2": "They endeavor to discover new technologies to fulfil consumer needs and to create top-quality products for markets worldwide.",
+    "paragraph3": "To learn more about Dax cosmetics and how they are embracing advancing cosmetic technologies follow the link to their Dax Cosmetics website."
+  }
+}

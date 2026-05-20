@@ -1,0 +1,33 @@
+{
+  "name": "next-version",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint"
+  },
+  "dependencies": {
+    "@iconify/react": "^6.0.2",
+    "@primeuix/themes": "^2.0.3",
+    "axios": "^1.16.1",
+    "dompurify": "^3.4.5",
+    "framer-motion": "^12.39.0",
+    "hls.js": "^1.6.16",
+    "html-react-parser": "^6.1.1",
+    "lucide-react": "^1.16.0",
+    "next": "16.2.6",
+    "primeicons": "^7.0.0",
+    "primereact": "^10.9.8",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "tailwindcss-primeui": "^0.6.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "eslint": "^9",
+    "eslint-config-next": "16.2.6",
+    "tailwindcss": "^4"
+  }
+}
