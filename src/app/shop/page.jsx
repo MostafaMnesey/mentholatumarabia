@@ -11,34 +11,52 @@ import { useTranslation } from "@/context/LanguageContext";
 import { shopByBrand } from "@/services/mainService";
 
 const videoLink = {
-  deep_heat: "https://cdn.mentholatumarabia.com/videos/deep_heat_web.mp4",
-  deep_freeze: "https://cdn.mentholatumarabia.com/videos/deep_web.mp4",
-  deep_relief: "https://cdn.mentholatumarabia.com/videos/deep_rel_web.mp4",
-  hada_labo: "https://cdn.mentholatumarabia.com/videos/heda__web.mp4",
-  rohto: "https://cdn.mentholatumarabia.com/videos/rohto_web.mp4",
+  23: "https://cdn.mentholatumarabia.com/videos/deep_heat_web.mp4",
+  24: "https://cdn.mentholatumarabia.com/videos/deep_web.mp4",
+  25: "https://cdn.mentholatumarabia.com/videos/deep_rel_web.mp4",
+  26: "https://cdn.mentholatumarabia.com/videos/heda__web.mp4",
+  27: "https://cdn.mentholatumarabia.com/videos/rohto_web.mp4",
+  // String keys/slugs as fallback for direct query matches
+  "deep-heat": "https://cdn.mentholatumarabia.com/videos/deep_heat_web.mp4",
+  "deep-freeze": "https://cdn.mentholatumarabia.com/videos/deep_web.mp4",
+  "deep-relief": "https://cdn.mentholatumarabia.com/videos/deep_rel_web.mp4",
+  "hada-labo": "https://cdn.mentholatumarabia.com/videos/heda__web.mp4",
+  "rohto": "https://cdn.mentholatumarabia.com/videos/rohto_web.mp4",
+  "deep_heat": "https://cdn.mentholatumarabia.com/videos/deep_heat_web.mp4",
+  "deep_freeze": "https://cdn.mentholatumarabia.com/videos/deep_web.mp4",
+  "deep_relief": "https://cdn.mentholatumarabia.com/videos/deep_rel_web.mp4",
+  "hada_labo": "https://cdn.mentholatumarabia.com/videos/heda__web.mp4",
 };
 const imagePlaceHolder = {
-  deep_heat: "https://cdn.mentholatumarabia.com/videos/deep_heat.png",
-  deep_freeze: "https://cdn.mentholatumarabia.com/videos/deep_freeze.png",
-  deep_relief: "https://cdn.mentholatumarabia.com/videos/deep_rel.png",
-  hada_labo: "https://cdn.mentholatumarabia.com/videos/hada.png",
-  rohto: "https://cdn.mentholatumarabia.com/videos/rohto.png",
+  23: "https://cdn.mentholatumarabia.com/videos/deep_heat.png",
+  24: "https://cdn.mentholatumarabia.com/videos/deep_freeze.png",
+  25: "https://cdn.mentholatumarabia.com/videos/deep_rel.png",
+  26: "https://cdn.mentholatumarabia.com/videos/hada.png",
+  27: "https://cdn.mentholatumarabia.com/videos/rohto.png",
+  // String keys/slugs as fallback for direct query matches
+  "deep-heat": "https://cdn.mentholatumarabia.com/videos/deep_heat.png",
+  "deep-freeze": "https://cdn.mentholatumarabia.com/videos/deep_freeze.png",
+  "deep-relief": "https://cdn.mentholatumarabia.com/videos/deep_rel.png",
+  "hada-labo": "https://cdn.mentholatumarabia.com/videos/hada.png",
+  "rohto": "https://cdn.mentholatumarabia.com/videos/rohto.png",
+  "deep_heat": "https://cdn.mentholatumarabia.com/videos/deep_heat.png",
+  "deep_freeze": "https://cdn.mentholatumarabia.com/videos/deep_freeze.png",
+  "deep_relief": "https://cdn.mentholatumarabia.com/videos/deep_rel.png",
+  "hada_labo": "https://cdn.mentholatumarabia.com/videos/hada.png",
 };
 
 function ShopContent() {
   const { t, lang } = useTranslation();
   const searchParams = useSearchParams();
   const brandQuery = searchParams.get("brand");
-  const param = useSearchParams();
-  const brand = param.get("brand");
 
   const [brands, setBrands] = useState([]);
+  const initialBrandKey = brandQuery?.toLowerCase();
   const [selectedVideo, setSelectedVideo] = useState(
-    videoLink[brand?.split(" ").join("_")] || videoLink["deep_heat"],
+    videoLink[initialBrandKey] || videoLink[23],
   );
   const [selectedVideoPlaceHolder, setSelectedVideoPlaceHolder] = useState(
-    imagePlaceHolder[brand?.split(" ").join("_")] ||
-      imagePlaceHolder["deep_heat"],
+    imagePlaceHolder[initialBrandKey] || imagePlaceHolder[23],
   );
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -111,6 +129,19 @@ function ShopContent() {
   }, [brands, products]);
 
   const activeTabDetails = tabs[selectedTab] || null;
+
+  // Sync selectedVideo and selectedVideoPlaceHolder with activeTabDetails
+  useEffect(() => {
+    if (activeTabDetails?.brand?.id) {
+      const brandId = activeTabDetails.brand.id;
+      if (videoLink[brandId]) {
+        setSelectedVideo(videoLink[brandId]);
+      }
+      if (imagePlaceHolder[brandId]) {
+        setSelectedVideoPlaceHolder(imagePlaceHolder[brandId]);
+      }
+    }
+  }, [activeTabDetails]);
 
   const hasAnyPurchaseOption = (product) => {
     if (!product || !product.countries) return false;
@@ -228,19 +259,11 @@ function ShopContent() {
                 {tabs.map((tab) => {
                   const isSelected = selectedTab === tab.value;
 
-                  const brandKey = tab?.brand?.name
-                    ?.toLowerCase()
-                    .replace(" ", "_");
-                  const videoUrl = brandKey && videoLink[brandKey];
-                  const imageUrl = brandKey && imagePlaceHolder[brandKey];
-
                   return (
                     <motion.button
                       key={tab.value}
                       onClick={() => {
-                        (setSelectedTab(tab.value),
-                          setSelectedVideo(videoUrl),
-                          setSelectedVideoPlaceHolder(imageUrl));
+                        setSelectedTab(tab.value);
                       }}
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
