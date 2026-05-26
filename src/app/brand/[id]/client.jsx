@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Skeleton } from "primereact/skeleton";
 import { useTranslation } from "@/context/LanguageContext";
 import { getSingleBrand } from "@/services/mainService";
+import { updateMetaTag } from "@/utils/seoHelper";
 import SocialLinks from "@/components/SocialLinks";
 
 export default function SingleBrandPage({ params }) {
@@ -20,7 +21,29 @@ export default function SingleBrandPage({ params }) {
     getSingleBrand(id)
       .then((res) => {
         if (res && res.brand) {
-          setBrandData(res.brand);
+          const brand = res.brand;
+          setBrandData(brand);
+          
+          // Update meta tags for SEO
+          const title = brand.banner_title || brand.name || "Brand";
+          const desc = brand.banner_desc || "";
+          
+          document.title = `${title} - Mentholatum Arabia`;
+          updateMetaTag("description", desc);
+          
+          // Open Graph
+          updateMetaTag("og:title", title);
+          updateMetaTag("og:description", desc);
+          updateMetaTag("og:type", "website");
+          if (brand.logo || brand.image) {
+             updateMetaTag("og:image", brand.logo || brand.image);
+             updateMetaTag("twitter:image", brand.logo || brand.image);
+          }
+          
+          // Twitter
+          updateMetaTag("twitter:title", title);
+          updateMetaTag("twitter:description", desc);
+          updateMetaTag("twitter:card", "summary");
         }
         setLoading(false);
       })

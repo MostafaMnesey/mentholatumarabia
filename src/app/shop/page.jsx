@@ -386,8 +386,13 @@ function ShopContent() {
         modal={true}
         dismissableMask={true}
         className="rounded-3xl overflow-hidden shadow-2xl"
+        pt={{
+          header: { className: "px-6 py-5 flex items-center justify-between" },
+          closeButton: { className: "w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors focus:ring-2 focus:ring-gray-200 outline-none" },
+          content: { className: "px-6 pb-6 pt-2" }
+        }}
       >
-        <div className="p-2">
+        <div>
           <h3 className="text-xl font-black mb-5 text-gray-900 border-b border-gray-100 pb-3">
             {selectedProductName}
           </h3>

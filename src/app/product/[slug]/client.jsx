@@ -5,10 +5,11 @@ import { Skeleton } from "primereact/skeleton";
 import { Dialog } from "primereact/dialog";
 import { useTranslation } from "@/context/LanguageContext";
 import { getSingleProduct } from "@/services/mainService";
-
+import { updateMetaTag } from "@/utils/seoHelper";
 export default function ProductDetailPage({ params }) {
   const resolvedParams = use(params);
   const { slug } = resolvedParams;
+  console.log(resolvedParams);
   const { t, lang } = useTranslation();
 
   const [productDetails, setProductDetails] = useState(null);
@@ -37,26 +38,49 @@ export default function ProductDetailPage({ params }) {
     }
   }, []);
 
-  // Fetch product details
   useEffect(() => {
-    if (!slug) return;
-    setLoading(true);
-    getSingleProduct(slug)
-      .then((res) => {
-        setProductDetails(res);
-        setLoading(false);
+  if (!slug) return;
+  setLoading(true);
+  getSingleProduct(slug)
+    .then((res) => {
+      setProductDetails(res);
+      setLoading(false);
 
-        // Dynamic page title updates
-        if (res && res.product) {
-          const title = res.product.title || res.product.name || "Product";
-          document.title = `${title} - Mentholatum Arabia`;
+      // Dynamic meta tags for SEO
+      if (res?.product) {
+        const product = res.product;
+        
+        // Page title
+        document.title = `${product.name || product.title} - Mentholatum Arabia`;
+        
+        // Meta description
+        const description = product.meta_description || product.details || product.description;
+        updateMetaTag('description', description);
+        
+        // Meta keywords
+        if (product.meta_keywords) {
+          updateMetaTag('keywords', product.meta_keywords);
         }
-      })
-      .catch((err) => {
-        console.error("Error loading product:", err);
-        setLoading(false);
-      });
-  }, [slug]);
+        
+        // Open Graph for social sharing
+        updateMetaTag('og:title', product.meta_title || product.name);
+        updateMetaTag('og:description', description);
+        updateMetaTag('og:image', product.main_image || product.thumbnail || product.images?.[0]);
+        updateMetaTag('og:url', window.location.href);
+        updateMetaTag('og:type', 'product');
+        
+        // Twitter Card
+        updateMetaTag('twitter:title', product.meta_title || product.name);
+        updateMetaTag('twitter:description', description);
+        updateMetaTag('twitter:image', product.main_image || product.thumbnail);
+        updateMetaTag('twitter:card', 'summary_large_image');
+      }
+    })
+    .catch((err) => {
+      console.error("Error loading product:", err);
+      setLoading(false);
+    });
+}, [slug]);
 
   const hasAnyPurchaseOption = (product) => {
     if (!product || !product.countries) return false;
@@ -422,9 +446,16 @@ export default function ProductDetailPage({ params }) {
         header={t("product.availableIn")}
         modal={true}
         dismissableMask={true}
+        className="rounded-3xl overflow-hidden shadow-2xl text-start"
+        pt={{
+          header: { className: "px-6 py-5 flex items-center justify-between" },
+          closeButton: { className: "w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors focus:ring-2 focus:ring-gray-200 outline-none" },
+          title: { className: "font-extrabold text-lg text-gray-800" },
+          content: { className: "px-6 pb-6 pt-2" }
+        }}
       >
-        <div className="p-2 text-start">
-          <h3 className="text-xl font-semibold mb-4 text-gray-900">{selectedProductName}</h3>
+        <div>
+          <h3 className="text-xl font-black mb-5 text-gray-900 border-b border-gray-100 pb-3">{selectedProductName}</h3>
           {hasAvailableCountries ? (
             <>
               <p className="mb-4 text-gray-600">{t("product.availability.message")}</p>

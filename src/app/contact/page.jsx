@@ -6,7 +6,10 @@ import { contact } from "@/services/mainService";
 import Link from "next/link";
 import { Dialog } from "primereact/dialog";
 
+import { COUNTRIES_DATA } from "@/utils/countriesData";
+
 export default function ContactPage() {
+
   const { t, lang } = useTranslation();
 
   // Contact Form State
@@ -23,7 +26,6 @@ export default function ContactPage() {
     type: false,
     reason: false,
   });
-  const [formSubmitted, setFormSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState({ type: "", text: "" });
   const [captchaToken, setCaptchaToken] = useState("");
@@ -32,190 +34,6 @@ export default function ContactPage() {
   // Distributors Dialog State
   const [selectedCountry, setSelectedCountry] = useState(null);
   const [displayDialog, setDisplayDialog] = useState(false);
-
-  const countries = [
-    {
-      key: "bahrain",
-      flag: "/new/Flags/Bahrain.svg",
-      name: "Bahrain",
-      distributors: [
-        {
-          company: "Jaffar Pharmacy",
-          address: "Building 2616, Road 855, Wadyan 608. Sitra, Bahrain",
-          phone: "+97317731415",
-          email: "jhruyan@jaffar-h-ruyan.com",
-        },
-      ],
-    },
-    {
-      key: "jordan",
-      flag: "/new/Flags/Jordan.svg",
-      name: "Jordan",
-      distributors: [
-        {
-          company: "Khoury Drug Store",
-          address: "Umm Metawee Al-Aslameyah St. 8, Amman, Jordan",
-          phone: "+96265827015",
-          email: "info@khds.jo",
-        },
-      ],
-    },
-    {
-      key: "kuwait",
-      flag: "/new/Flags/Kuwait.svg",
-      name: "Kuwait",
-      distributors: [
-        {
-          company: "Mohamed N. Al-Hajery & Sons Ltd",
-          address: `Shuwaikh Industrial Area 3, Block D, Bldg No. 73, St. No. 67, P.O.Box 152, Safat 13002, Kuwait`,
-          phone: "+9654831000",
-          email: "abdullah.mismar@hajery.com",
-        },
-      ],
-    },
-    {
-      key: "oman",
-      flag: "/new/Flags/Oman.svg",
-      name: "Oman",
-      distributors: [
-        {
-          company: "Taiba Pharmacy",
-          address: "Head office 564 Russayl Industrial estate Muscat Oman",
-          phone: "+96824442222",
-          email: "customer.service@taibahealthcare.com",
-        },
-        {
-          company: "Muscat Pharmacy & Stores LLC",
-          address: "PO Box 438, PC 100, Muscat 100, Oman",
-          phone: "+96824814501",
-          email: "myahya@mpmct.com",
-        },
-      ],
-    },
-    {
-      key: "qatar",
-      flag: "/new/Flags/Qatar.svg",
-      name: "Qatar",
-      distributors: [
-        {
-          company: "Gulf Technical Trading",
-          address: "P.O. Box 22234, Doha, Qatar",
-          phone: "+974414664 / +974414088 / +97444414088",
-          email: "charisma.salariosa@gulftechtrading.com",
-        },
-        {
-          company: "International Medical Company",
-          address: "819 Haloul st, Zone 56, Building 168, Al-Maamoura",
-          phone: "+9744291555",
-          email: "info@imcqatar.com",
-        },
-      ],
-    },
-    {
-      key: "saudi",
-      flag: "/new/Flags/Saudi Arabia.svg",
-      name: "Saudi Arabia",
-      distributors: [
-        {
-          company: "Exeo Health Care",
-          address: "Sharafiyyah District Almaamoun Building Ali Bin Abi Taleb Street, PO Box: 19435, Jeddah",
-          phone: "+966122316163",
-          email: "info@exeohc.com",
-        },
-      ],
-    },
-    {
-      key: "uae",
-      flag: "/new/Flags/UAE.svg",
-      name: "United Arab Emirates",
-      distributors: [
-        {
-          company: "GULF DRUG LLC.",
-          address: `Gulf Drug Tower, 2nd Street, Next to Saleh Bin Lahej Building, Al Barsha 1, Dubai, UAE.`,
-          phone: "+971569968766",
-          email: "info@gulfdrug.com",
-        },
-      ],
-    },
-    {
-      key: "morocco",
-      flag: "/new/Flags/Morocco.svg",
-      name: "Morocco",
-      distributors: [
-        {
-          company: "Iphabiotics",
-          address: "6, rue Ibn Khalikane, 20340, Quartier: Palmier, Casablanca, Maroc",
-          phone: "+212522453200",
-          email: "contact@cooperpharma.ma",
-        },
-      ],
-    },
-    {
-      key: "palestine",
-      flag: "/new/Flags/Palestine.svg",
-      name: "Palestine",
-      distributors: [
-        {
-          company: "Al Rowwad For Medical Supplies & Services",
-          address: "Shareket Al Rowwad, Al-Rawdah St., Nablus, Palestine",
-          phone: "+970923377227",
-          email: "m.tashtoush@rowwadmss.com",
-        },
-      ],
-    },
-    {
-      key: "pakistan",
-      flag: "/new/Flags/Pakistan.svg",
-      name: "Pakistan",
-      distributors: [
-        {
-          company: "Titlis Pharma",
-          address: "528-A, Sundar Industrial Estate, Raiwind Road, Lahore, Pakistan",
-          phone: "+923077574843",
-          email: "faisal@titlispharma.com",
-        },
-      ],
-    },
-    {
-      key: "egypt",
-      flag: "/new/Flags/Egypt.svg",
-      name: "Egypt",
-      distributors: [
-        {
-          company: "Rotabiogen For Pharmaceutical Investment & Chemicals",
-          address: "39 Gamal Eldien Kassim Street, Nasr City, Cairo, Egypt",
-          phone: "+20222871991",
-          email: "hussien.khaled@hefnypharmagroup.com",
-        },
-      ],
-    },
-    {
-      key: "iraq",
-      flag: "/new/Flags/Iraq.svg",
-      name: "Iraq",
-      distributors: [
-        {
-          company: "Global Health",
-          address: "Queen Alla Int. Airport, Duty Free Zone - In Transit, P.O. Box 852098, Amman 11185, Jordan",
-          phone: "+962795009061",
-          email: "jiriesm@globalhealth-fz.com",
-        },
-      ],
-    },
-    {
-      key: "libya",
-      flag: "/new/Flags/Libya.svg",
-      name: "Libya",
-      distributors: [
-        {
-          company: "Aeeade Alshefa",
-          address: "Head office Ben Ashor street - Tripoli - Libya",
-          phone: "+218213620426",
-          email: "info@aa.med.ly",
-        },
-      ],
-    },
-  ];
 
   // Initialize reCAPTCHA
   useEffect(() => {
@@ -300,7 +118,6 @@ export default function ContactPage() {
 
     contact(formData)
       .then((res) => {
-        setFormSubmitted(true);
         setMessage({ type: "success", text: t("contact.contactForm.successMessage") });
         setFormData({
           name: "",
@@ -323,7 +140,12 @@ export default function ContactPage() {
       })
       .catch((err) => {
         console.error("Submit contact error:", err);
-        setMessage({ type: "error", text: "Failed to send message. Please try again later." });
+        const errorMsg = err.response?.data?.message || "Failed to send message. Please try again later.";
+        setMessage({ type: "error", text: errorMsg });
+        setCaptchaToken("");
+        if (typeof window !== "undefined" && window.grecaptcha) {
+          window.grecaptcha.reset();
+        }
         setLoading(false);
       });
   };
@@ -468,7 +290,7 @@ export default function ContactPage() {
                 className="px-6 py-3 bg-[#0067B1] hover:bg-[#00348D] text-white rounded-full font-medium shadow-md cursor-pointer transition-all w-fit flex items-center justify-center gap-2"
               >
                 {loading ? "Sending..." : t("contact.contactForm.submit")}
-                <i className="pi pi-arrow-right"></i>
+                <i className={`pi ${lang === "en" ? "pi-arrow-right" : "pi-arrow-left"}`}></i>
               </button>
             </form>
           </div>
@@ -486,17 +308,17 @@ export default function ContactPage() {
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 w-[80%] mx-auto my-6 gap-8">
-          {countries.map((country, idx) => (
+          {COUNTRIES_DATA.map((country, idx) => (
             <div key={idx} className="item w-full overflow-hidden">
               <div
-                className="rounded-full flex items-center my-3 bg-white py-4 px-4 cursor-pointer transition-all hover:bg-gray-100 border border-gray-100 shadow-sm"
+                className="rounded-full flex items-center my-3 bg-white py-4 px-4 cursor-pointer transition-all hover:bg-gray-100 border border-gray-100 shadow-sm group"
                 onClick={() => openDialog(country)}
               >
-                <img loading="lazy" src={country.flag} className="w-10 h-6 mr-2 object-contain" alt={country.name} />
-                <span className="text-[#00295A] flex-1 truncate font-medium">
+                <img loading="lazy" src={country.flag} className="w-10 h-6 mx-2 object-contain" alt={country.name} />
+                <span className="text-[#00295A] flex-1 truncate font-medium px-2">
                   {t(`contact.countries.${country.key}.name`)}
                 </span>
-                <i className="pi pi-external-link ml-2 text-gray-400"></i>
+                <i className={`pi ${lang === "en" ? "pi-arrow-right" : "pi-arrow-left"} mx-2 text-gray-400 group-hover:text-[#0067B1] transition-colors`}></i>
               </div>
             </div>
           ))}
@@ -504,12 +326,24 @@ export default function ContactPage() {
 
         {/* Dialog for distributor detail */}
         <Dialog
-          header={selectedCountry ? t(`contact.countries.${selectedCountry.key}.name`) : ""}
+          header={
+            <div className="flex items-center gap-2 text-gray-800">
+              <span className="font-extrabold text-lg">
+                {selectedCountry ? t(`contact.countries.${selectedCountry.key}.name`) : ""}
+              </span>
+            </div>
+          }
           visible={displayDialog}
           onHide={closeDialog}
           modal={true}
           dismissableMask={true}
           style={{ width: "95vw", maxWidth: "600px" }}
+          className="rounded-3xl overflow-hidden shadow-2xl"
+          pt={{
+            header: { className: "px-6 py-5 flex items-center justify-between" },
+            closeButton: { className: "w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors focus:ring-2 focus:ring-gray-200 outline-none" },
+            content: { className: "px-6 pb-6 pt-2" }
+          }}
         >
           {selectedCountry && (
             <div className="overflow-x-auto py-3">

@@ -1,5 +1,6 @@
 "use client";
-import React, { useState, useEffect } from "react";
+
+import React, { useState, useEffect, useCallback, useMemo } from "react";
 import Link from "next/link";
 import { Skeleton } from "primereact/skeleton";
 import { Paginator } from "primereact/paginator";
@@ -7,38 +8,58 @@ import HeroBackground from "@/components/HeroBackground";
 import { useTranslation } from "@/context/LanguageContext";
 import { getBlogs } from "@/services/mainService";
 
+const SKELETON_COUNT = 6;
+const DEFAULT_ROWS = 10;
+
 export default function BlogsPage() {
   const { t, lang } = useTranslation();
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
-
-  // Pagination states
+  const [error, setError] = useState(null);
   const [first, setFirst] = useState(0);
-  const [rows, setRows] = useState(10);
+  const [rows, setRows] = useState(DEFAULT_ROWS);
 
+  // Fetch blogs
   useEffect(() => {
-    getBlogs()
-      .then((res) => {
-        if (res && res.blogs && res.blogs.data) {
-          setBlogs(res.blogs.data);
+    const fetchBlogs = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        const res = await getBlogs();
+
+        if (!res?.blogs?.data) {
+          throw new Error("Invalid response structure");
         }
-        setLoading(false);
-      })
-      .catch((err) => {
+
+        setBlogs(res.blogs.data);
+      } catch (err) {
+        const message =
+          err instanceof Error ? err.message : "Failed to fetch blogs";
         console.error("Error fetching blogs:", err);
+        setError(message);
+        setBlogs([]);
+      } finally {
         setLoading(false);
-      });
+      }
+    };
+
+    fetchBlogs();
   }, []);
 
-  const onPageChange = (event) => {
+  // Handle pagination
+  const onPageChange = useCallback((event) => {
     setFirst(event.first);
     setRows(event.rows);
-  };
+  }, []);
 
-  const paginatedBlogs = blogs.slice(first, first + rows);
+  // Memoize paginated data to prevent unnecessary recalculations
+  const paginatedBlogs = useMemo(
+    () => blogs.slice(first, first + rows),
+    [blogs, first, rows]
+  );
 
   return (
-    <main className="w-full  mx-auto">
+  <main className="w-full  mx-auto">
       <HeroBackground bgImage="https://cdn.mentholatumarabia.com/web/blogs-hero.webp" isHome={false}>
         <h1 className="text-3xl text-center my-10 font-bold text-white">
           {t("blogs.pageTitle")}
@@ -59,23 +80,23 @@ export default function BlogsPage() {
             ))
           ) : paginatedBlogs.length > 0 ? (
             paginatedBlogs.map((blog, idx) => (
-              <div key={blog.id || idx} className="bg-white rounded-xl shadow-lg overflow-hidden flex flex-col h-full hover:shadow-xl transition-all duration-200">
+              <div key={blog.id || idx} className="group bg-white rounded-xl shadow-lg overflow-hidden flex flex-col h-full hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
                 <Link href={`/blogs/${blog.slug}`} className="block">
                   <img
                     loading="lazy"
                     src={blog.thumbnail}
                     alt="Blog Image"
-                    className="w-full object-cover aspect-square"
+                    className="w-full object-cover aspect-square group-hover:scale-105 transition-transform duration-500"
                   />
                 </Link>
                 <div className="p-4 flex-1 flex flex-col justify-between">
                   <div>
-                    <h3 className="text-lg font-semibold mt-4 text-gray-900">{blog.title}</h3>
+                    <h3 className="text-lg font-semibold mt-4 text-gray-900 group-hover:text-blue-600 transition-colors duration-300">{blog.title}</h3>
                     <p className="text-gray-600 text-sm mt-2 line-clamp-3">{blog.excerpt}</p>
                   </div>
-                  <Link href={`/blogs/${blog.slug}`} className="text-blue-500 font-medium mt-4 inline-flex items-center hover:underline">
+                  <Link href={`/blogs/${blog.slug}`} className="text-blue-500 font-medium mt-4 inline-flex items-center group/link">
                     {t("blogs.readMore")}
-                    <i className={`pi ${lang === "en" ? "pi-arrow-right" : "pi-arrow-left"} mx-2`}></i>
+                    <i className={`pi ${lang === "en" ? "pi-arrow-right" : "pi-arrow-left"} mx-2 transition-transform duration-300 group-hover/link:translate-x-1`}></i>
                   </Link>
                 </div>
               </div>
@@ -94,7 +115,6 @@ export default function BlogsPage() {
               first={first}
               rows={rows}
               totalRecords={blogs.length}
-              rowsPerPageOptions={[10, 20]}
               onPageChange={onPageChange}
             />
           </div>

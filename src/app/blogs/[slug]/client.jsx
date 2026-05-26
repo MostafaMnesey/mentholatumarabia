@@ -4,6 +4,7 @@ import Link from "next/link";
 import BlogsSection from "@/components/BlogsSection";
 import { useTranslation } from "@/context/LanguageContext";
 import { getSingleBlog } from "@/services/mainService";
+import { updateMetaTag } from "@/utils/seoHelper";
 import ArticleContent from "@/components/ArticleContent";
 
 export default function SingleBlogPage({ params }) {
@@ -20,7 +21,29 @@ export default function SingleBlogPage({ params }) {
     getSingleBlog(slug)
       .then((res) => {
         if (res && res.blog) {
-          setBlogData(res.blog);
+          const blog = res.blog;
+          setBlogData(blog);
+
+          // Dynamic meta tags for SEO
+          document.title = `${blog.meta_title || blog.title} - Mentholatum Arabia`;
+          
+          const description = blog.meta_description || blog.excerpt;
+          updateMetaTag('description', description);
+          
+          if (blog.meta_keywords) {
+            updateMetaTag('keywords', blog.meta_keywords);
+          }
+          
+          updateMetaTag('og:title', blog.meta_title || blog.title);
+          updateMetaTag('og:description', description);
+          updateMetaTag('og:image', blog.image || blog.thumbnail);
+          updateMetaTag('og:url', window.location.href);
+          updateMetaTag('og:type', 'article');
+          
+          updateMetaTag('twitter:title', blog.meta_title || blog.title);
+          updateMetaTag('twitter:description', description);
+          updateMetaTag('twitter:image', blog.image || blog.thumbnail);
+          updateMetaTag('twitter:card', 'summary_large_image');
         }
         setLoading(false);
       })
