@@ -106,27 +106,64 @@ export default function ProductDetailPage({ params }) {
   const parseAndDeduplicateLinks = (linkData) => {
     if (!linkData) return [];
     
-    // Handle if it's an array
+    let parsedArray = [];
+
     if (Array.isArray(linkData)) {
-      linkData = linkData[0];
-    }
-    
-    // It's a JSON string, parse it
-    if (typeof linkData === 'string') {
+      for (const item of linkData) {
+        if (typeof item === 'string') {
+          if (item.startsWith('[') || item.startsWith('{')) {
+            try {
+              const parsed = JSON.parse(item);
+              if (Array.isArray(parsed)) {
+                parsedArray = parsedArray.concat(parsed);
+              } else {
+                parsedArray.push(item);
+              }
+            } catch(e) {
+              parsedArray.push(item);
+            }
+          } else {
+            parsedArray.push(item);
+          }
+        } else {
+          parsedArray.push(item);
+        }
+      }
+    } else if (typeof linkData === 'string') {
       try {
         const parsed = JSON.parse(linkData);
         if (Array.isArray(parsed)) {
-          // Deduplicate URLs
-          const uniqueUrls = [...new Set(parsed)];
-          return uniqueUrls;
+          parsedArray = parsed;
+        } else if (typeof parsed === 'string') {
+          try {
+            const innerParsed = JSON.parse(parsed);
+            if (Array.isArray(innerParsed)) {
+              parsedArray = innerParsed;
+            } else {
+              parsedArray.push(parsed);
+            }
+          } catch(e) {
+            parsedArray.push(parsed);
+          }
+        } else {
+          parsedArray.push(parsed);
         }
       } catch (e) {
-        console.error("Error parsing links:", e);
-        return [];
+        const urlRegex = /(https?:\/\/[^\s"',\]]+)/g;
+        const matches = linkData.match(urlRegex);
+        if (matches) {
+          parsedArray = matches;
+        } else {
+          console.error("Error parsing links:", e);
+        }
       }
     }
-    
-    return [];
+
+    const cleanUrls = parsedArray
+      .filter(item => typeof item === 'string' && item.trim() !== '')
+      .map(url => url.replace(/\\\//g, '/').replace(/\\"/g, ''));
+      
+    return [...new Set(cleanUrls)];
   };
 
   // Extract retailer name from URL

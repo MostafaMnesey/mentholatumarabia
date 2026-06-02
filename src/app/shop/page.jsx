@@ -68,6 +68,11 @@ function ShopContent() {
   const [selectedProductName, setSelectedProductName] = useState("");
   const [geoData, setGeoData] = useState(null);
 
+  // Dialog states for buy links
+  const [showBuyLinksDialog, setShowBuyLinksDialog] = useState(false);
+  const [buyLinks, setBuyLinks] = useState([]);
+  const [selectedBuyCountry, setSelectedBuyCountry] = useState("");
+
   // Load geo data from localStorage on mount
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -160,6 +165,81 @@ function ShopContent() {
     });
   };
 
+  // Parse and deduplicate buy links
+  const parseAndDeduplicateLinks = (linkData) => {
+    if (!linkData) return [];
+    
+    let parsedArray = [];
+
+    if (Array.isArray(linkData)) {
+      for (const item of linkData) {
+        if (typeof item === 'string') {
+          if (item.startsWith('[') || item.startsWith('{')) {
+            try {
+              const parsed = JSON.parse(item);
+              if (Array.isArray(parsed)) {
+                parsedArray = parsedArray.concat(parsed);
+              } else {
+                parsedArray.push(item);
+              }
+            } catch(e) {
+              parsedArray.push(item);
+            }
+          } else {
+            parsedArray.push(item);
+          }
+        } else {
+          parsedArray.push(item);
+        }
+      }
+    } else if (typeof linkData === 'string') {
+      try {
+        const parsed = JSON.parse(linkData);
+        if (Array.isArray(parsed)) {
+          parsedArray = parsed;
+        } else if (typeof parsed === 'string') {
+          try {
+            const innerParsed = JSON.parse(parsed);
+            if (Array.isArray(innerParsed)) {
+              parsedArray = innerParsed;
+            } else {
+              parsedArray.push(parsed);
+            }
+          } catch(e) {
+            parsedArray.push(parsed);
+          }
+        } else {
+          parsedArray.push(parsed);
+        }
+      } catch (e) {
+        const urlRegex = /(https?:\/\/[^\s"',\]]+)/g;
+        const matches = linkData.match(urlRegex);
+        if (matches) {
+          parsedArray = matches;
+        } else {
+          console.error("Error parsing links:", e);
+        }
+      }
+    }
+
+    const cleanUrls = parsedArray
+      .filter(item => typeof item === 'string' && item.trim() !== '')
+      .map(url => url.replace(/\\\//g, '/').replace(/\\"/g, ''));
+      
+    return [...new Set(cleanUrls)];
+  };
+
+  // Extract retailer name from URL
+  const getRetailerName = (url) => {
+    try {
+      const domain = new URL(url).hostname.replace("www.", "");
+      const name = domain.split(".")[0];
+      return name.charAt(0).toUpperCase() + name.slice(1);
+    } catch (e) {
+      return "Buy Now";
+    }
+  };
+
   const handleWhereToBuy = (product) => {
     if (geoData) {
       const userCountry = geoData.country;
@@ -175,9 +255,20 @@ function ShopContent() {
         );
 
         if (matchingCountry) {
-          const buyLink = matchingCountry.pivot?.where_to_buy_link;
-          if (buyLink) {
-            window.open(buyLink, "_blank");
+          const linkData = matchingCountry.pivot?.where_to_buy_link;
+          const links = parseAndDeduplicateLinks(linkData);
+          
+          // If single link, open directly
+          if (links.length === 1) {
+            window.open(links[0], "_blank");
+            return;
+          }
+          
+          // If multiple links, show dialog
+          if (links.length > 1) {
+            setBuyLinks(links);
+            setSelectedBuyCountry(matchingCountry.name_en);
+            setShowBuyLinksDialog(true);
             return;
           }
         }
@@ -406,20 +497,30 @@ function ShopContent() {
                   const buyLink = country.pivot?.where_to_buy_link;
                   const availPharmacies =
                     country.pivot?.available_in_pharmacies === 1;
+                  const links = parseAndDeduplicateLinks(buyLink);
 
-                  if (!buyLink && !availPharmacies) return null;
+                  // Hide if no links and no pharmacy availability
+                  if (links.length === 0 && !availPharmacies) return null;
 
                   return (
                     <motion.div
                       key={country.id || idx}
                       whileHover={
-                        buyLink
+                        links.length > 0
                           ? { scale: 1.01, backgroundColor: "#f9fafb" }
                           : {}
                       }
-                      onClick={() => buyLink && window.open(buyLink, "_blank")}
+                      onClick={() => {
+                        if (links.length === 1) {
+                          window.open(links[0], "_blank");
+                        } else if (links.length > 1) {
+                          setBuyLinks(links);
+                          setSelectedBuyCountry(country.name_en);
+                          setShowBuyLinksDialog(true);
+                        }
+                      }}
                       className={`p-5 border rounded-2xl flex items-center justify-between transition-all ${
-                        buyLink
+                        links.length > 0
                           ? "cursor-pointer border-gray-200/80 hover:border-[#0067B1]/40"
                           : "border-gray-100 bg-gray-50/50"
                       }`}
@@ -435,7 +536,7 @@ function ShopContent() {
                         )}
                       </div>
                       <div className="flex items-center gap-2">
-                        {buyLink && (
+                        {links.length > 0 && (
                           <span className="px-4 py-2 bg-[#0067B1] text-white rounded-full text-xs font-bold shadow-sm inline-flex items-center gap-1">
                             <span>{t("shop.buyNow")}</span>
                             <ExternalLink className="w-3 h-3" />
@@ -458,6 +559,60 @@ function ShopContent() {
               {t("shop.notAvailable")}
             </p>
           )}
+        </div>
+      </Dialog>
+
+      {/* Buy Links Dialog - Multiple Retailers */}
+      <Dialog
+        visible={showBuyLinksDialog}
+        onHide={() => setShowBuyLinksDialog(false)}
+        style={{ width: "95vw", maxWidth: "600px" }}
+        header={t("shop.buyNow") || "Buy Now"}
+        modal={true}
+        dismissableMask={true}
+        className="rounded-3xl overflow-hidden shadow-2xl text-start"
+        pt={{
+          header: { className: "px-6 py-5 flex items-center justify-between" },
+          closeButton: { className: "w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors focus:ring-2 focus:ring-gray-200 outline-none" },
+          title: { className: "font-extrabold text-lg text-gray-800" },
+          content: { className: "px-6 pb-6 pt-2" }
+        }}
+      >
+        <div>
+          <h3 className="text-lg font-black mb-2 text-gray-900">{selectedProductName}</h3>
+          <p className="text-sm text-gray-600 mb-5 pb-3 border-b border-gray-100">
+            {selectedBuyCountry} • {buyLinks.length} {buyLinks.length === 1 ? 'retailer' : 'retailers'}
+          </p>
+          
+          <div className="flex flex-col gap-3">
+            {buyLinks.map((link, idx) => {
+              const retailerName = getRetailerName(link);
+              return (
+                <button
+                  key={idx}
+                  onClick={() => {
+                    window.open(link, "_blank");
+                    setShowBuyLinksDialog(false);
+                  }}
+                  className="w-full p-4 border-2 border-gray-200 rounded-xl hover:border-[#0067B1] hover:bg-blue-50 transition-all flex items-center justify-between group"
+                >
+                  <div className="text-start">
+                    <h4 className="font-bold text-gray-900 text-sm group-hover:text-[#0067B1] transition-colors">
+                      {retailerName}
+                    </h4>
+                    <p className="text-xs text-gray-500 mt-1">{new URL(link).hostname}</p>
+                  </div>
+                  <svg className="w-5 h-5 text-gray-400 group-hover:text-[#0067B1] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                  </svg>
+                </button>
+              );
+            })}
+          </div>
+
+          <p className="text-xs text-gray-500 mt-5 pt-4 border-t border-gray-100">
+            Click any retailer to visit their website in a new tab
+          </p>
         </div>
       </Dialog>
     </main>
