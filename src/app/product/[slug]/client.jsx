@@ -9,7 +9,6 @@ import { updateMetaTag } from "@/utils/seoHelper";
 export default function ProductDetailPage({ params }) {
   const resolvedParams = use(params);
   const { slug } = resolvedParams;
-  console.log(resolvedParams);
   const { t, lang } = useTranslation();
 
   const [productDetails, setProductDetails] = useState(null);
@@ -23,6 +22,11 @@ export default function ProductDetailPage({ params }) {
   const [showCountriesDialog, setShowCountriesDialog] = useState(false);
   const [selectedProductCountries, setSelectedProductCountries] = useState([]);
   const [selectedProductName, setSelectedProductName] = useState("");
+
+  // Dialog states for buy links
+  const [showBuyLinksDialog, setShowBuyLinksDialog] = useState(false);
+  const [buyLinks, setBuyLinks] = useState([]);
+  const [selectedBuyCountry, setSelectedBuyCountry] = useState("");
 
   // Load geo data on mount
   useEffect(() => {
@@ -98,6 +102,44 @@ export default function ProductDetailPage({ params }) {
     });
   };
 
+  // Parse and deduplicate buy links
+  const parseAndDeduplicateLinks = (linkData) => {
+    if (!linkData) return [];
+    
+    // Handle if it's an array
+    if (Array.isArray(linkData)) {
+      linkData = linkData[0];
+    }
+    
+    // It's a JSON string, parse it
+    if (typeof linkData === 'string') {
+      try {
+        const parsed = JSON.parse(linkData);
+        if (Array.isArray(parsed)) {
+          // Deduplicate URLs
+          const uniqueUrls = [...new Set(parsed)];
+          return uniqueUrls;
+        }
+      } catch (e) {
+        console.error("Error parsing links:", e);
+        return [];
+      }
+    }
+    
+    return [];
+  };
+
+  // Extract retailer name from URL
+  const getRetailerName = (url) => {
+    try {
+      const domain = new URL(url).hostname.replace('www.', '');
+      const name = domain.split('.')[0];
+      return name.charAt(0).toUpperCase() + name.slice(1);
+    } catch (e) {
+      return "Buy Now";
+    }
+  };
+
   const handleWhereToBuy = () => {
     if (!productDetails || !productDetails.product) return;
     const product = productDetails.product;
@@ -116,9 +158,20 @@ export default function ProductDetailPage({ params }) {
         );
 
         if (matchingCountry) {
-          const buyLink = matchingCountry.pivot?.where_to_buy_link;
-          if (buyLink) {
-            window.open(buyLink, "_blank");
+          const linkData = matchingCountry.pivot?.where_to_buy_link;
+          const links = parseAndDeduplicateLinks(linkData);
+          
+          // If single link, open directly
+          if (links.length === 1) {
+            window.open(links[0], "_blank");
+            return;
+          }
+          
+          // If multiple links, show dialog
+          if (links.length > 1) {
+            setBuyLinks(links);
+            setSelectedBuyCountry(matchingCountry.name_en);
+            setShowBuyLinksDialog(true);
             return;
           }
         }
@@ -463,16 +516,15 @@ export default function ProductDetailPage({ params }) {
                 {selectedProductCountries.map((country, idx) => {
                   const buyLink = country.pivot?.where_to_buy_link;
                   const availPharmacies = country.pivot?.available_in_pharmacies === 1;
+                  const links = parseAndDeduplicateLinks(buyLink);
 
-                  if (!buyLink && !availPharmacies) return null;
+                  // Hide if no links and no pharmacy availability
+                  if (links.length === 0 && !availPharmacies) return null;
 
                   return (
                     <div
                       key={country.id || idx}
-                      onClick={() => buyLink && window.open(buyLink, "_blank")}
-                      className={`p-4 border rounded-xl flex items-center justify-between transition-all ${
-                        buyLink ? "cursor-pointer hover:bg-gray-50 hover:border-blue-300" : ""
-                      }`}
+                      className="p-4 border rounded-xl flex items-center justify-between transition-all"
                     >
                       <div>
                         <span className="font-semibold text-gray-900">{country.name_en}</span>
@@ -481,10 +533,21 @@ export default function ProductDetailPage({ params }) {
                         )}
                       </div>
                       <div className="flex gap-2">
-                        {buyLink && (
-                          <span className="px-3.5 py-1.5 bg-[#0067B1] text-white rounded-full text-xs font-semibold shadow-sm">
+                        {links.length > 0 && (
+                          <button
+                            onClick={() => {
+                              if (links.length === 1) {
+                                window.open(links[0], "_blank");
+                              } else {
+                                setBuyLinks(links);
+                                setSelectedBuyCountry(country.name_en);
+                                setShowBuyLinksDialog(true);
+                              }
+                            }}
+                            className="px-3.5 py-1.5 bg-[#0067B1] text-white rounded-full text-xs font-semibold shadow-sm hover:bg-[#00348D] transition-all cursor-pointer"
+                          >
                             {t("product.buyNow")}
-                          </span>
+                          </button>
                         )}
                         {availPharmacies && (
                           <span className="px-3.5 py-1.5 bg-gray-100 text-gray-700 rounded-full text-xs font-semibold">
@@ -500,6 +563,60 @@ export default function ProductDetailPage({ params }) {
           ) : (
             <p className="text-gray-500 py-4 text-center">{t("product.notAvailable")}</p>
           )}
+        </div>
+      </Dialog>
+
+      {/* Buy Links Dialog - Multiple Retailers */}
+      <Dialog
+        visible={showBuyLinksDialog}
+        onHide={() => setShowBuyLinksDialog(false)}
+        style={{ width: "95vw", maxWidth: "600px" }}
+        header={t("product.buyNow")}
+        modal={true}
+        dismissableMask={true}
+        className="rounded-3xl overflow-hidden shadow-2xl text-start"
+        pt={{
+          header: { className: "px-6 py-5 flex items-center justify-between" },
+          closeButton: { className: "w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors focus:ring-2 focus:ring-gray-200 outline-none" },
+          title: { className: "font-extrabold text-lg text-gray-800" },
+          content: { className: "px-6 pb-6 pt-2" }
+        }}
+      >
+        <div>
+          <h3 className="text-lg font-black mb-2 text-gray-900">{selectedProductName}</h3>
+          <p className="text-sm text-gray-600 mb-5 pb-3 border-b border-gray-100">
+            {selectedBuyCountry} • {buyLinks.length} {buyLinks.length === 1 ? 'retailer' : 'retailers'}
+          </p>
+          
+          <div className="flex flex-col gap-3">
+            {buyLinks.map((link, idx) => {
+              const retailerName = getRetailerName(link);
+              return (
+                <button
+                  key={idx}
+                  onClick={() => {
+                    window.open(link, "_blank");
+                    setShowBuyLinksDialog(false);
+                  }}
+                  className="w-full p-4 border-2 border-gray-200 rounded-xl hover:border-[#0067B1] hover:bg-blue-50 transition-all flex items-center justify-between group"
+                >
+                  <div className="text-start">
+                    <h4 className="font-bold text-gray-900 text-sm group-hover:text-[#0067B1] transition-colors">
+                      {retailerName}
+                    </h4>
+                    <p className="text-xs text-gray-500 mt-1">{new URL(link).hostname}</p>
+                  </div>
+                  <svg className="w-5 h-5 text-gray-400 group-hover:text-[#0067B1] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                  </svg>
+                </button>
+              );
+            })}
+          </div>
+
+          <p className="text-xs text-gray-500 mt-5 pt-4 border-t border-gray-100">
+            Click any retailer to visit their website in a new tab
+          </p>
         </div>
       </Dialog>
     </main>
