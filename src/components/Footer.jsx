@@ -125,14 +125,6 @@ export default function Footer() {
               <p className="text-gray-600 !text-sm !leading-tight text-center lg:text-start mb-3">
                 {t("footer.bottom.copyright")}
               </p>
-              <a href="https://ebba.ae/" className="block !text-sm !leading-tight text-center lg:text-start" target="_blank" rel="noreferrer">
-                <div className="flex items-center justify-center lg:justify-start gap-2">
-                  <p className="text-gray-600 !text-sm !leading-tight text-center lg:text-start">
-                    {t("footer.bottom.dev")}
-                  </p>
-                  <img loading="lazy" src="/new/ebba blue.webp" className="w-10 opacity-60 hover:opacity-100 transition-all duration-300" alt="ebba" />
-                </div>
-              </a>
             </div>
 
             <div className="flex gap-6 mt-4 md:mt-0">
