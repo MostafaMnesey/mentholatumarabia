@@ -18,9 +18,9 @@ export default function Footer() {
       <div className="container px-4 py-8 page-width mx-auto">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
           <div>
-            <img loading="lazy" src="/new/muk logo.webp" className="mb-4" alt="Mentholatum Logo" />
+            <img loading="lazy" src="https://cdn.mentholatumarabia.com/images/imgs/muk_logo.webp" width={1641} height={313} className="mb-4" alt="Mentholatum Logo" />
             <div className="img my-3">
-              <img loading="lazy" src="/new/pic.webp" className="w-full aspect-auto" alt="Mentholatum Pic" />
+              <img loading="lazy" src="https://cdn.mentholatumarabia.com/images/imgs/pic.webp" className="w-full aspect-auto" alt="Mentholatum Pic" />
             </div>
           </div>
 
@@ -122,7 +122,7 @@ export default function Footer() {
         <div className="border-t border-gray-200 mt-8 pt-6">
           <div className="flex flex-col lg:flex-row justify-between items-center gap-y-3">
             <div className="text-center lg:text-start">
-              <p className="text-gray-600 !text-sm !leading-tight text-center lg:text-start mb-3">
+              <p className="text-gray-600 text-sm! leading-tight! text-center lg:text-start mb-3">
                 {t("footer.bottom.copyright")}
               </p>
             </div>

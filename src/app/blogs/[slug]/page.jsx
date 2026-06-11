@@ -1,15 +1,27 @@
 import ClientPage from "./client";
-import { getBlogs } from "@/services/mainService";
+
+const API_HEADERS = {
+  Accept: "application/json",
+  "Content-Type": "application/json",
+  "Accept-Language": "en",
+};
+
+async function fetchWithRetry(url, retries = 3) {
+  for (let i = 0; i < retries; i++) {
+    try {
+      const res = await fetch(url, { headers: API_HEADERS });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      return await res.json();
+    } catch (e) {
+      if (i < retries - 1) await new Promise((r) => setTimeout(r, 1000 * (i + 1)));
+    }
+  }
+  return null;
+}
 
 export async function generateStaticParams() {
-  try {
-    const res = await getBlogs();
-    return (res?.blogs?.data || []).map((blog) => ({
-      slug: blog.slug,
-    }));
-  } catch (e) {
-    return [];
-  }
+  const data = await fetchWithRetry("https://dev-api.mentholatumarabia.com/api/website/blogs");
+  return (data?.blogs?.data || []).map((blog) => ({ slug: blog.slug }));
 }
 
 export default function Page({ params }) {

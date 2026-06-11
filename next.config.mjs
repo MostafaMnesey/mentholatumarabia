@@ -2,6 +2,10 @@
 const nextConfig = {
   output: "export",
   trailingSlash: true,
+  experimental: {
+    inlineCss: true,
+  },
+  turbopack: {},
   images: {
     unoptimized: true,
     remotePatterns: [
@@ -12,7 +16,7 @@ const nextConfig = {
       {
         protocol: "https",
         hostname: "cdn.mentholatumarabia.com",
-      }
+      },
     ],
   },
 };

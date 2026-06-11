@@ -413,7 +413,7 @@ export default function ProductDetailPage({ params }) {
           <div className="img flex justify-center">
             <img
               loading="lazy"
-              src="/new/mentholatumarabia-checker%20w%201%20(1).webp"
+              src="https://cdn.mentholatumarabia.com/images/imgs/mentholatumarabia-checker%20w%201%20(1).webp"
               alt="Symptom Checker"
               className="max-w-[280px] object-contain"
             />
@@ -470,16 +470,6 @@ export default function ProductDetailPage({ params }) {
                   </Link>
 
                   <Link href={`/product/${p.slug}`} className="block w-full">
-                    <button
-                      disabled={!hasAnyPurchaseOption(p)}
-                      className={`text-white py-2 px-6 rounded-full text-sm font-semibold block w-full transition-all cursor-pointer ${
-                        hasAnyPurchaseOption(p)
-                          ? "bg-[#0067B1] hover:bg-[#00348D]"
-                          : "bg-gray-400 cursor-not-allowed opacity-70"
-                      }`}
-                    >
-                      {t("shop.shopNow")}
-                    </button>
                   </Link>
                 </div>
               </div>

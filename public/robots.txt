@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+
+Disallow: /blink-test/
+
+Sitemap: https://www.mentholatumarabia.com/sitemap.xml

@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { useTranslation } from "../context/LanguageContext";
 
@@ -13,7 +13,7 @@ export default function AboutSection() {
       <div className="mx-auto max-w-6xl">
         <div className="flex flex-col lg:flex-row gap-12 items-center justify-between">
           {/* Left Content */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-100px" }}
@@ -36,19 +36,19 @@ export default function AboutSection() {
               <p>{t("home.videosSection.about.description")}</p>
             </div>
             <Link href="/about" className="block w-fit">
-              <motion.button
+              <m.button
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.98 }}
                 className="bg-[#0067B1] hover:bg-[#00348D] text-white px-8 py-3.5 rounded-full font-bold text-sm shadow-md shadow-[#0067B1]/10 hover:shadow-lg transition-all cursor-pointer inline-flex items-center gap-2"
               >
                 <span>{t("home.videosSection.about.discoverMore")}</span>
                 <ArrowRight className="w-4.5 h-4.5 rtl:rotate-180" />
-              </motion.button>
+              </m.button>
             </Link>
-          </motion.div>
+          </m.div>
 
           {/* Right Image */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true, margin: "-100px" }}
@@ -57,11 +57,11 @@ export default function AboutSection() {
           >
             <img
               loading="lazy"
-              src="images/home/2 (2).webp"
+              src="https://cdn.mentholatumarabia.com/images/imgs/2%20(2).webp"
               className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               alt="About section image"
             />
-          </motion.div>
+          </m.div>
         </div>
       </div>
     </section>

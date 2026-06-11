@@ -11,37 +11,37 @@ export default function AboutPage() {
   const events = [
     {
       h: t("about.ourPhilosophy.events.supportingSociety.title"),
-      icon: "/images/s1.webp",
+      icon: "https://cdn.mentholatumarabia.com/images/imgs/s1.webp",
       p: t("about.ourPhilosophy.events.supportingSociety.description"),
     },
     {
       h: t("about.ourPhilosophy.events.trustAndRespect.title"),
-      icon: "/images/s2.webp",
+      icon: "https://cdn.mentholatumarabia.com/images/imgs/s2.webp",
       p: t("about.ourPhilosophy.events.trustAndRespect.description"),
     },
     {
       h: t("about.ourPhilosophy.events.happyCustomers.title"),
-      icon: "/images/costumer.webp",
+      icon: "https://cdn.mentholatumarabia.com/images/imgs/costumer.webp",
       p: t("about.ourPhilosophy.events.happyCustomers.description"),
     },
     {
       h: t("about.ourPhilosophy.events.ourPeople.title"),
-      icon: "/images/social-justice.webp",
+      icon: "https://cdn.mentholatumarabia.com/images/imgs/social-justice.webp",
       p: t("about.ourPhilosophy.events.ourPeople.description"),
     },
     {
       h: t("about.ourPhilosophy.events.meaningfulExistence.title"),
-      icon: "/images/community 1.webp",
+      icon: "https://cdn.mentholatumarabia.com/images/imgs/community%201.webp",
       p: t("about.ourPhilosophy.events.meaningfulExistence.description"),
     },
     {
       h: t("about.ourPhilosophy.events.continuousImprovement.title"),
-      icon: "/images/efficacy 1.webp",
+      icon: "https://cdn.mentholatumarabia.com/images/imgs/efficacy%201.webp",
       p: t("about.ourPhilosophy.events.continuousImprovement.description"),
     },
     {
       h: t("about.ourPhilosophy.events.relentlessPassion.title"),
-      icon: "/images/love.webp",
+      icon: "https://cdn.mentholatumarabia.com/images/imgs/love.webp",
       p: t("about.ourPhilosophy.events.relentlessPassion.description"),
     },
   ];
@@ -94,7 +94,7 @@ export default function AboutPage() {
           </div>
           <img
             loading="lazy"
-            src="/images/Vector (10).webp"
+            src="https://cdn.mentholatumarabia.com/images/imgs/Vector%20(10).webp"
             className="absolute z-0 w-96 top-1/2 -translate-y-1/2 opacity-20 pointer-events-none"
             alt=""
           />
@@ -120,7 +120,7 @@ export default function AboutPage() {
                 </p>
               </div>
               <div className="flex justify-center lg:justify-end order-first lg:order-none">
-                <img loading="lazy" src="/new/new logo.webp" className="w-full md:w-3/4" alt="Mentholatum Logo" />
+                <img loading="lazy" src="https://cdn.mentholatumarabia.com/images/imgs/new%20logo.webp" className="w-full md:w-3/4" alt="Mentholatum Logo" />
               </div>
             </div>
           </div>
@@ -148,7 +148,7 @@ export default function AboutPage() {
               <div className="w-full relative z-10 lg:mt-0 flex justify-center lg:justify-end order-first lg:order-none">
                 <img
                   loading="lazy"
-                  src="/images/about/3 (2).webp"
+                  src="https://cdn.mentholatumarabia.com/images/imgs/3%20(2).webp"
                   className="w-full lg:w-[80%] shadow rounded-lg"
                   alt="Our Philosophy - Mentholatum Arabia"
                 />
@@ -157,7 +157,7 @@ export default function AboutPage() {
           </div>
           <img
             loading="lazy"
-            src="/images/Vector (11).webp"
+            src="https://cdn.mentholatumarabia.com/images/imgs/Vector%20(11).webp"
             className="absolute top-1/2 -translate-y-1/2 right-0 w-1/6 opacity-20 pointer-events-none"
             alt=""
           />

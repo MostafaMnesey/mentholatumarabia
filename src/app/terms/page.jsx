@@ -35,7 +35,7 @@ export default function TermsPage() {
             <img
               loading="lazy"
               className="w-full md:w-3/4 object-contain"
-              src="/new/new%20logo.webp"
+              src="https://cdn.mentholatumarabia.com/images/imgs/new%20logo.webp"
               alt="Logo"
             />
           </div>

@@ -46,7 +46,7 @@ export default function PrivacyPolicyPage() {
               <img
                 loading="lazy"
                 className="w-full md:w-3/4 object-contain"
-                src="/new/new%20logo.webp"
+                src="https://cdn.mentholatumarabia.com/images/imgs/new%20logo.webp"
                 alt="Logo"
               />
             </div>
@@ -56,7 +56,7 @@ export default function PrivacyPolicyPage() {
         <div className="policy-sections grid md:grid-cols-2 gap-x-12 gap-y-8 my-12 text-gray-700">
           <section className="mb-6">
             <h3 className="text-xl font-bold mb-3 text-[#0067B1] flex items-center">
-              <img loading="lazy" src="/new/elements%20(1).svg" className="me-2 w-8 h-8 object-contain" alt="" />
+              <img loading="lazy" src="https://cdn.mentholatumarabia.com/images/imgs/elements%20(1).svg" className="me-2 w-8 h-8 object-contain" alt="" />
               {t("privacy_policy.data_collection.title")}
             </h3>
             <p className="text-base text-gray-600 leading-relaxed">
@@ -66,7 +66,7 @@ export default function PrivacyPolicyPage() {
 
           <section className="mb-6">
             <h3 className="text-xl font-bold mb-3 text-[#0067B1] flex items-center">
-              <img loading="lazy" src="/new/elements%20(1).svg" className="me-2 w-8 h-8 object-contain" alt="" />
+              <img loading="lazy" src="https://cdn.mentholatumarabia.com/images/imgs/elements%20(1).svg" className="me-2 w-8 h-8 object-contain" alt="" />
               {t("privacy_policy.usage.title")}
             </h3>
             <p className="text-base text-gray-600 leading-relaxed">
@@ -76,7 +76,7 @@ export default function PrivacyPolicyPage() {
 
           <section className="mb-6">
             <h3 className="text-xl font-bold mb-3 text-[#0067B1] flex items-center">
-              <img loading="lazy" src="/new/elements%20(1).svg" className="me-2 w-8 h-8 object-contain" alt="" />
+              <img loading="lazy" src="https://cdn.mentholatumarabia.com/images/imgs/elements%20(1).svg" className="me-2 w-8 h-8 object-contain" alt="" />
               {t("privacy_policy.data_retention.title")}
             </h3>
             <p className="text-base text-gray-600 leading-relaxed">
@@ -86,7 +86,7 @@ export default function PrivacyPolicyPage() {
 
           <section className="mb-6">
             <h3 className="text-xl font-bold mb-3 text-[#0067B1] flex items-center">
-              <img loading="lazy" src="/new/elements%20(1).svg" className="me-2 w-8 h-8 object-contain" alt="" />
+              <img loading="lazy" src="https://cdn.mentholatumarabia.com/images/imgs/elements%20(1).svg" className="me-2 w-8 h-8 object-contain" alt="" />
               {t("privacy_policy.data_sharing.title")}
             </h3>
             <p className="text-base text-gray-600 leading-relaxed">
@@ -96,7 +96,7 @@ export default function PrivacyPolicyPage() {
 
           <section className="mb-6">
             <h3 className="text-xl font-bold mb-3 text-[#0067B1] flex items-center">
-              <img loading="lazy" src="/new/elements%20(1).svg" className="me-2 w-8 h-8 object-contain" alt="" />
+              <img loading="lazy" src="https://cdn.mentholatumarabia.com/images/imgs/elements%20(1).svg" className="me-2 w-8 h-8 object-contain" alt="" />
               {t("privacy_policy.cookies.title")}
             </h3>
             <p className="text-base text-gray-600 leading-relaxed">
@@ -106,7 +106,7 @@ export default function PrivacyPolicyPage() {
 
           <section className="mb-6">
             <h3 className="text-xl font-bold mb-3 text-[#0067B1] flex items-center">
-              <img loading="lazy" src="/new/elements%20(1).svg" className="me-2 w-8 h-8 object-contain" alt="" />
+              <img loading="lazy" src="https://cdn.mentholatumarabia.com/images/imgs/elements%20(1).svg" className="me-2 w-8 h-8 object-contain" alt="" />
               {t("privacy_policy.your_rights.title")}
             </h3>
             <p className="text-base text-gray-600 leading-relaxed">
@@ -116,7 +116,7 @@ export default function PrivacyPolicyPage() {
 
           <section className="mb-6">
             <h3 className="text-xl font-bold mb-3 text-[#0067B1] flex items-center">
-              <img loading="lazy" src="/new/elements%20(1).svg" className="me-2 w-8 h-8 object-contain" alt="" />
+              <img loading="lazy" src="https://cdn.mentholatumarabia.com/images/imgs/elements%20(1).svg" className="me-2 w-8 h-8 object-contain" alt="" />
               {t("privacy_policy.limited_license.title")}
             </h3>
             <p className="text-base text-gray-600 leading-relaxed">
@@ -126,7 +126,7 @@ export default function PrivacyPolicyPage() {
 
           <section className="mb-6">
             <h3 className="text-xl font-bold mb-3 text-[#0067B1] flex items-center">
-              <img loading="lazy" src="/new/elements%20(1).svg" className="me-2 w-8 h-8 object-contain" alt="" />
+              <img loading="lazy" src="https://cdn.mentholatumarabia.com/images/imgs/elements%20(1).svg" className="me-2 w-8 h-8 object-contain" alt="" />
               {t("privacy_policy.policy_updates.title")}
             </h3>
             <p className="text-base text-gray-600 leading-relaxed">
@@ -136,7 +136,7 @@ export default function PrivacyPolicyPage() {
 
           <section className="mb-6">
             <h3 className="text-xl font-bold mb-3 text-[#0067B1] flex items-center">
-              <img loading="lazy" src="/new/new%20logo.webp" className="me-2 w-8 h-8 object-contain" alt="" />
+              <img loading="lazy" src="https://cdn.mentholatumarabia.com/images/imgs/new%20logo.webp" className="me-2 w-8 h-8 object-contain" alt="" />
               {t("privacy_policy.enforceability.title")}
             </h3>
             <p className="text-base text-gray-600 leading-relaxed">

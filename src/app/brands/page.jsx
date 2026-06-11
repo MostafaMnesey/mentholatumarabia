@@ -29,7 +29,7 @@ export default function BrandsPage() {
               <div className="w-full lg:w-[50%] aspect-[29/15] rounded-2xl overflow-hidden order-1 shadow-md">
                 <img
                   loading="lazy"
-                  src="/new/deep heat2.webp"
+                  src="https://cdn.mentholatumarabia.com/images/imgs/deep%20heat2.webp"
                   alt="Deep Heat"
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
@@ -61,7 +61,7 @@ export default function BrandsPage() {
               <div className="w-full lg:w-[50%] aspect-[29/15] rounded-2xl overflow-hidden order-1 lg:order-2 shadow-md">
                 <img
                   loading="lazy"
-                  src="/new/deep freeze 2.webp"
+                  src="https://cdn.mentholatumarabia.com/images/imgs/deep%20freeze%202.webp"
                   alt="Deep Freeze"
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
@@ -93,7 +93,7 @@ export default function BrandsPage() {
               <div className="w-full lg:w-[50%] aspect-[29/15] rounded-2xl overflow-hidden order-1 shadow-md">
                 <img
                   loading="lazy"
-                  src="/new/deep relief2.webp"
+                  src="https://cdn.mentholatumarabia.com/images/imgs/deep%20relief2.webp"
                   alt="Deep Relief"
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
@@ -125,7 +125,7 @@ export default function BrandsPage() {
               <div className="w-full lg:w-[50%] aspect-[29/15] rounded-2xl overflow-hidden order-1 lg:order-2 shadow-md">
                 <img
                   loading="lazy"
-                  src="/new/hada labu 2.webp"
+                  src="https://cdn.mentholatumarabia.com/images/imgs/hada%20labu%202.webp"
                   alt="Hada Labo Tokyo"
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
@@ -157,7 +157,7 @@ export default function BrandsPage() {
               <div className="w-full lg:w-[50%] aspect-[29/15] rounded-2xl overflow-hidden order-1 shadow-md">
                 <img
                   loading="lazy"
-                  src="/new/rohto2-01.webp"
+                  src="https://cdn.mentholatumarabia.com/images/imgs/rohto2-01.webp"
                   alt="Rohto"
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />

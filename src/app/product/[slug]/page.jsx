@@ -1,15 +1,27 @@
 import ClientPage from "./client";
-import { shopByBrand } from "@/services/mainService";
+
+const API_HEADERS = {
+  Accept: "application/json",
+  "Content-Type": "application/json",
+  "Accept-Language": "en",
+};
+
+async function fetchWithRetry(url, retries = 3) {
+  for (let i = 0; i < retries; i++) {
+    try {
+      const res = await fetch(url, { headers: API_HEADERS });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      return await res.json();
+    } catch (e) {
+      if (i < retries - 1) await new Promise((r) => setTimeout(r, 1000 * (i + 1)));
+    }
+  }
+  return null;
+}
 
 export async function generateStaticParams() {
-  try {
-    const res = await shopByBrand();
-    return (res?.products || []).map((product) => ({
-      slug: product.slug,
-    }));
-  } catch (e) {
-    return [];
-  }
+  const data = await fetchWithRetry("https://dev-api.mentholatumarabia.com/api/website/shop");
+  return (data?.products || []).map((product) => ({ slug: product.slug }));
 }
 
 export default function Page({ params }) {

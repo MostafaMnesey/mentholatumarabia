@@ -7,7 +7,7 @@ export default function EnvironmentPage() {
     <>
       <section
         className="w-full h-[85vh] bg-center bg-cover relative"
-        style={{ backgroundImage: "url(/images/environment/1%20(1).webp)" }}
+        style={{ backgroundImage: "url(https://cdn.mentholatumarabia.com/images/imgs/1%20(1).webp)" }}
       >
         <div className="layer w-full page-width mx-auto h-[85vh] bg-[rgba(0,0,0,.2)] flex justify-center items-center">
           <h1 className="text-white text-5xl font-bold">Environment</h1>
@@ -38,7 +38,7 @@ export default function EnvironmentPage() {
                 <div className="flex space-x-4">
                   <img
                     loading="lazy"
-                    src="/images/Group%201000001975.webp"
+                    src="https://cdn.mentholatumarabia.com/images/imgs/Group%201000001975.webp"
                     className="w-8 h-8 rounded-lg object-contain"
                     alt=""
                   />
@@ -53,7 +53,7 @@ export default function EnvironmentPage() {
                 <div className="flex space-x-4">
                   <img
                     loading="lazy"
-                    src="/images/Group%201000001975.webp"
+                    src="https://cdn.mentholatumarabia.com/images/imgs/Group%201000001975.webp"
                     className="w-8 h-8 object-contain"
                     alt=""
                   />
@@ -76,7 +76,7 @@ export default function EnvironmentPage() {
                 <div className="flex space-x-4">
                   <img
                     loading="lazy"
-                    src="/images/Group%201000001975.webp"
+                    src="https://cdn.mentholatumarabia.com/images/imgs/Group%201000001975.webp"
                     className="w-8 h-8 object-contain"
                     alt=""
                   />
@@ -94,7 +94,7 @@ export default function EnvironmentPage() {
               <div>
                 <img
                   loading="lazy"
-                  src="/images/environment/2%20(3).webp"
+                  src="https://cdn.mentholatumarabia.com/images/imgs/2%20(3).webp"
                   className="w-full rounded-3xl relative z-10 shadow-md"
                   alt=""
                 />
@@ -103,7 +103,7 @@ export default function EnvironmentPage() {
           </div>
           <img
             loading="lazy"
-            src="/images/Vector%20(12).webp"
+            src="https://cdn.mentholatumarabia.com/images/imgs/Vector%20(12).webp"
             className="absolute z-0 end-0 bottom-0 w-1/6 rounded-xl pointer-events-none opacity-45"
             alt=""
           />
@@ -114,7 +114,7 @@ export default function EnvironmentPage() {
             <div>
               <img
                 loading="lazy"
-                src="/images/environment/3%20(1).webp"
+                src="https://cdn.mentholatumarabia.com/images/imgs/3%20(1).webp"
                 className="w-full rounded-2xl shadow-md"
                 alt=""
               />

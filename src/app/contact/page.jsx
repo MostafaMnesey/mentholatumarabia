@@ -296,7 +296,7 @@ export default function ContactPage() {
           </div>
 
           <div className="mb-6 flex justify-center lg:justify-end">
-            <img loading="lazy" src="/new/new%20logo.webp" className="w-3/4 aspect-square object-contain" alt="" />
+            <img loading="lazy" src="https://cdn.mentholatumarabia.com/images/imgs/new%20logo.webp" className="w-3/4 aspect-square object-contain" alt="" />
           </div>
         </div>
       </section>

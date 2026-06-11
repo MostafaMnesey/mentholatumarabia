@@ -1,7 +1,7 @@
 export const COUNTRIES_DATA = [
   {
     key: "bahrain",
-    flag: "/new/Flags/Bahrain.svg",
+    flag: "https://cdn.mentholatumarabia.com/images/flags/UAE.svg",
     name: "Bahrain",
     distributors: [
       {
@@ -14,7 +14,7 @@ export const COUNTRIES_DATA = [
   },
   {
     key: "jordan",
-    flag: "/new/Flags/Jordan.svg",
+    flag: "https://cdn.mentholatumarabia.com/images/flags/Jordan.svg",
     name: "Jordan",
     distributors: [
       {
@@ -27,7 +27,7 @@ export const COUNTRIES_DATA = [
   },
   {
     key: "kuwait",
-    flag: "/new/Flags/Kuwait.svg",
+    flag: "https://cdn.mentholatumarabia.com/images/flags/Kuwait.svg",
     name: "Kuwait",
     distributors: [
       {
@@ -40,7 +40,7 @@ export const COUNTRIES_DATA = [
   },
   {
     key: "oman",
-    flag: "/new/Flags/Oman.svg",
+    flag: "https://cdn.mentholatumarabia.com/images/flags/Oman.svg",
     name: "Oman",
     distributors: [
       {
@@ -59,7 +59,7 @@ export const COUNTRIES_DATA = [
   },
   {
     key: "qatar",
-    flag: "/new/Flags/Qatar.svg",
+    flag: "https://cdn.mentholatumarabia.com/images/flags/Qatar.svg",
     name: "Qatar",
     distributors: [
       {
@@ -78,7 +78,7 @@ export const COUNTRIES_DATA = [
   },
   {
     key: "saudi",
-    flag: "/new/Flags/Saudi Arabia.svg",
+    flag: "https://cdn.mentholatumarabia.com/images/flags/Saudi Arabia.svg",
     name: "Saudi Arabia",
     distributors: [
       {
@@ -91,7 +91,7 @@ export const COUNTRIES_DATA = [
   },
   {
     key: "uae",
-    flag: "/new/Flags/UAE.svg",
+    flag: "https://cdn.mentholatumarabia.com/images/flags/UAE.svg",
     name: "United Arab Emirates",
     distributors: [
       {
@@ -104,7 +104,7 @@ export const COUNTRIES_DATA = [
   },
   {
     key: "morocco",
-    flag: "/new/Flags/Morocco.svg",
+    flag: "https://cdn.mentholatumarabia.com/images/flags/Morocco.svg",
     name: "Morocco",
     distributors: [
       {
@@ -117,7 +117,7 @@ export const COUNTRIES_DATA = [
   },
   {
     key: "palestine",
-    flag: "/new/Flags/Palestine.svg",
+    flag: "https://cdn.mentholatumarabia.com/images/flags/Palestine.svg",
     name: "Palestine",
     distributors: [
       {
@@ -130,7 +130,7 @@ export const COUNTRIES_DATA = [
   },
   {
     key: "pakistan",
-    flag: "/new/Flags/Pakistan.svg",
+    flag: "https://cdn.mentholatumarabia.com/images/flags/Pakistan.svg",
     name: "Pakistan",
     distributors: [
       {
@@ -143,7 +143,7 @@ export const COUNTRIES_DATA = [
   },
   {
     key: "egypt",
-    flag: "/new/Flags/Egypt.svg",
+    flag: "https://cdn.mentholatumarabia.com/images/flags/Egypt.svg",
     name: "Egypt",
     distributors: [
       {
@@ -156,7 +156,7 @@ export const COUNTRIES_DATA = [
   },
   {
     key: "iraq",
-    flag: "/new/Flags/Iraq.svg",
+    flag: "https://cdn.mentholatumarabia.com/images/flags/Iraq.svg",
     name: "Iraq",
     distributors: [
       {
@@ -169,7 +169,7 @@ export const COUNTRIES_DATA = [
   },
   {
     key: "libya",
-    flag: "/new/Flags/Libya.svg",
+    flag: "https://cdn.mentholatumarabia.com/images/flags/Libya.svg",
     name: "Libya",
     distributors: [
       {

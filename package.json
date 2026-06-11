@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "postinstall": "node -e \"require('fs').copyFileSync('src/polyfill-modern.js','node_modules/next/dist/build/polyfills/polyfill-module.js')\""
   },
   "dependencies": {
     "@iconify/react": "^6.0.2",

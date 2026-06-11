@@ -9,8 +9,16 @@ export const metadata = {
 
 export default function HomePage() {
   return (
+    <>
+      <link
+        rel="preload"
+        as="image"
+        href="https://cdn.mentholatumarabia.com/web/home-hero.webp"
+        fetchPriority="high"
+      />
       <main>
         <HomeContent />
-    </main>
+      </main>
+    </>
   );
 }
