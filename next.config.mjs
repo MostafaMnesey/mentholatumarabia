@@ -2,9 +2,6 @@
 const nextConfig = {
   output: "export",
   trailingSlash: true,
-  experimental: {
-    inlineCss: true,
-  },
   turbopack: {},
   images: {
     unoptimized: true,

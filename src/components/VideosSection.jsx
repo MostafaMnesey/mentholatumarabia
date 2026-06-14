@@ -91,10 +91,10 @@ export default function VideosSection() {
           {videoCards.map((card, idx) => (
             <m.div
               key={card.cardIndex}
-              initial={{ opacity: 0, y: 35 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ y: 24 }}
+              whileInView={{ y: 0 }}
               viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.5, delay: idx * 0.15 }}
+              transition={{ duration: 0.4, delay: idx * 0.1 }}
               className="bg-white rounded-3xl border border-gray-150 p-3 pb-6 text-center group cursor-pointer hover:shadow-2xl transition-all duration-300"
             >
               <div className="relative overflow-hidden rounded-2xl aspect-video shadow-sm">

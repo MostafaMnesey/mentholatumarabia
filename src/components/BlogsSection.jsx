@@ -29,13 +29,16 @@ export default function BlogsSection() {
           <img
             loading="lazy"
             src={blog.thumbnail}
-            alt="Blog Image"
+            alt={blog.title || "Blog Image"}
+            width={800}
+            height={450}
+            sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
           />
         </div>
         <div className="p-5 flex-1 flex flex-col justify-between">
           <div>
-            <div className="flex items-center gap-2 text-gray-400 text-xs font-semibold mb-3">
+            <div className="flex items-center gap-2 text-gray-500 text-xs font-semibold mb-3">
               <Calendar className="w-3.5 h-3.5" />
               <span>
                 {new Date(blog.created_at || Date.now()).toLocaleDateString(
@@ -93,10 +96,10 @@ export default function BlogsSection() {
           {blogs.map((blog, idx) => (
             <m.div
               key={blog.id || idx}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.5, delay: idx * 0.15 }}
+              initial={{ y: 24 }}
+              whileInView={{ y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.4, delay: idx * 0.1 }}
             >
               <BlogCard blog={blog} />
             </m.div>

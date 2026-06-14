@@ -1,5 +1,8 @@
 import ClientPage from "./client";
 
+// Fallback IDs used when the API is unreachable during build
+const FALLBACK_BRAND_IDS = ["23", "24", "25", "26", "27"];
+
 const API_HEADERS = {
   Accept: "application/json",
   "Content-Type": "application/json",
@@ -13,7 +16,7 @@ async function fetchWithRetry(url, retries = 3) {
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       return await res.json();
     } catch (e) {
-      if (i < retries - 1) await new Promise((r) => setTimeout(r, 1000 * (i + 1)));
+      if (i < retries - 1) await new Promise((r) => setTimeout(r, 1500 * (i + 1)));
     }
   }
   return null;
@@ -21,7 +24,11 @@ async function fetchWithRetry(url, retries = 3) {
 
 export async function generateStaticParams() {
   const data = await fetchWithRetry("https://dev-api.mentholatumarabia.com/api/website/brands");
-  return (data?.brands || []).map((brand) => ({ id: brand.id.toString() }));
+  const brands = data?.brands;
+  if (!brands || brands.length === 0) {
+    return FALLBACK_BRAND_IDS.map((id) => ({ id }));
+  }
+  return brands.map((brand) => ({ id: brand.id.toString() }));
 }
 
 export default function Page({ params }) {

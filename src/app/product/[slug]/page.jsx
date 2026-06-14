@@ -1,5 +1,8 @@
 import ClientPage from "./client";
 
+const BASE_URL = "https://www.mentholatumarabia.com";
+const API_BASE = "https://dev-api.mentholatumarabia.com/api/website";
+
 const API_HEADERS = {
   Accept: "application/json",
   "Content-Type": "application/json",
@@ -20,8 +23,48 @@ async function fetchWithRetry(url, retries = 3) {
 }
 
 export async function generateStaticParams() {
-  const data = await fetchWithRetry("https://dev-api.mentholatumarabia.com/api/website/shop");
+  const data = await fetchWithRetry(`${API_BASE}/shop`);
   return (data?.products || []).map((product) => ({ slug: product.slug }));
+}
+
+export async function generateMetadata({ params }) {
+  const { slug } = await params;
+  const data = await fetchWithRetry(`${API_BASE}/products/${slug}`);
+  const product = data?.product;
+
+  if (!product) return {};
+
+  const title = `${product.meta_title || product.name} - Mentholatum Arabia`;
+  const description = product.meta_description || product.details || product.description || "";
+  const canonicalUrl = `${BASE_URL}/product/${slug}/`;
+  const image = product.main_image || product.thumbnail || product.images?.[0];
+
+  return {
+    title,
+    description,
+    ...(product.meta_keywords && { keywords: product.meta_keywords }),
+    alternates: {
+      canonical: canonicalUrl,
+      languages: {
+        en: canonicalUrl,
+        ar: canonicalUrl,
+        "x-default": canonicalUrl,
+      },
+    },
+    openGraph: {
+      title: product.meta_title || product.name,
+      description,
+      type: "website",
+      url: canonicalUrl,
+      ...(image && { images: [{ url: image }] }),
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: product.meta_title || product.name,
+      description,
+      ...(image && { images: [image] }),
+    },
+  };
 }
 
 export default function Page({ params }) {

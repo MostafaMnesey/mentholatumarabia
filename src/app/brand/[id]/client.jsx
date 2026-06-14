@@ -1,4 +1,5 @@
 "use client";
+import 'primereact/resources/themes/lara-light-blue/theme.css';
 import React, { use, useState, useEffect } from "react";
 import Link from "next/link";
 import { Skeleton } from "primereact/skeleton";

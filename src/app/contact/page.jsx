@@ -1,4 +1,6 @@
 "use client";
+import 'primereact/resources/themes/lara-light-blue/theme.css';
+import 'primeicons/primeicons.css';
 import React, { useState, useEffect, useRef } from "react";
 import HeroBackground from "@/components/HeroBackground";
 import { useTranslation } from "@/context/LanguageContext";

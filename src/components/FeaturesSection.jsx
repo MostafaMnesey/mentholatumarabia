@@ -28,7 +28,8 @@ export default function FeaturesSection() {
   ];
 
   return (
-    <section className="py-12 md:py-20 page-width mx-auto">
+    <section className="py-12 md:py-20 page-width mx-auto" aria-labelledby="features-heading">
+      <h2 id="features-heading" className="sr-only">{t("home.features.sectionTitle") || "Our Tools"}</h2>
       {/* Desktop view */}
       <div className="hidden md:block">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -36,10 +37,10 @@ export default function FeaturesSection() {
             const isExternal = test.external;
             const content = (
               <m.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+                initial={{ y: 24 }}
+                whileInView={{ y: 0 }}
+                viewport={{ once: true, margin: "-80px" }}
+                transition={{ duration: 0.4, delay: index * 0.08 }}
                 whileHover={{ y: -8, boxShadow: "0 25px 50px -12px rgb(0 0 0 / 0.08)" }}
                 className="bg-white/80 backdrop-blur-md border border-gray-150 rounded-3xl p-8 text-center flex flex-col items-center gap-6 cursor-pointer shadow-sm"
                 dir={lang === "ar" ? "rtl" : "ltr"}

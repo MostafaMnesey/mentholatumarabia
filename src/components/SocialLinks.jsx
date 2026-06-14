@@ -23,6 +23,7 @@ export default function SocialLinks({ currentSocials, className }) {
               href={link}
               target="_blank"
               rel="noopener noreferrer"
+              aria-label={`Visit our ${social.key.charAt(0).toUpperCase() + social.key.slice(1)} page`}
               className={`text-[#0067B1] text-3xl transition-all duration-300 hover:scale-110 ${social.color}`}
             >
               <Icon icon={social.icon} />

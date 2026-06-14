@@ -1,16 +1,38 @@
 import { Poppins, Tajawal } from "next/font/google";
-import 'primereact/resources/themes/lara-light-blue/theme.css';
-import 'primeicons/primeicons.css';
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { LanguageProvider } from "@/context/LanguageContext";
 import MotionProvider from "@/components/MotionProvider";
+import SeoTags from "@/components/SeoTags";
+
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "Mentholatum Arabia",
+  url: "https://www.mentholatumarabia.com",
+  logo: {
+    "@type": "ImageObject",
+    url: "https://www.mentholatumarabia.com/new/muk logo.webp",
+  },
+  description:
+    "Mentholatum - Specialists in family healthcare for over 130 years",
+};
+
+const webSiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "Mentholatum Arabia",
+  url: "https://www.mentholatumarabia.com",
+  description:
+    "Mentholatum - Specialists in family healthcare for over 130 years",
+  inLanguage: ["en", "ar"],
+};
 
 const poppins = Poppins({
   variable: "--font-poppins",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700", "800"],
+  weight: ["400", "500", "600", "700"],
   display: "swap",
 });
 
@@ -43,6 +65,13 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        {/* Sets lang/dir from localStorage before React hydrates — prevents the
+            brief window where html[lang] is absent that Lighthouse can detect */}
+        <script dangerouslySetInnerHTML={{ __html: `try{var l=localStorage.getItem('lang')||'en';document.documentElement.lang=l;document.documentElement.dir=l==='ar'?'rtl':'ltr';}catch(e){}` }} />
+        <link rel="preconnect" href="https://cdn.mentholatumarabia.com" />
+        <link rel="dns-prefetch" href="https://cdn.mentholatumarabia.com" />
+        <link rel="preconnect" href="https://dev-api.mentholatumarabia.com" />
+        <link rel="dns-prefetch" href="https://dev-api.mentholatumarabia.com" />
         <link rel="preconnect" href="https://ip-api.com" />
         <link
           rel="preload"
@@ -58,8 +87,17 @@ export default function RootLayout({ children }) {
             crossOrigin="anonymous"
           />
         </noscript>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(webSiteSchema) }}
+        />
       </head>
       <body className={`${poppins.variable} ${tajawal.variable} min-h-full flex flex-col font-sans bg-white text-gray-900`}>
+        <SeoTags />
         <MotionProvider>
           <LanguageProvider>
             <Navbar />

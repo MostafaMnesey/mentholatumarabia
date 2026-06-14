@@ -1,11 +1,12 @@
 "use client";
+import 'primereact/resources/themes/lara-light-blue/theme.css';
 import React, { useState, useEffect, use, useMemo } from "react";
 import Link from "next/link";
 import { Skeleton } from "primereact/skeleton";
 import { Dialog } from "primereact/dialog";
 import { useTranslation } from "@/context/LanguageContext";
 import { getSingleProduct } from "@/services/mainService";
-import { updateMetaTag } from "@/utils/seoHelper";
+import { updateMetaTag, injectSchemaMarkup } from "@/utils/seoHelper";
 export default function ProductDetailPage({ params }) {
   const resolvedParams = use(params);
   const { slug } = resolvedParams;
@@ -78,6 +79,37 @@ export default function ProductDetailPage({ params }) {
         updateMetaTag('twitter:description', description);
         updateMetaTag('twitter:image', product.main_image || product.thumbnail);
         updateMetaTag('twitter:card', 'summary_large_image');
+
+        const pageUrl = `https://www.mentholatumarabia.com/product/${slug}/`;
+
+        injectSchemaMarkup({
+          "@context": "https://schema.org",
+          "@type": "Product",
+          name: product.meta_title || product.name,
+          description,
+          image: product.main_image || product.thumbnail || product.images?.[0],
+          url: pageUrl,
+          brand: {
+            "@type": "Brand",
+            name: product.brand?.name || "Mentholatum",
+          },
+          offers: {
+            "@type": "Offer",
+            url: pageUrl,
+            availability: "https://schema.org/InStock",
+            priceCurrency: "AED",
+          },
+        }, "product");
+
+        injectSchemaMarkup({
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Home", item: "https://www.mentholatumarabia.com/" },
+            { "@type": "ListItem", position: 2, name: "Shop", item: "https://www.mentholatumarabia.com/shop/" },
+            { "@type": "ListItem", position: 3, name: product.name, item: pageUrl },
+          ],
+        }, "breadcrumb");
       }
     })
     .catch((err) => {
@@ -536,22 +568,19 @@ export default function ProductDetailPage({ params }) {
       >
         <div>
           <h3 className="text-xl font-black mb-5 text-gray-900 border-b border-gray-100 pb-3">{selectedProductName}</h3>
-          {hasAvailableCountries ? (
-            <>
-              <p className="mb-4 text-gray-600">{t("product.availability.message")}</p>
-              <div className="grid grid-cols-1 gap-4">
-                {selectedProductCountries.map((country, idx) => {
+          <>
+            <p className="mb-4 text-gray-600">{t("product.availability.message")}</p>
+            <div className="grid grid-cols-1 gap-4">
+              {selectedProductCountries.map((country, idx) => {
                   const buyLink = country.pivot?.where_to_buy_link;
                   const availPharmacies = country.pivot?.available_in_pharmacies === 1;
                   const links = parseAndDeduplicateLinks(buyLink);
-
-                  // Hide if no links and no pharmacy availability
-                  if (links.length === 0 && !availPharmacies) return null;
+                  const hasOptions = links.length > 0 || availPharmacies;
 
                   return (
                     <div
                       key={country.id || idx}
-                      className="p-4 border rounded-xl flex items-center justify-between transition-all"
+                      className={`p-4 border rounded-xl flex items-center justify-between transition-all ${!hasOptions ? "opacity-60 bg-gray-50" : ""}`}
                     >
                       <div>
                         <span className="font-semibold text-gray-900">{country.name_en}</span>
@@ -560,6 +589,11 @@ export default function ProductDetailPage({ params }) {
                         )}
                       </div>
                       <div className="flex gap-2">
+                        {!hasOptions && (
+                          <span className="px-3.5 py-1.5 bg-gray-200 text-gray-500 rounded-full text-xs font-semibold">
+                            {t("product.notAvailable")}
+                          </span>
+                        )}
                         {links.length > 0 && (
                           <button
                             onClick={() => {
@@ -585,11 +619,8 @@ export default function ProductDetailPage({ params }) {
                     </div>
                   );
                 })}
-              </div>
-            </>
-          ) : (
-            <p className="text-gray-500 py-4 text-center">{t("product.notAvailable")}</p>
-          )}
+            </div>
+          </>
         </div>
       </Dialog>
 

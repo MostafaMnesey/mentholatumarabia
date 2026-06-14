@@ -14,10 +14,10 @@ export default function AboutSection() {
         <div className="flex flex-col lg:flex-row gap-12 items-center justify-between">
           {/* Left Content */}
           <m.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.6 }}
+            initial={{ x: -24 }}
+            whileInView={{ x: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.5 }}
             className="w-full lg:w-1/2 text-start"
           >
             <div className="flex items-center gap-2 mb-3">
@@ -49,10 +49,10 @@ export default function AboutSection() {
 
           {/* Right Image */}
           <m.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.6 }}
+            initial={{ scale: 0.97 }}
+            whileInView={{ scale: 1 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.5 }}
             className="w-full sm:w-4/5 lg:w-[42%] flex justify-center rounded-3xl overflow-hidden shadow-2xl border border-gray-100 group aspect-[4/3] lg:aspect-[1.1]"
           >
             <img

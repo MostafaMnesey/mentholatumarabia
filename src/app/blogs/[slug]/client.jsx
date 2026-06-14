@@ -4,7 +4,7 @@ import Link from "next/link";
 import BlogsSection from "@/components/BlogsSection";
 import { useTranslation } from "@/context/LanguageContext";
 import { getSingleBlog } from "@/services/mainService";
-import { updateMetaTag } from "@/utils/seoHelper";
+import { updateMetaTag, injectSchemaMarkup } from "@/utils/seoHelper";
 import ArticleContent from "@/components/ArticleContent";
 
 export default function SingleBlogPage({ params }) {
@@ -44,6 +44,42 @@ export default function SingleBlogPage({ params }) {
           updateMetaTag('twitter:description', description);
           updateMetaTag('twitter:image', blog.image || blog.thumbnail);
           updateMetaTag('twitter:card', 'summary_large_image');
+
+          const pageUrl = `https://www.mentholatumarabia.com/blogs/${slug}/`;
+
+          injectSchemaMarkup({
+            "@context": "https://schema.org",
+            "@type": "Article",
+            headline: blog.meta_title || blog.title,
+            description,
+            image: blog.image || blog.thumbnail,
+            url: pageUrl,
+            datePublished: blog.created_at || blog.published_at,
+            dateModified: blog.updated_at || blog.created_at,
+            author: {
+              "@type": "Organization",
+              name: "Mentholatum Arabia",
+              url: "https://www.mentholatumarabia.com",
+            },
+            publisher: {
+              "@type": "Organization",
+              name: "Mentholatum Arabia",
+              logo: {
+                "@type": "ImageObject",
+                url: "https://www.mentholatumarabia.com/new/muk logo.webp",
+              },
+            },
+          }, "article");
+
+          injectSchemaMarkup({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Home", item: "https://www.mentholatumarabia.com/" },
+              { "@type": "ListItem", position: 2, name: "Blogs", item: "https://www.mentholatumarabia.com/blogs/" },
+              { "@type": "ListItem", position: 3, name: blog.title, item: pageUrl },
+            ],
+          }, "breadcrumb");
         }
         setLoading(false);
       })

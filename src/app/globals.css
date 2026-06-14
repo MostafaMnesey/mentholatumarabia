@@ -2,10 +2,15 @@
 @plugin "tailwindcss-primeui";
 
 :root {
+  /* Override PrimeReact lara theme which sets "Inter var" on :root — prevents
+     the 337 KiB InterVariable.woff2 from being downloaded on every page */
+  font-family: var(--font-poppins), sans-serif;
   --font-family: var(--font-poppins), sans-serif;
+  --font-feature-settings: normal;
+  --font-variation-settings: normal;
 }
 
-* {
+html {
   scroll-behavior: smooth;
 }
 

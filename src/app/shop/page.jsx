@@ -1,4 +1,5 @@
 "use client";
+import 'primereact/resources/themes/lara-light-blue/theme.css';
 import React, { useState, useEffect, useMemo, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
@@ -59,6 +60,7 @@ function ShopContent() {
     imagePlaceHolder[initialBrandKey] || imagePlaceHolder[23],
   );
   const [products, setProducts] = useState([]);
+  const [allCountries, setAllCountries] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedTab, setSelectedTab] = useState(0);
 
@@ -92,8 +94,23 @@ function ShopContent() {
     shopByBrand("")
       .then((res) => {
         if (res) {
+          const fetchedProducts = res.products || [];
           setBrands(res.brands || []);
-          setProducts(res.products || []);
+          setProducts(fetchedProducts);
+
+          // Build master country list from all products (deduped by id, no pivot)
+          const seenIds = new Set();
+          const masterCountries = [];
+          for (const p of fetchedProducts) {
+            for (const c of p.countries || []) {
+              if (!seenIds.has(c.id)) {
+                seenIds.add(c.id);
+                masterCountries.push({ id: c.id, name_en: c.name_en, name_ar: c.name_ar });
+              }
+            }
+          }
+          masterCountries.sort((a, b) => (a.name_en || "").localeCompare(b.name_en || ""));
+          setAllCountries(masterCountries);
 
           // Set active tab based on query param
           if (brandQuery && res.brands) {
@@ -154,15 +171,6 @@ function ShopContent() {
       (c) =>
         c.pivot?.where_to_buy_link || c.pivot?.available_in_pharmacies === 1,
     );
-  };
-
-  const filterDuplicateCountries = (countriesList) => {
-    const seen = new Set();
-    return (countriesList || []).filter((c) => {
-      if (seen.has(c.id)) return false;
-      seen.add(c.id);
-      return true;
-    });
   };
 
   // Parse and deduplicate buy links
@@ -275,19 +283,18 @@ function ShopContent() {
       }
     }
 
-    // Default: Show dialog
-    const uniqueCountries = filterDuplicateCountries(product.countries || []);
-    setSelectedProductCountries(uniqueCountries);
+    // Default: Show dialog — use master country list with per-product pivot overlaid
+    const productCountryMap = new Map(
+      (product.countries || []).map((c) => [c.id, c.pivot])
+    );
+    const countriesWithPivot = allCountries.map((c) => ({
+      ...c,
+      pivot: productCountryMap.get(c.id) || null,
+    }));
+    setSelectedProductCountries(countriesWithPivot);
     setSelectedProductName(product.name);
     setShowCountriesDialog(true);
   };
-
-  const hasAvailableCountries = useMemo(() => {
-    return selectedProductCountries.some(
-      (c) =>
-        c.pivot?.where_to_buy_link || c.pivot?.available_in_pharmacies === 1,
-    );
-  }, [selectedProductCountries]);
 
   return (
     <main className="w-full bg-gray-50/50 min-h-screen pb-16">
@@ -487,78 +494,75 @@ function ShopContent() {
           <h3 className="text-xl font-black mb-5 text-gray-900 border-b border-gray-100 pb-3">
             {selectedProductName}
           </h3>
-          {hasAvailableCountries ? (
-            <>
-              <p className="mb-5 text-gray-600 text-sm">
-                {t("shop.productAvailableText")}
-              </p>
-              <div className="grid grid-cols-1 gap-4">
-                {selectedProductCountries.map((country, idx) => {
-                  const buyLink = country.pivot?.where_to_buy_link;
-                  const availPharmacies =
-                    country.pivot?.available_in_pharmacies === 1;
-                  const links = parseAndDeduplicateLinks(buyLink);
-
-                  // Hide if no links and no pharmacy availability
-                  if (links.length === 0 && !availPharmacies) return null;
-
-                  return (
-                    <motion.div
-                      key={country.id || idx}
-                      whileHover={
-                        links.length > 0
-                          ? { scale: 1.01, backgroundColor: "#f9fafb" }
-                          : {}
-                      }
-                      onClick={() => {
-                        if (links.length === 1) {
-                          window.open(links[0], "_blank");
-                        } else if (links.length > 1) {
-                          setBuyLinks(links);
-                          setSelectedBuyCountry(country.name_en);
-                          setShowBuyLinksDialog(true);
-                        }
-                      }}
-                      className={`p-5 border rounded-2xl flex items-center justify-between transition-all ${
-                        links.length > 0
-                          ? "cursor-pointer border-gray-200/80 hover:border-[#0067B1]/40"
-                          : "border-gray-100 bg-gray-50/50"
-                      }`}
-                    >
-                      <div className="text-start">
-                        <span className="font-bold text-gray-900 text-base">
-                          {country.name_en}
-                        </span>
-                        {country.name_ar && (
-                          <p className="text-sm text-gray-400 font-medium mt-0.5">
-                            {country.name_ar}
-                          </p>
-                        )}
-                      </div>
-                      <div className="flex items-center gap-2">
-                        {links.length > 0 && (
-                          <span className="px-4 py-2 bg-[#0067B1] text-white rounded-full text-xs font-bold shadow-sm inline-flex items-center gap-1">
-                            <span>{t("shop.buyNow")}</span>
-                            <ExternalLink className="w-3 h-3" />
-                          </span>
-                        )}
-                        {availPharmacies && (
-                          <span className="px-4 py-2 bg-gray-100 text-gray-600 border border-gray-200/40 rounded-full text-xs font-bold inline-flex items-center gap-1">
-                            <ShieldCheck className="w-3.5 h-3.5 text-green-500" />
-                            <span>{t("shop.availableInPharmacies")}</span>
-                          </span>
-                        )}
-                      </div>
-                    </motion.div>
-                  );
-                })}
-              </div>
-            </>
-          ) : (
-            <p className="text-gray-500 py-6 text-center font-semibold">
-              {t("shop.notAvailable")}
+          <>
+            <p className="mb-5 text-gray-600 text-sm">
+              {t("shop.productAvailableText")}
             </p>
-          )}
+            <div className="grid grid-cols-1 gap-4">
+              {selectedProductCountries.map((country, idx) => {
+                const buyLink = country.pivot?.where_to_buy_link;
+                const availPharmacies =
+                  country.pivot?.available_in_pharmacies === 1;
+                const links = parseAndDeduplicateLinks(buyLink);
+                const hasOptions = links.length > 0 || availPharmacies;
+
+                return (
+                  <motion.div
+                    key={country.id || idx}
+                    whileHover={
+                      links.length > 0
+                        ? { scale: 1.01, backgroundColor: "#f9fafb" }
+                        : {}
+                    }
+                    onClick={() => {
+                      if (links.length === 1) {
+                        window.open(links[0], "_blank");
+                      } else if (links.length > 1) {
+                        setBuyLinks(links);
+                        setSelectedBuyCountry(country.name_en);
+                        setShowBuyLinksDialog(true);
+                      }
+                    }}
+                    className={`p-5 border rounded-2xl flex items-center justify-between transition-all ${
+                      links.length > 0
+                        ? "cursor-pointer border-gray-200/80 hover:border-[#0067B1]/40"
+                        : "border-gray-100 bg-gray-50/50 opacity-60"
+                    }`}
+                  >
+                    <div className="text-start">
+                      <span className="font-bold text-gray-900 text-base">
+                        {country.name_en}
+                      </span>
+                      {country.name_ar && (
+                        <p className="text-sm text-gray-400 font-medium mt-0.5">
+                          {country.name_ar}
+                        </p>
+                      )}
+                    </div>
+                    <div className="flex items-center gap-2">
+                      {!hasOptions && (
+                        <span className="px-4 py-2 bg-gray-200 text-gray-500 rounded-full text-xs font-bold">
+                          {t("shop.notAvailable")}
+                        </span>
+                      )}
+                      {links.length > 0 && (
+                        <span className="px-4 py-2 bg-[#0067B1] text-white rounded-full text-xs font-bold shadow-sm inline-flex items-center gap-1">
+                          <span>{t("shop.buyNow")}</span>
+                          <ExternalLink className="w-3 h-3" />
+                        </span>
+                      )}
+                      {availPharmacies && (
+                        <span className="px-4 py-2 bg-gray-100 text-gray-600 border border-gray-200/40 rounded-full text-xs font-bold inline-flex items-center gap-1">
+                          <ShieldCheck className="w-3.5 h-3.5 text-green-500" />
+                          <span>{t("shop.availableInPharmacies")}</span>
+                        </span>
+                      )}
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </div>
+          </>
         </div>
       </Dialog>
 

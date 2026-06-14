@@ -52,7 +52,6 @@ export default function Navbar() {
         <Link href="/" className="flex items-center">
           <img
             loading="eager"
-            fetchPriority="high"
             src="https://cdn.mentholatumarabia.com/images/imgs/muk_logo.webp"
             width={250}
             height={48}
