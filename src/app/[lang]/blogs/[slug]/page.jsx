@@ -3,16 +3,16 @@ import ClientPage from "./client";
 const BASE_URL = "https://www.mentholatumarabia.com";
 const API_BASE = "https://dev-api.mentholatumarabia.com/api/website";
 
-const API_HEADERS = {
+const BASE_HEADERS = {
   Accept: "application/json",
   "Content-Type": "application/json",
-  "Accept-Language": "en",
 };
 
-async function fetchWithRetry(url, retries = 3) {
+async function fetchWithRetry(url, lang = "en", retries = 3) {
+  const headers = { ...BASE_HEADERS, "Accept-Language": lang };
   for (let i = 0; i < retries; i++) {
     try {
-      const res = await fetch(url, { headers: API_HEADERS });
+      const res = await fetch(url, { headers });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       return await res.json();
     } catch (e) {
@@ -23,20 +23,30 @@ async function fetchWithRetry(url, retries = 3) {
 }
 
 export async function generateStaticParams() {
-  const data = await fetchWithRetry(`${API_BASE}/blogs`);
-  return (data?.blogs?.data || []).map((blog) => ({ slug: blog.slug }));
+  // Fetch slugs for both languages — Arabic and English may have different slugs
+  const [enData, arData] = await Promise.all([
+    fetchWithRetry(`${API_BASE}/blogs`, "en"),
+    fetchWithRetry(`${API_BASE}/blogs`, "ar"),
+  ]);
+
+  const enSlugs = (enData?.blogs?.data || []).map((b) => b.slug);
+  const arSlugs = (arData?.blogs?.data || []).map((b) => b.slug);
+  const allSlugs = [...new Set([...enSlugs, ...arSlugs])];
+
+  // Return only `slug` — parent [lang]/layout.js provides the `lang` dimension
+  return allSlugs.map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({ params }) {
-  const { slug } = await params;
-  const data = await fetchWithRetry(`${API_BASE}/blogs/${slug}`);
+  const { slug, lang } = await params;
+  const data = await fetchWithRetry(`${API_BASE}/blogs/${slug}`, lang);
   const blog = data?.blog;
 
   if (!blog) return {};
 
   const title = `${blog.meta_title || blog.title} - Mentholatum Arabia`;
   const description = blog.meta_description || blog.excerpt || "";
-  const canonicalUrl = `${BASE_URL}/blogs/${slug}/`;
+  const canonicalUrl = `${BASE_URL}/${lang}/blogs/${slug}/`;
   const image = blog.image || blog.thumbnail;
 
   return {
@@ -46,9 +56,9 @@ export async function generateMetadata({ params }) {
     alternates: {
       canonical: canonicalUrl,
       languages: {
-        en: canonicalUrl,
-        ar: canonicalUrl,
-        "x-default": canonicalUrl,
+        en: `${BASE_URL}/en/blogs/${slug}/`,
+        ar: `${BASE_URL}/ar/blogs/${slug}/`,
+        "x-default": `${BASE_URL}/blogs/${slug}/`,
       },
     },
     openGraph: {

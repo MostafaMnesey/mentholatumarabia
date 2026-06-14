@@ -42,12 +42,12 @@ export default function BrandsPage() {
                   {t("brands.deep_heat.description")}
                 </p>
                 <div className="flex gap-4 justify-center lg:justify-start mt-6">
-                  <Link href="/shop?brand=deep+heat">
+                  <Link href={`/${lang}/shop?brand=deep+heat`}>
                     <button className="px-6 py-2.5 bg-[#0067B1] hover:bg-[#00348D] text-white font-medium rounded-full cursor-pointer transition-all hover:scale-105 shadow hover:shadow-md active:scale-95">
                       {t("brands.deep_heat.shop_now")}
                     </button>
                   </Link>
-                  <Link href="/brand/23">
+                  <Link href={`/${lang}/brand/23`}>
                     <button className="px-6 py-2.5 border-2 rounded-full text-[#0067B1] font-medium border-[#0067B1] cursor-pointer hover:bg-[#0067B1] hover:text-white transition-all hover:scale-105 shadow-sm hover:shadow-md active:scale-95">
                       {t("brands.deep_heat.learn_more")}
                     </button>
@@ -74,12 +74,12 @@ export default function BrandsPage() {
                   {t("brands.deep_freeze.description")}
                 </p>
                 <div className="flex gap-4 justify-center lg:justify-start mt-6">
-                  <Link href="/shop?brand=deep+freeze">
+                  <Link href={`/${lang}/shop?brand=deep+freeze`}>
                     <button className="px-6 py-2.5 bg-[#0067B1] hover:bg-[#00348D] text-white font-medium rounded-full cursor-pointer transition-all hover:scale-105 shadow hover:shadow-md active:scale-95">
                       {t("brands.deep_freeze.shop_now")}
                     </button>
                   </Link>
-                  <Link href="/brand/24">
+                  <Link href={`/${lang}/brand/24`}>
                     <button className="px-6 py-2.5 border-2 rounded-full text-[#0067B1] font-medium border-[#0067B1] cursor-pointer hover:bg-[#0067B1] hover:text-white transition-all hover:scale-105 shadow-sm hover:shadow-md active:scale-95">
                       {t("brands.deep_freeze.learn_more")}
                     </button>
@@ -106,12 +106,12 @@ export default function BrandsPage() {
                   {t("brands.deep_relief.description")}
                 </p>
                 <div className="flex gap-4 justify-center lg:justify-start mt-6">
-                  <Link href="/shop?brand=deep+relief">
+                  <Link href={`/${lang}/shop?brand=deep+relief`}>
                     <button className="px-6 py-2.5 bg-[#0067B1] hover:bg-[#00348D] text-white font-medium rounded-full cursor-pointer transition-all hover:scale-105 shadow hover:shadow-md active:scale-95">
                       {t("brands.deep_relief.shop_now")}
                     </button>
                   </Link>
-                  <Link href="/brand/25">
+                  <Link href={`/${lang}/brand/25`}>
                     <button className="px-6 py-2.5 border-2 rounded-full text-[#0067B1] font-medium border-[#0067B1] cursor-pointer hover:bg-[#0067B1] hover:text-white transition-all hover:scale-105 shadow-sm hover:shadow-md active:scale-95">
                       {t("brands.deep_relief.learn_more")}
                     </button>
@@ -138,12 +138,12 @@ export default function BrandsPage() {
                   {t("brands.hada_labo.description")}
                 </p>
                 <div className="flex gap-4 justify-center lg:justify-start mt-6">
-                  <Link href="/shop?brand=hada+labo">
+                  <Link href={`/${lang}/shop?brand=hada+labo`}>
                     <button className="px-6 py-2.5 bg-[#0067B1] hover:bg-[#00348D] text-white font-medium rounded-full cursor-pointer transition-all hover:scale-105 shadow hover:shadow-md active:scale-95">
                       {t("brands.hada_labo.shop_now")}
                     </button>
                   </Link>
-                  <Link href="/brand/26">
+                  <Link href={`/${lang}/brand/26`}>
                     <button className="px-6 py-2.5 border-2 rounded-full text-[#0067B1] font-medium border-[#0067B1] cursor-pointer hover:bg-[#0067B1] hover:text-white transition-all hover:scale-105 shadow-sm hover:shadow-md active:scale-95">
                       {t("brands.hada_labo.learn_more")}
                     </button>
@@ -170,12 +170,12 @@ export default function BrandsPage() {
                   {t("brands.rohto.description")}
                 </p>
                 <div className="flex gap-4 justify-center lg:justify-start mt-6">
-                  <Link href="/shop?brand=rohto">
+                  <Link href={`/${lang}/shop?brand=rohto`}>
                     <button className="px-6 py-2.5 bg-[#0067B1] hover:bg-[#00348D] text-white font-medium rounded-full cursor-pointer transition-all hover:scale-105 shadow hover:shadow-md active:scale-95">
                       {t("brands.rohto.shop_now")}
                     </button>
                   </Link>
-                  <Link href="/brand/27">
+                  <Link href={`/${lang}/brand/27`}>
                     <button className="px-6 py-2.5 border-2 rounded-full text-[#0067B1] font-medium border-[#0067B1] cursor-pointer hover:bg-[#0067B1] hover:text-white transition-all hover:scale-105 shadow-sm hover:shadow-md active:scale-95">
                       {t("brands.rohto.learn_more")}
                     </button>

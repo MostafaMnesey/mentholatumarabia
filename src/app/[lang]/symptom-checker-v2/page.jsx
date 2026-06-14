@@ -81,7 +81,7 @@ export default function SymptomCheckerPage() {
                   {currentData.products.map((product, idx) => (
                     <div key={idx} className="product border border-gray-200 rounded-xl p-4 bg-white shadow-sm flex flex-col gap-4">
                       <div className="name">
-                        <Link href={`/product/${product.slug}`} target="_blank" className="block cursor-pointer">
+                        <Link href={`/${lang}/product/${product.slug}`} target="_blank" className="block cursor-pointer">
                           <div className="img w-full max-h-40 flex items-center justify-center overflow-hidden">
                             <img
                               loading="lazy"
@@ -94,12 +94,12 @@ export default function SymptomCheckerPage() {
                         <span className="block text-sm text-gray-500 font-light mt-4">
                           {product.brandName}
                         </span>
-                        <Link href={`/product/${product.slug}`} target="_blank" className="text-lg font-semibold text-gray-900 hover:underline hover:text-[#0067B1] transition-colors mt-1 block">
+                        <Link href={`/${lang}/product/${product.slug}`} target="_blank" className="text-lg font-semibold text-gray-900 hover:underline hover:text-[#0067B1] transition-colors mt-1 block">
                           {product.productName}
                         </Link>
                       </div>
 
-                      <Link href={`/product/${product.slug}`} target="_blank" className="text-white">
+                      <Link href={`/${lang}/product/${product.slug}`} target="_blank" className="text-white">
                         <button className="block w-full bg-[#0067B1] hover:bg-[#00348D] text-white py-2.5 rounded-full font-medium transition-all duration-300 cursor-pointer text-center">
                           {t("Single-brand.learnMore")}
                         </button>

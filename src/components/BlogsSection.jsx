@@ -23,7 +23,7 @@ export default function BlogsSection() {
   }, []);
 
   const BlogCard = ({ blog }) => (
-    <Link href={`/blogs/${blog.slug}`}>
+    <Link href={`/${lang}/blogs/${blog.slug}`}>
       <div className="bg-white rounded-3xl border border-gray-100 shadow-md overflow-hidden flex flex-col h-full cursor-pointer hover:shadow-xl transition-all duration-300 group">
         <div className="overflow-hidden aspect-video relative">
           <img
@@ -79,7 +79,7 @@ export default function BlogsSection() {
               {t("blogsSection.header.title")}
             </h2>
           </div>
-          <Link href="/blogs">
+          <Link href={`/${lang}/blogs`}>
             <m.button
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.98 }}
@@ -119,7 +119,7 @@ export default function BlogsSection() {
           )}
         </div>
 
-        <Link href="/blogs" className="block w-full text-center mt-6 lg:hidden">
+        <Link href={`/${lang}/blogs`} className="block w-full text-center mt-6 lg:hidden">
           <button className="px-8 py-3 bg-[#0067B1] hover:bg-[#00348D] text-white rounded-full font-bold shadow-md cursor-pointer transition-all inline-flex items-center gap-2">
             <span>{t("blogsSection.header.viewAll")}</span>
             <ArrowRight className="w-4.5 h-4.5 rtl:rotate-180" />

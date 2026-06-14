@@ -80,7 +80,7 @@ export default function ProductDetailPage({ params }) {
         updateMetaTag('twitter:image', product.main_image || product.thumbnail);
         updateMetaTag('twitter:card', 'summary_large_image');
 
-        const pageUrl = `https://www.mentholatumarabia.com/product/${slug}/`;
+        const pageUrl = `https://www.mentholatumarabia.com/${lang}/product/${slug}/`;
 
         injectSchemaMarkup({
           "@context": "https://schema.org",
@@ -105,8 +105,8 @@ export default function ProductDetailPage({ params }) {
           "@context": "https://schema.org",
           "@type": "BreadcrumbList",
           itemListElement: [
-            { "@type": "ListItem", position: 1, name: "Home", item: "https://www.mentholatumarabia.com/" },
-            { "@type": "ListItem", position: 2, name: "Shop", item: "https://www.mentholatumarabia.com/shop/" },
+            { "@type": "ListItem", position: 1, name: "Home", item: `https://www.mentholatumarabia.com/${lang}/` },
+            { "@type": "ListItem", position: 2, name: "Shop", item: `https://www.mentholatumarabia.com/${lang}/shop/` },
             { "@type": "ListItem", position: 3, name: product.name, item: pageUrl },
           ],
         }, "breadcrumb");
@@ -457,7 +457,7 @@ export default function ProductDetailPage({ params }) {
             <p className="md:text-lg mb-6 opacity-90 leading-relaxed">
               {t("product.symptomChecker.description")}
             </p>
-            <Link href="/symptom-checker-v2">
+            <Link href={`/${lang}/symptom-checker-v2`}>
               <button className="text-white py-3 px-8 rounded-full text-sm font-semibold bg-[#EF3E42] hover:bg-[#c82f33] cursor-pointer shadow-md transition-all">
                 {t("product.symptomChecker.cta")}
               </button>
@@ -483,7 +483,7 @@ export default function ProductDetailPage({ params }) {
               >
                 {/* Product Image */}
                 <div className="p-6 flex items-center justify-center h-[200px]">
-                  <Link href={`/product/${p.slug}`}>
+                  <Link href={`/${lang}/product/${p.slug}`}>
                     <img
                       loading="lazy"
                       src={p.thumbnail}
@@ -495,13 +495,13 @@ export default function ProductDetailPage({ params }) {
 
                 {/* Details */}
                 <div className="p-5 text-center mt-auto flex flex-col justify-between flex-grow">
-                  <Link href={`/product/${p.slug}`} className="block mb-4">
+                  <Link href={`/${lang}/product/${p.slug}`} className="block mb-4">
                     <h3 className="font-bold text-gray-900 hover:text-blue-600 transition-colors line-clamp-2">
                       {p.name}
                     </h3>
                   </Link>
 
-                  <Link href={`/product/${p.slug}`} className="block w-full">
+                  <Link href={`/${lang}/product/${p.slug}`} className="block w-full">
                   </Link>
                 </div>
               </div>
@@ -516,7 +516,7 @@ export default function ProductDetailPage({ params }) {
                 className="min-w-[280px] max-w-[280px] bg-white rounded-xl shadow-md overflow-hidden flex flex-col border border-gray-100 snap-center"
               >
                 <div className="p-6 flex items-center justify-center h-[180px]">
-                  <Link href={`/product/${p.slug}`}>
+                  <Link href={`/${lang}/product/${p.slug}`}>
                     <img
                       loading="lazy"
                       src={p.thumbnail}
@@ -526,12 +526,12 @@ export default function ProductDetailPage({ params }) {
                   </Link>
                 </div>
                 <div className="p-4 text-center flex flex-col justify-between flex-grow pb-6">
-                  <Link href={`/product/${p.slug}`} className="block mb-4">
+                  <Link href={`/${lang}/product/${p.slug}`} className="block mb-4">
                     <h3 className="font-bold text-gray-900 line-clamp-2">
                       {p.name}
                     </h3>
                   </Link>
-                  <Link href={`/product/${p.slug}`} className="block w-full">
+                  <Link href={`/${lang}/product/${p.slug}`} className="block w-full">
                     <button
                       disabled={!hasAnyPurchaseOption(p)}
                       className={`text-white py-2.5 px-6 rounded-full text-sm font-semibold block w-full cursor-pointer ${

@@ -8,20 +8,21 @@ const api = axios.create({
   },
 });
 
-// Add request interceptor to set Accept-Language based on localStorage
 api.interceptors.request.use(
   (config) => {
     if (typeof window !== "undefined") {
-      const lang = localStorage.getItem("lang") || "en";
+      const pathLang = window.location.pathname.split("/")[1];
+      const lang =
+        pathLang === "ar" || pathLang === "en"
+          ? pathLang
+          : localStorage.getItem("lang") || "en";
       config.headers["Accept-Language"] = lang;
     } else {
       config.headers["Accept-Language"] = "en";
     }
     return config;
   },
-  (error) => {
-    return Promise.reject(error);
-  }
+  (error) => Promise.reject(error)
 );
 
 export default api;

@@ -24,11 +24,14 @@ async function fetchWithRetry(url, retries = 3) {
 
 export async function generateStaticParams() {
   const data = await fetchWithRetry(`${API_BASE}/shop`);
-  return (data?.products || []).map((product) => ({ slug: product.slug }));
+  const slugs = data?.products || [];
+  return ["en", "ar"].flatMap((lang) =>
+    slugs.map((product) => ({ lang, slug: product.slug }))
+  );
 }
 
 export async function generateMetadata({ params }) {
-  const { slug } = await params;
+  const { slug, lang } = await params;
   const data = await fetchWithRetry(`${API_BASE}/products/${slug}`);
   const product = data?.product;
 
@@ -36,7 +39,7 @@ export async function generateMetadata({ params }) {
 
   const title = `${product.meta_title || product.name} - Mentholatum Arabia`;
   const description = product.meta_description || product.details || product.description || "";
-  const canonicalUrl = `${BASE_URL}/product/${slug}/`;
+  const canonicalUrl = `${BASE_URL}/${lang}/product/${slug}/`;
   const image = product.main_image || product.thumbnail || product.images?.[0];
 
   return {
@@ -46,9 +49,9 @@ export async function generateMetadata({ params }) {
     alternates: {
       canonical: canonicalUrl,
       languages: {
-        en: canonicalUrl,
-        ar: canonicalUrl,
-        "x-default": canonicalUrl,
+        en: `${BASE_URL}/en/product/${slug}/`,
+        ar: `${BASE_URL}/ar/product/${slug}/`,
+        "x-default": `${BASE_URL}/product/${slug}/`,
       },
     },
     openGraph: {

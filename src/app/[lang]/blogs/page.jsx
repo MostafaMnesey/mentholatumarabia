@@ -80,26 +80,26 @@ export default function BlogsPage() {
             ))
           ) : paginatedBlogs.length > 0 ? (
             paginatedBlogs.map((blog, idx) => (
+                <Link href={`/${lang}/blogs/${blog.slug}`} className="block">
               <div key={blog.id || idx} className="group bg-white rounded-xl shadow-lg overflow-hidden flex flex-col h-full hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
-                <Link href={`/blogs/${blog.slug}`} className="block">
                   <img
                     loading="lazy"
                     src={blog.thumbnail}
                     alt="Blog Image"
                     className="w-full object-cover aspect-square group-hover:scale-105 transition-transform duration-500"
                   />
-                </Link>
                 <div className="p-4 flex-1 flex flex-col justify-between">
                   <div>
                     <h3 className="text-lg font-semibold mt-4 text-gray-900 group-hover:text-blue-600 transition-colors duration-300">{blog.title}</h3>
                     <p className="text-gray-600 text-sm mt-2 line-clamp-3">{blog.excerpt}</p>
                   </div>
-                  <Link href={`/blogs/${blog.slug}`} className="text-blue-500 font-medium mt-4 inline-flex items-center group/link">
+                  <Link href={`/${lang}/blogs/${blog.slug}`} className="text-blue-500 font-medium mt-4 inline-flex items-center group/link">
                     {t("blogs.readMore")}
                     <i className={`pi ${lang === "en" ? "pi-arrow-right" : "pi-arrow-left"} mx-2 transition-transform duration-300 group-hover/link:translate-x-1`}></i>
                   </Link>
                 </div>
               </div>
+                </Link>
             ))
           ) : (
             <div className="col-span-full text-center text-gray-500 py-12">

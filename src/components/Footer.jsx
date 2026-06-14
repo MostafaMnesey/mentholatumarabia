@@ -5,7 +5,7 @@ import { useTranslation } from "../context/LanguageContext";
 import SocialLinks from "./SocialLinks";
 
 export default function Footer() {
-  const { t } = useTranslation();
+  const { t, lang } = useTranslation();
   const currentSocials = {
     youtube: "https://www.youtube.com/@MentholatumArabia",
 
@@ -30,27 +30,27 @@ export default function Footer() {
             </h3>
             <ul className="space-y-2">
               <li>
-                <Link href="/brand/23" className="text-gray-600 hover:text-gray-900">
+                <Link href={`/${lang}/brand/23`} className="text-gray-600 hover:text-gray-900">
                   {t("footer.brands.items.deepHeat")}
                 </Link>
               </li>
               <li>
-                <Link href="/brand/24" className="text-gray-600 hover:text-gray-900">
+                <Link href={`/${lang}/brand/24`} className="text-gray-600 hover:text-gray-900">
                   {t("footer.brands.items.deepFreeze")}
                 </Link>
               </li>
               <li>
-                <Link href="/brand/25" className="text-gray-600 hover:text-gray-900">
+                <Link href={`/${lang}/brand/25`} className="text-gray-600 hover:text-gray-900">
                   {t("footer.brands.items.deepRelief")}
                 </Link>
               </li>
               <li>
-                <Link href="/brand/26" className="text-gray-600 hover:text-gray-900">
+                <Link href={`/${lang}/brand/26`} className="text-gray-600 hover:text-gray-900">
                   {t("footer.brands.items.hadaLabo")}
                 </Link>
               </li>
               <li>
-                <Link href="/brand/27" className="text-gray-600 hover:text-gray-900">
+                <Link href={`/${lang}/brand/27`} className="text-gray-600 hover:text-gray-900">
                   {t("footer.brands.items.rohto")}
                 </Link>
               </li>
@@ -63,32 +63,32 @@ export default function Footer() {
             </h3>
             <ul className="space-y-2">
               <li>
-                <Link href="/" className="text-gray-600 hover:text-gray-900">
+                <Link href={`/${lang}`} className="text-gray-600 hover:text-gray-900">
                   {t("footer.mentholatum.items.discover")}
                 </Link>
               </li>
               <li>
-                <Link href="/shop" className="text-gray-600 hover:text-gray-900">
+                <Link href={`/${lang}/shop`} className="text-gray-600 hover:text-gray-900">
                   {t("footer.brands.items.shop")}
                 </Link>
               </li>
               <li>
-                <Link href="/about" className="text-gray-600 hover:text-gray-900">
+                <Link href={`/${lang}/about`} className="text-gray-600 hover:text-gray-900">
                   {t("nav.about")}
                 </Link>
               </li>
               <li>
-                <Link href="/blogs" className="text-gray-600 hover:text-gray-900">
+                <Link href={`/${lang}/blogs`} className="text-gray-600 hover:text-gray-900">
                   {t("nav.blogs")}
                 </Link>
               </li>
               <li>
-                <Link href="/symptom-checker-v2" className="text-gray-600 hover:text-gray-900">
+                <Link href={`/${lang}/symptom-checker-v2`} className="text-gray-600 hover:text-gray-900">
                   {t("footer.mentholatum.items.symptomChecker")}
                 </Link>
               </li>
               <li>
-                <Link href="/dax" className="text-gray-600 hover:text-gray-900">
+                <Link href={`/${lang}/dax`} className="text-gray-600 hover:text-gray-900">
                   {t("footer.mentholatum.items.dax")}
                 </Link>
               </li>
@@ -101,17 +101,17 @@ export default function Footer() {
             </h3>
             <ul className="space-y-2">
               <li>
-                <Link href="/terms" className="text-gray-600 hover:text-gray-900">
+                <Link href={`/${lang}/terms`} className="text-gray-600 hover:text-gray-900">
                   {t("footer.customerCare.items.terms")}
                 </Link>
               </li>
               <li>
-                <Link href="/contact" className="text-gray-600 hover:text-gray-900">
+                <Link href={`/${lang}/contact`} className="text-gray-600 hover:text-gray-900">
                   {t("footer.customerCare.items.contact")}
                 </Link>
               </li>
               <li>
-                <Link href="/Privacy" className="text-gray-600 hover:text-gray-900">
+                <Link href={`/${lang}/Privacy`} className="text-gray-600 hover:text-gray-900">
                   {t("footer.customerCare.items.privacy")}
                 </Link>
               </li>

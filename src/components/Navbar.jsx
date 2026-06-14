@@ -13,7 +13,7 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
 
   const pathname = usePathname();
-  const { t, changeLang, lang } = useTranslation();
+  const { t, changeLang, lang, isLangChanging } = useTranslation();
 
   const discoverRef = useRef(null);
   const langRef = useRef(null);
@@ -34,12 +34,27 @@ export default function Navbar() {
   }, []);
 
   const navLinks = [
-    { name: t("nav.brands"), href: "/brands" },
-    { name: t("nav.checker"), href: "/symptom-checker-v2" },
-    { name: t("nav.shop"), href: "/shop" },
+    { name: t("nav.brands"), href: `/${lang}/brands` },
+    { name: t("nav.checker"), href: `/${lang}/symptom-checker-v2` },
+    { name: t("nav.shop"), href: `/${lang}/shop` },
   ];
 
   return (
+    <>
+    <AnimatePresence>
+      {isLangChanging && (
+        <m.div
+          key="lang-loading"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.15 }}
+          className="fixed inset-0 z-[9999] flex items-center justify-center bg-white/70 backdrop-blur-sm"
+        >
+          <div className="w-10 h-10 rounded-full border-3 border-[#0067B1]/20 border-t-[#0067B1] animate-spin" />
+        </m.div>
+      )}
+    </AnimatePresence>
     <nav
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 border-b ${
         scrolled
@@ -49,7 +64,7 @@ export default function Navbar() {
     >
       <div className="mx-auto flex page-width w-full items-center justify-between px-4 relative">
         {/* Brand Logo */}
-        <Link href="/" className="flex items-center">
+        <Link href={`/${lang}`} className="flex items-center">
           <img
             loading="eager"
             src="https://cdn.mentholatumarabia.com/images/imgs/muk_logo.webp"
@@ -94,10 +109,10 @@ export default function Navbar() {
                     transition={{ duration: 0.18, ease: "easeOut" }}
                     className="absolute top-full left-0 mt-2 w-48 bg-white border border-gray-100 rounded-2xl shadow-xl p-2 z-60 origin-top-left"
                   >
-                    <Link href="/about" prefetch={false} onClick={() => setDiscoverOpen(false)} className="block px-4 py-3 text-sm font-medium text-gray-700 hover:text-[#0067B1] hover:bg-gray-50 rounded-xl transition-all">
+                    <Link href={`/${lang}/about`} prefetch={false} onClick={() => setDiscoverOpen(false)} className="block px-4 py-3 text-sm font-medium text-gray-700 hover:text-[#0067B1] hover:bg-gray-50 rounded-xl transition-all">
                       {t("nav.about")}
                     </Link>
-                    <Link href="/blogs" prefetch={false} onClick={() => setDiscoverOpen(false)} className="block px-4 py-3 text-sm font-medium text-gray-700 hover:text-[#0067B1] hover:bg-gray-50 rounded-xl transition-all">
+                    <Link href={`/${lang}/blogs`} prefetch={false} onClick={() => setDiscoverOpen(false)} className="block px-4 py-3 text-sm font-medium text-gray-700 hover:text-[#0067B1] hover:bg-gray-50 rounded-xl transition-all">
                       {t("nav.blogs")}
                     </Link>
                   </m.div>
@@ -128,7 +143,7 @@ export default function Navbar() {
           </ul>
 
           {/* Contact Button */}
-          <Link href="/contact" className="mx-2">
+          <Link href={`/${lang}/contact`} className="mx-2">
             <m.button
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.98 }}
@@ -218,8 +233,8 @@ export default function Navbar() {
                   <div>
                     <h4 className="text-xs uppercase font-extrabold tracking-wider text-gray-400 mb-2.5 px-3">{t("nav.discover")}</h4>
                     <div className="flex flex-col space-y-1">
-                      <Link href="/about" prefetch={false} onClick={() => setMobileOpen(false)} className="px-4 py-2.5 rounded-xl font-bold text-gray-700 hover:text-[#0067B1] hover:bg-gray-50 transition-all block text-sm">{t("nav.about")}</Link>
-                      <Link href="/blogs" prefetch={false} onClick={() => setMobileOpen(false)} className="px-4 py-2.5 rounded-xl font-bold text-gray-700 hover:text-[#0067B1] hover:bg-gray-50 transition-all block text-sm">{t("nav.blogs")}</Link>
+                      <Link href={`/${lang}/about`} prefetch={false} onClick={() => setMobileOpen(false)} className="px-4 py-2.5 rounded-xl font-bold text-gray-700 hover:text-[#0067B1] hover:bg-gray-50 transition-all block text-sm">{t("nav.about")}</Link>
+                      <Link href={`/${lang}/blogs`} prefetch={false} onClick={() => setMobileOpen(false)} className="px-4 py-2.5 rounded-xl font-bold text-gray-700 hover:text-[#0067B1] hover:bg-gray-50 transition-all block text-sm">{t("nav.blogs")}</Link>
                     </div>
                   </div>
 
@@ -232,7 +247,7 @@ export default function Navbar() {
                   </div>
 
                   <div className="border-t border-gray-100 pt-4 px-2">
-                    <Link href="/contact" onClick={() => setMobileOpen(false)}>
+                    <Link href={`/${lang}/contact`} onClick={() => setMobileOpen(false)}>
                       <button className="w-full bg-[#0067B1] hover:bg-[#00348D] text-white px-6 py-3 rounded-full font-bold shadow-md shadow-[#0067B1]/10 hover:shadow-lg transition-all cursor-pointer flex items-center justify-center gap-2 text-sm">
                         <span>{t("nav.contact")}</span>
                         <ArrowRight className="w-4 h-4 rtl:rotate-180" />
@@ -268,5 +283,6 @@ export default function Navbar() {
         )}
       </AnimatePresence>
     </nav>
+    </>
   );
 }

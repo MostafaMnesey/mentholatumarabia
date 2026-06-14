@@ -8,7 +8,7 @@ import { updateMetaTag, injectSchemaMarkup } from "@/utils/seoHelper";
 import ArticleContent from "@/components/ArticleContent";
 
 export default function SingleBlogPage({ params }) {
-  const { t } = useTranslation();
+  const { t, lang } = useTranslation();
   const resolvedParams = use(params);
   const slug = resolvedParams.slug;
 
@@ -45,7 +45,7 @@ export default function SingleBlogPage({ params }) {
           updateMetaTag('twitter:image', blog.image || blog.thumbnail);
           updateMetaTag('twitter:card', 'summary_large_image');
 
-          const pageUrl = `https://www.mentholatumarabia.com/blogs/${slug}/`;
+          const pageUrl = `https://www.mentholatumarabia.com/${lang}/blogs/${slug}/`;
 
           injectSchemaMarkup({
             "@context": "https://schema.org",
@@ -75,8 +75,8 @@ export default function SingleBlogPage({ params }) {
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
             itemListElement: [
-              { "@type": "ListItem", position: 1, name: "Home", item: "https://www.mentholatumarabia.com/" },
-              { "@type": "ListItem", position: 2, name: "Blogs", item: "https://www.mentholatumarabia.com/blogs/" },
+              { "@type": "ListItem", position: 1, name: "Home", item: `https://www.mentholatumarabia.com/${lang}/${lang}/` },
+              { "@type": "ListItem", position: 2, name: "Blogs", item: `https://www.mentholatumarabia.com/${lang}/${lang}/blogs/` },
               { "@type": "ListItem", position: 3, name: blog.title, item: pageUrl },
             ],
           }, "breadcrumb");
@@ -111,7 +111,7 @@ export default function SingleBlogPage({ params }) {
     return (
       <div className="flex flex-col justify-center items-center h-[60vh]">
         <h2 className="text-2xl font-bold text-gray-600">Blog not found</h2>
-        <Link href="/blogs" className="mt-4 text-[#0067B1] hover:underline">
+        <Link href={`/${lang}/blogs`} className="mt-4 text-[#0067B1] hover:underline">
           Go back to Blogs
         </Link>
       </div>
@@ -123,11 +123,11 @@ export default function SingleBlogPage({ params }) {
       {/* Header Section */}
       <section className="w-full page-width mx-auto pt-8 px-4">
         <div className="mb-4 text-sm text-gray-500 flex items-center gap-2">
-          <Link href="/" className="text-[#0067B1] hover:underline">
+          <Link href={`/${lang}`} className="text-[#0067B1] hover:underline">
             {t("blog.breadcrumb.home")}
           </Link>
           <span>/</span>
-          <Link href="/blogs" className="text-[#0067B1] hover:underline">
+          <Link href={`/${lang}/blogs`} className="text-[#0067B1] hover:underline">
             {t("blog.breadcrumb.blogs")}
           </Link>
           <span>/</span>

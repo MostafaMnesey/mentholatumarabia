@@ -238,7 +238,7 @@ export default function SingleBrandPage({ params }) {
                     className={`p-6 flex items-center justify-center min-h-[250px] ${getRadialBgClass()}`}
                   >
                     <Link
-                      href={`/product/${product.slug}`}
+                      href={`/${lang}/product/${product.slug}`}
                       className="cursor-pointer"
                     >
                       <img

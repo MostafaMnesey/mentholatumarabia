@@ -408,7 +408,7 @@ function ShopContent() {
                             {/* Image area */}
                             <div className="p-6 flex items-center justify-center h-[240px] relative bg-white overflow-hidden group">
                               <Link
-                                href={`/product/${product.slug}`}
+                                href={`/${lang}/product/${product.slug}`}
                                 className="block"
                               >
                                 <img
@@ -423,7 +423,7 @@ function ShopContent() {
                             {/* Details area */}
                             <div className="p-6 text-center mt-auto flex flex-col justify-between flex-grow bg-white border-t border-gray-50">
                               <Link
-                                href={`/product/${product.slug}`}
+                                href={`/${lang}/product/${product.slug}`}
                                 className="block mb-6"
                               >
                                 <h3 className="font-extrabold text-gray-900 text-base leading-snug hover:text-[#0067B1] transition-colors line-clamp-2 min-h-[44px]">

@@ -1,5 +1,6 @@
 "use client";
 import React, { createContext, useContext, useState, useEffect } from "react";
+import { usePathname, useRouter } from "next/navigation";
 import en from "../../public/i18n/en.json";
 import ar from "../../public/i18n/ar.json";
 
@@ -7,16 +8,26 @@ const LanguageContext = createContext();
 
 const translations = { en, ar };
 
-export function LanguageProvider({ children }) {
-  const [lang, setLang] = useState("en");
+export function LanguageProvider({ children, lang: initialLang }) {
+  const [lang, setLang] = useState(initialLang || "en");
+  const [isLangChanging, setIsLangChanging] = useState(false);
+  const pathname = usePathname();
+  const router = useRouter();
 
   useEffect(() => {
-    const storedLang = localStorage.getItem("lang") || "en";
-    setLang(storedLang);
-    document.documentElement.dir = storedLang === "ar" ? "rtl" : "ltr";
-    document.documentElement.lang = storedLang;
+    if (initialLang) {
+      setLang(initialLang);
+    }
+  }, [initialLang]);
 
-    // Fetch and cache geo data if not already present
+  useEffect(() => {
+    setIsLangChanging(false);
+  }, [pathname]);
+
+  useEffect(() => {
+    document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
+    document.documentElement.lang = lang;
+
     if (!localStorage.getItem("geo")) {
       fetch("https://ip-api.com/json?fields=16387")
         .then((res) => res.json())
@@ -27,14 +38,14 @@ export function LanguageProvider({ children }) {
         })
         .catch((err) => console.warn("Failed to fetch geo data", err));
     }
-  }, []);
+  }, [lang]);
 
   const changeLang = (newLang) => {
+    if (newLang === lang) return;
+    setIsLangChanging(true);
     localStorage.setItem("lang", newLang);
-    setLang(newLang);
-    document.documentElement.dir = newLang === "ar" ? "rtl" : "ltr";
-    document.documentElement.lang = newLang;
-    window.location.reload();
+    const currentPath = pathname.replace(/^\/(en|ar)/, "");
+    router.push(`/${newLang}${currentPath}`);
   };
 
   const t = (key) => {
@@ -45,7 +56,6 @@ export function LanguageProvider({ children }) {
       if (current[k] !== undefined) {
         current = current[k];
       } else {
-        // Fallback to English
         let fallback = translations.en;
         let found = true;
         for (const fk of keys) {
@@ -63,7 +73,7 @@ export function LanguageProvider({ children }) {
   };
 
   return (
-    <LanguageContext.Provider value={{ lang, changeLang, t }}>
+    <LanguageContext.Provider value={{ lang, changeLang, t, isLangChanging }}>
       {children}
     </LanguageContext.Provider>
   );

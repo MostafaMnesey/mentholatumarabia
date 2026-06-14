@@ -25,10 +25,12 @@ async function fetchWithRetry(url, retries = 3) {
 export async function generateStaticParams() {
   const data = await fetchWithRetry("https://dev-api.mentholatumarabia.com/api/website/brands");
   const brands = data?.brands;
-  if (!brands || brands.length === 0) {
-    return FALLBACK_BRAND_IDS.map((id) => ({ id }));
-  }
-  return brands.map((brand) => ({ id: brand.id.toString() }));
+  const ids = brands && brands.length > 0
+    ? brands.map((brand) => brand.id.toString())
+    : FALLBACK_BRAND_IDS;
+  return ["en", "ar"].flatMap((lang) =>
+    ids.map((id) => ({ lang, id }))
+  );
 }
 
 export default function Page({ params }) {

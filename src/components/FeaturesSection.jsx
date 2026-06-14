@@ -14,7 +14,7 @@ export default function FeaturesSection() {
       title: "home.features.symptomChecker.title",
       description: "home.features.symptomChecker.description",
       button: "home.features.symptomChecker.buttonText",
-      link: "/symptom-checker-v2",
+      link: `/${lang}/symptom-checker-v2`,
       external: false,
     },
     {

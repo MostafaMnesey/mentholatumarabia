@@ -35,7 +35,7 @@ export default function AboutSection() {
             <div className="text-gray-600 text-base md:text-lg mb-8 leading-relaxed">
               <p>{t("home.videosSection.about.description")}</p>
             </div>
-            <Link href="/about" className="block w-fit">
+            <Link href={`/${lang}/about`} className="block w-fit">
               <m.button
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.98 }}
