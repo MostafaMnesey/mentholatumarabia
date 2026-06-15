@@ -7,7 +7,7 @@ import BodyDiagram from "@/components/BodyDiagram";
 import { useTranslation } from "@/context/LanguageContext";
 
 export default function SymptomCheckerClient() {
-  const { t } = useTranslation();
+  const { t, lang } = useTranslation();
   const [visible, setVisible] = useState(false);
   const [selectedAreaId, setSelectedAreaId] = useState(null);
 

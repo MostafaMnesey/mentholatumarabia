@@ -1,7 +1,7 @@
 export const dynamic = "force-static";
 
 const BASE_URL = "https://www.mentholatumarabia.com";
-const API_BASE = "https://dev-api.mentholatumarabia.com/api/website";
+const API_BASE = "https://api.mentholatumarabia.com/api/website";
 
 async function apiFetch(path, lang) {
   try {

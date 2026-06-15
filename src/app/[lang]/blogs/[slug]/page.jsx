@@ -1,7 +1,7 @@
 import ClientPage from "./client";
 
 const BASE_URL = "https://www.mentholatumarabia.com";
-const API_BASE = "https://dev-api.mentholatumarabia.com/api/website";
+const API_BASE = "https://api.mentholatumarabia.com/api/website";
 
 const BASE_HEADERS = {
   Accept: "application/json",

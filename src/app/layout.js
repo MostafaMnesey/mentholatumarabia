@@ -55,8 +55,8 @@ export default function RootLayout({ children }) {
       <head>
         <link rel="preconnect" href="https://cdn.mentholatumarabia.com" />
         <link rel="dns-prefetch" href="https://cdn.mentholatumarabia.com" />
-        <link rel="preconnect" href="https://dev-api.mentholatumarabia.com" />
-        <link rel="dns-prefetch" href="https://dev-api.mentholatumarabia.com" />
+        <link rel="preconnect" href="https://api.mentholatumarabia.com" />
+        <link rel="dns-prefetch" href="https://api.mentholatumarabia.com" />
         <link rel="preconnect" href="https://ip-api.com" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossOrigin="anonymous" />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }} />

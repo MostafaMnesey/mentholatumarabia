@@ -1,7 +1,7 @@
 "use client";
 import 'primereact/resources/themes/lara-light-blue/theme.css';
 import 'primeicons/primeicons.css';
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import HeroBackground from "@/components/HeroBackground";
 import { useTranslation } from "@/context/LanguageContext";
 import { contact } from "@/services/mainService";
@@ -9,6 +9,8 @@ import Link from "next/link";
 import { Dialog } from "primereact/dialog";
 
 import { COUNTRIES_DATA } from "@/utils/countriesData";
+
+const RECAPTCHA_SITE_KEY = "6LdbUiEtAAAAAI_hCLr8tscCUFJwxHYLDf-XZ6mW";
 
 export default function ContactClient() {
 
@@ -30,49 +32,25 @@ export default function ContactClient() {
   });
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState({ type: "", text: "" });
-  const [captchaToken, setCaptchaToken] = useState("");
-  const recaptchaRef = useRef(null);
+  const [recaptchaReady, setRecaptchaReady] = useState(false);
 
   // Distributors Dialog State
   const [selectedCountry, setSelectedCountry] = useState(null);
   const [displayDialog, setDisplayDialog] = useState(false);
 
-  // Initialize reCAPTCHA
+  // Load reCAPTCHA v3
   useEffect(() => {
-    const loadRecaptcha = () => {
-      if (typeof window !== "undefined" && !window.grecaptcha) {
-        const script = document.createElement("script");
-        script.src = "https://www.google.com/recaptcha/api.js";
-        script.async = true;
-        script.defer = true;
-        document.body.appendChild(script);
-      }
-    };
-    loadRecaptcha();
-
-    // Check periodically for grecaptcha to render
-    let checkInterval = setInterval(() => {
-      if (typeof window !== "undefined" && window.grecaptcha && window.grecaptcha.render) {
-        clearInterval(checkInterval);
-        try {
-          window.grecaptcha.render("recaptcha-container", {
-            sitekey: "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI",
-            callback: (token) => {
-              setCaptchaToken(token);
-              setFormData((prev) => ({ ...prev, captchaAnswer: token }));
-            },
-            "expired-callback": () => {
-              setCaptchaToken("");
-              setFormData((prev) => ({ ...prev, captchaAnswer: "" }));
-            },
-          });
-        } catch (e) {
-          console.warn("reCAPTCHA already rendered or error occurred", e);
-        }
-      }
-    }, 500);
-
-    return () => clearInterval(checkInterval);
+    if (typeof window === "undefined") return;
+    const existing = document.querySelector(`script[src*="recaptcha/api.js"]`);
+    if (existing) {
+      window.grecaptcha?.ready(() => setRecaptchaReady(true));
+      return;
+    }
+    const script = document.createElement("script");
+    script.src = `https://www.google.com/recaptcha/api.js?render=${RECAPTCHA_SITE_KEY}`;
+    script.async = true;
+    script.onload = () => window.grecaptcha.ready(() => setRecaptchaReady(true));
+    document.head.appendChild(script);
   }, []);
 
   const handleChange = (e) => {
@@ -94,21 +72,14 @@ export default function ContactClient() {
       formData.name.trim() !== "" &&
       validateEmail(formData.email) &&
       formData.type.trim() !== "" &&
-      formData.reason.trim() !== "" &&
-      captchaToken !== ""
+      formData.reason.trim() !== ""
     );
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Mark all as touched
-    setTouched({
-      name: true,
-      email: true,
-      type: true,
-      reason: true,
-    });
+    setTouched({ name: true, email: true, type: true, reason: true });
 
     if (!isFormValid()) {
       setMessage({ type: "error", text: "Please fill in all required fields correctly." });
@@ -118,38 +89,19 @@ export default function ContactClient() {
     setLoading(true);
     setMessage({ type: "", text: "" });
 
-    contact(formData)
-      .then((res) => {
-        setMessage({ type: "success", text: t("contact.contactForm.successMessage") });
-        setFormData({
-          name: "",
-          email: "",
-          type: "",
-          reason: "",
-          captchaAnswer: "",
-        });
-        setTouched({
-          name: false,
-          email: false,
-          type: false,
-          reason: false,
-        });
-        setCaptchaToken("");
-        if (typeof window !== "undefined" && window.grecaptcha) {
-          window.grecaptcha.reset();
-        }
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error("Submit contact error:", err);
-        const errorMsg = err.response?.data?.message || "Failed to send message. Please try again later.";
-        setMessage({ type: "error", text: errorMsg });
-        setCaptchaToken("");
-        if (typeof window !== "undefined" && window.grecaptcha) {
-          window.grecaptcha.reset();
-        }
-        setLoading(false);
-      });
+    try {
+      const token = await window.grecaptcha.execute(RECAPTCHA_SITE_KEY, { action: "contact" });
+      await contact({ ...formData, captchaAnswer: token });
+      setMessage({ type: "success", text: t("contact.contactForm.successMessage") });
+      setFormData({ name: "", email: "", type: "", reason: "", captchaAnswer: "" });
+      setTouched({ name: false, email: false, type: false, reason: false });
+    } catch (err) {
+      console.error("Submit contact error:", err);
+      const errorMsg = err?.response?.data?.message || "Failed to send message. Please try again later.";
+      setMessage({ type: "error", text: errorMsg });
+    } finally {
+      setLoading(false);
+    }
   };
 
   const openDialog = (country) => {
@@ -269,13 +221,6 @@ export default function ContactClient() {
                 )}
               </div>
 
-              <div className="relative my-2">
-                <div id="recaptcha-container"></div>
-                {touched.reason && !captchaToken && (
-                  <small className="text-red-500 block mt-1">Please complete the CAPTCHA</small>
-                )}
-              </div>
-
               {message.text && (
                 <div
                   className={`p-4 rounded-xl text-sm font-medium ${
@@ -288,8 +233,8 @@ export default function ContactClient() {
 
               <button
                 type="submit"
-                disabled={loading}
-                className="px-6 py-3 bg-[#0067B1] hover:bg-[#00348D] text-white rounded-full font-medium shadow-md cursor-pointer transition-all w-fit flex items-center justify-center gap-2"
+                disabled={loading || !isFormValid() || !recaptchaReady}
+                className="px-6 py-3 bg-[#0067B1] hover:bg-[#00348D] text-white rounded-full font-medium shadow-md transition-all w-fit flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
               >
                 {loading ? "Sending..." : t("contact.contactForm.submit")}
                 <i className={`pi ${lang === "en" ? "pi-arrow-right" : "pi-arrow-left"}`}></i>

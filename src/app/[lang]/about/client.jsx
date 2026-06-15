@@ -16,7 +16,7 @@ export default function AboutClient() {
     },
     {
       h: t("about.ourPhilosophy.events.trustAndRespect.title"),
-      icon: "https://cdn.mentholatumarabia.com/images/imgs/s2.webp",
+      icon: "https://cdn.mentholatumarabia.com/images/imgs/s1.webp",
       p: t("about.ourPhilosophy.events.trustAndRespect.description"),
     },
     {

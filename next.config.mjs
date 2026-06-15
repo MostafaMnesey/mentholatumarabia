@@ -8,7 +8,7 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "dev-api.mentholatumarabia.com",
+        hostname: "api.mentholatumarabia.com",
       },
       {
         protocol: "https",

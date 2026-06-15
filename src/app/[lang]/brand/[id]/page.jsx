@@ -23,7 +23,7 @@ async function fetchWithRetry(url, retries = 3) {
 }
 
 export async function generateStaticParams() {
-  const data = await fetchWithRetry("https://dev-api.mentholatumarabia.com/api/website/brands");
+  const data = await fetchWithRetry("https://api.mentholatumarabia.com/api/website/brands");
   const brands = data?.brands;
   const ids = brands && brands.length > 0
     ? brands.map((brand) => brand.id.toString())
