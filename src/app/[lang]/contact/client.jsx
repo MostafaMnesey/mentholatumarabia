@@ -22,7 +22,6 @@ export default function ContactClient() {
     email: "",
     type: "",
     reason: "",
-    captchaAnswer: "",
   });
   const [touched, setTouched] = useState({
     name: false,
@@ -91,9 +90,9 @@ export default function ContactClient() {
 
     try {
       const token = await window.grecaptcha.execute(RECAPTCHA_SITE_KEY, { action: "contact" });
-      await contact({ ...formData, captchaAnswer: token });
+      await contact({ ...formData, captcha: token });
       setMessage({ type: "success", text: t("contact.contactForm.successMessage") });
-      setFormData({ name: "", email: "", type: "", reason: "", captchaAnswer: "" });
+      setFormData({ name: "", email: "", type: "", reason: "" });
       setTouched({ name: false, email: false, type: false, reason: false });
     } catch (err) {
       console.error("Submit contact error:", err);
@@ -231,14 +230,28 @@ export default function ContactClient() {
                 </div>
               )}
 
-              <button
-                type="submit"
-                disabled={loading || !isFormValid() || !recaptchaReady}
-                className="px-6 py-3 bg-[#0067B1] hover:bg-[#00348D] text-white rounded-full font-medium shadow-md transition-all w-fit flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
-              >
-                {loading ? "Sending..." : t("contact.contactForm.submit")}
-                <i className={`pi ${lang === "en" ? "pi-arrow-right" : "pi-arrow-left"}`}></i>
-              </button>
+              <div className="flex flex-col gap-3">
+                <button
+                  type="submit"
+                  disabled={loading || !isFormValid() || !recaptchaReady}
+                  className="px-6 py-3 bg-[#0067B1] hover:bg-[#00348D] text-white rounded-full font-medium shadow-md transition-all w-fit flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+                >
+                  {loading ? "Sending..." : t("contact.contactForm.submit")}
+                  <i className={`pi ${lang === "en" ? "pi-arrow-right" : "pi-arrow-left"}`}></i>
+                </button>
+
+                <p className="text-xs text-gray-400 leading-relaxed">
+                  This site is protected by reCAPTCHA and the Google{" "}
+                  <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="underline hover:text-gray-600">
+                    Privacy Policy
+                  </a>{" "}
+                  and{" "}
+                  <a href="https://policies.google.com/terms" target="_blank" rel="noopener noreferrer" className="underline hover:text-gray-600">
+                    Terms of Service
+                  </a>{" "}
+                  apply.
+                </p>
+              </div>
             </form>
           </div>
 
