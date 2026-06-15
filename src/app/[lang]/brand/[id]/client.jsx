@@ -253,12 +253,12 @@ export default function SingleBrandPage({ params }) {
                     <span className="font-light text-sm text-gray-500">
                       {brandData.name}
                     </span>
-                    <Link href={`/product/${product.slug}`}>
+                    <Link href={`/${lang}/product/${product.slug}`}>
                       <h2 className="text-xl font-semibold text-gray-800 hover:underline my-2 cursor-pointer min-h-[56px] line-clamp-2">
                         {product.name}
                       </h2>
                     </Link>
-                    <Link href={`/product/${product.slug}`}>
+                    <Link href={`/${lang}/product/${product.slug}`}>
                       <button className="mt-3 text-white py-2 block w-full rounded-full bg-[#0067B1] hover:bg-[#00348D] cursor-pointer transition-all">
                         {t("Single-brand.learnMore")}
                       </button>

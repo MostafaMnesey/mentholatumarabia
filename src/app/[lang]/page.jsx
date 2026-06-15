@@ -1,11 +1,13 @@
 import React from "react";
 import HomeContent from "@/components/HomeContent";
+import { PAGE_META } from "@/config/pageMeta";
 
 export async function generateMetadata({ params }) {
   const { lang } = await params;
+  const meta = PAGE_META.home[lang] ?? PAGE_META.home.en;
   return {
-    title: "Mentholatum - Home",
-    description: "Mentholatum - Specialists in family healthcare for over 130 years",
+    title: meta.title,
+    description: meta.description,
     alternates: {
       canonical: `https://www.mentholatumarabia.com/${lang}/`,
       languages: {

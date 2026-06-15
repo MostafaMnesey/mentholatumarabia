@@ -1,122 +1,22 @@
-"use client";
-import React, { useState } from "react";
-import Link from "next/link";
-import { X } from "lucide-react";
-import { getSymptomData } from "@/utils/symptomDataHelper";
-import BodyDiagram from "@/components/BodyDiagram";
-import { useTranslation } from "@/context/LanguageContext";
+import { PAGE_META } from "@/config/pageMeta";
+import SymptomCheckerClient from "./client";
+
+export async function generateMetadata({ params }) {
+  const { lang } = await params;
+  const meta = PAGE_META["symptom-checker"][lang] ?? PAGE_META["symptom-checker"].en;
+  return {
+    title: meta.title,
+    description: meta.description,
+    alternates: {
+      canonical: `https://www.mentholatumarabia.com/${lang}/symptom-checker-v2`,
+      languages: {
+        en: "https://www.mentholatumarabia.com/en/symptom-checker-v2",
+        ar: "https://www.mentholatumarabia.com/ar/symptom-checker-v2",
+      },
+    },
+  };
+}
 
 export default function SymptomCheckerPage() {
-  const { t } = useTranslation();
-  const [visible, setVisible] = useState(false);
-  const [selectedAreaId, setSelectedAreaId] = useState(null);
-
-  const getTargetId = (bodyPart) => {
-    const mapping = {
-      hands: "handsAndFingers",
-      lowerLeg: "Lowerlegs",
-      ankles: "Ankles",
-      hip: "Hips",
-      feet: "feet",
-      back: "back",
-      shoulder: "neckAndShoulder",
-      muscles: "Muscles",
-      thighs: "thighs",
-      knee: "joints",
-    };
-    return mapping[bodyPart] || "";
-  };
-
-  const onBodyPartSelected = (part) => {
-    const targetId = getTargetId(part);
-    if (targetId) {
-      setSelectedAreaId(targetId);
-      setVisible(true);
-    }
-  };
-
-  const closeDrawer = () => {
-    setSelectedAreaId(null);
-    setVisible(false);
-  };
-
-  const symptomData = getSymptomData(t);
-  const currentData = selectedAreaId ? symptomData[selectedAreaId] : null;
-
-  return (
-    <main className="relative mt-10">
-      <div className="relative">
-        <BodyDiagram onBodyPartSelected={onBodyPartSelected} />
-      </div>
-
-      {/* CSS slide-out drawer — replaces PrimeReact Sidebar */}
-      {visible && (
-        <div
-          className="fixed inset-0 z-50 bg-black/40"
-          onClick={closeDrawer}
-        >
-          <div
-            className="absolute top-0 bottom-0 right-0 w-full md:w-112.5 bg-white shadow-2xl overflow-y-auto"
-            onClick={(e) => e.stopPropagation()}
-          >
-            {/* Drawer header */}
-            <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100 sticky top-0 bg-white z-10">
-              <span className="font-bold text-[#005E99] text-lg">{currentData?.title}</span>
-              <button
-                onClick={closeDrawer}
-                className="p-2 rounded-full hover:bg-gray-100 transition-colors cursor-pointer"
-                aria-label="Close"
-              >
-                <X className="w-5 h-5 text-gray-500" />
-              </button>
-            </div>
-
-            {currentData && (
-              <div className="slideOutContent p-4">
-                <div className="painAreaInfo text-gray-700 leading-relaxed mb-6">
-                  <p>{currentData.description}</p>
-                </div>
-
-                <div className="productsRow flex flex-col gap-6">
-                  {currentData.products.map((product, idx) => (
-                    <div key={idx} className="product border border-gray-200 rounded-xl p-4 bg-white shadow-sm flex flex-col gap-4">
-                      <div className="name">
-                        <Link href={`/${lang}/product/${product.slug}`} target="_blank" className="block cursor-pointer">
-                          <div className="img w-full max-h-40 flex items-center justify-center overflow-hidden">
-                            <img
-                              loading="lazy"
-                              src={product.image}
-                              className="max-h-37.5 object-contain hover:scale-105 transition-all"
-                              alt={product.productName}
-                            />
-                          </div>
-                        </Link>
-                        <span className="block text-sm text-gray-500 font-light mt-4">
-                          {product.brandName}
-                        </span>
-                        <Link href={`/${lang}/product/${product.slug}`} target="_blank" className="text-lg font-semibold text-gray-900 hover:underline hover:text-[#0067B1] transition-colors mt-1 block">
-                          {product.productName}
-                        </Link>
-                      </div>
-
-                      <Link href={`/${lang}/product/${product.slug}`} target="_blank" className="text-white">
-                        <button className="block w-full bg-[#0067B1] hover:bg-[#00348D] text-white py-2.5 rounded-full font-medium transition-all duration-300 cursor-pointer text-center">
-                          {t("Single-brand.learnMore")}
-                        </button>
-                      </Link>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
-      )}
-
-      <div
-        className="absolute right-0 bottom-0 w-[30%] h-[80vh] bg-no-repeat bg-cover -z-10 opacity-30 pointer-events-none"
-        style={{ backgroundImage: "url(/images/bg-blue.webp)" }}
-      ></div>
-    </main>
-  );
+  return <SymptomCheckerClient />;
 }

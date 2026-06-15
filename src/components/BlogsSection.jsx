@@ -1,14 +1,17 @@
 "use client";
+import 'primereact/resources/themes/lara-light-blue/theme.css';
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { m } from "framer-motion";
 import { ArrowRight, Calendar } from "lucide-react";
+import { Skeleton } from "primereact/skeleton";
 import { useTranslation } from "../context/LanguageContext";
 import { getBlogs } from "../services/mainService";
 
 export default function BlogsSection() {
   const { t, lang } = useTranslation();
   const [blogs, setBlogs] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     getBlogs()
@@ -19,7 +22,8 @@ export default function BlogsSection() {
       })
       .catch((err) => {
         console.error("Error fetching blogs:", err);
-      });
+      })
+      .finally(() => setLoading(false));
   }, []);
 
   const BlogCard = ({ blog }) => (
@@ -93,22 +97,49 @@ export default function BlogsSection() {
 
         {/* Desktop grid */}
         <div className="hidden lg:grid lg:grid-cols-3 gap-8">
-          {blogs.map((blog, idx) => (
-            <m.div
-              key={blog.id || idx}
-              initial={{ y: 24 }}
-              whileInView={{ y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.4, delay: idx * 0.1 }}
-            >
-              <BlogCard blog={blog} />
-            </m.div>
-          ))}
+          {loading
+            ? [1, 2, 3].map((i) => (
+                <div key={i} className="bg-white rounded-3xl border border-gray-100 shadow-md overflow-hidden flex flex-col">
+                  <Skeleton height="200px" className="w-full" />
+                  <div className="p-5 flex flex-col gap-3">
+                    <Skeleton width="40%" height="14px" />
+                    <Skeleton width="90%" height="20px" />
+                    <Skeleton width="75%" height="20px" />
+                    <Skeleton width="60%" height="14px" />
+                    <Skeleton width="100px" height="16px" />
+                  </div>
+                </div>
+              ))
+            : blogs.map((blog, idx) => (
+                <m.div
+                  key={blog.id || idx}
+                  initial={{ y: 24 }}
+                  whileInView={{ y: 0 }}
+                  viewport={{ once: true, margin: "-80px" }}
+                  transition={{ duration: 0.4, delay: idx * 0.1 }}
+                >
+                  <BlogCard blog={blog} />
+                </m.div>
+              ))}
         </div>
 
         {/* Mobile scroll snap — no PrimeReact Carousel */}
         <div className="block lg:hidden">
-          {blogs.length > 0 && (
+          {loading ? (
+            <div className="flex overflow-x-auto gap-4 pb-2 scrollbar-hide">
+              {[1, 2, 3].map((i) => (
+                <div key={i} className="flex-none w-[85vw] bg-white rounded-3xl border border-gray-100 shadow-md overflow-hidden">
+                  <Skeleton height="180px" className="w-full" />
+                  <div className="p-5 flex flex-col gap-3">
+                    <Skeleton width="40%" height="14px" />
+                    <Skeleton width="90%" height="20px" />
+                    <Skeleton width="75%" height="14px" />
+                    <Skeleton width="100px" height="16px" />
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : blogs.length > 0 && (
             <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-2 scrollbar-hide">
               {blogs.map((blog, idx) => (
                 <div key={blog.id || idx} className="flex-none w-[85vw] snap-center">
@@ -119,12 +150,14 @@ export default function BlogsSection() {
           )}
         </div>
 
-        <Link href={`/${lang}/blogs`} className="block w-full text-center mt-6 lg:hidden">
-          <button className="px-8 py-3 bg-[#0067B1] hover:bg-[#00348D] text-white rounded-full font-bold shadow-md cursor-pointer transition-all inline-flex items-center gap-2">
-            <span>{t("blogsSection.header.viewAll")}</span>
-            <ArrowRight className="w-4.5 h-4.5 rtl:rotate-180" />
-          </button>
-        </Link>
+        {!loading && (
+          <Link href={`/${lang}/blogs`} className="block w-full text-center mt-6 lg:hidden">
+            <button className="px-8 py-3 bg-[#0067B1] hover:bg-[#00348D] text-white rounded-full font-bold shadow-md cursor-pointer transition-all inline-flex items-center gap-2">
+              <span>{t("blogsSection.header.viewAll")}</span>
+              <ArrowRight className="w-4.5 h-4.5 rtl:rotate-180" />
+            </button>
+          </Link>
+        )}
       </div>
     </section>
   );

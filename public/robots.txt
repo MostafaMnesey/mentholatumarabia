@@ -1,6 +1,24 @@
 User-agent: *
 Allow: /
+Allow: /ar/
+Allow: /en/
 
-Disallow: /blink-test/
+# Block system and backend paths
+Disallow: /admin/
+Disallow: /api/
+Disallow: /config/
+Disallow: /draft/
+Disallow: /private/
 
+# Block internal search results to avoid duplicate content & soft 404s
+Disallow: /*?s=
+Disallow: /*?search=
+Disallow: /search/
+
+# Block tracking URLs and UTM parameters from being crawled separately
+Disallow: /*?utm_source=
+Disallow: /*?fbclid=
+Disallow: /*?gclid=
+
+# XML Sitemap Directives for Search Engines
 Sitemap: https://www.mentholatumarabia.com/sitemap.xml

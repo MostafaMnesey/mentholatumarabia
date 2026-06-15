@@ -10,6 +10,11 @@ export const getBrands = async () => {
   return response.data;
 };
 
+export const getDashboardBrands = async () => {
+  const response = await api.get("api/dashboard/brands");
+  return response.data;
+};
+
 export const getSingleBrand = async (brandId) => {
   const response = await api.get(`api/website/brands/${brandId}`);
   return response.data;
