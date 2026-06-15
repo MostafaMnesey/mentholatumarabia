@@ -10,7 +10,7 @@ import { Dialog } from "primereact/dialog";
 
 import { COUNTRIES_DATA } from "@/utils/countriesData";
 
-const RECAPTCHA_SITE_KEY = "6LdbUiEtAAAAAI_hCLr8tscCUFJwxHYLDf-XZ6mW";
+const RECAPTCHA_SITE_KEY = "6LfIXiEtAAAAAGtZf4ee0C6V4i8po8QpXB689ubd";
 
 export default function ContactClient() {
 
@@ -31,25 +31,46 @@ export default function ContactClient() {
   });
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState({ type: "", text: "" });
-  const [recaptchaReady, setRecaptchaReady] = useState(false);
+  const [captchaToken, setCaptchaToken] = useState("");
 
   // Distributors Dialog State
   const [selectedCountry, setSelectedCountry] = useState(null);
   const [displayDialog, setDisplayDialog] = useState(false);
 
-  // Load reCAPTCHA v3
+  // Load and render reCAPTCHA v2 (explicit render per Google docs)
   useEffect(() => {
     if (typeof window === "undefined") return;
-    const existing = document.querySelector(`script[src*="recaptcha/api.js"]`);
-    if (existing) {
-      window.grecaptcha?.ready(() => setRecaptchaReady(true));
-      return;
+
+    const callbackName = "recaptchaOnloadCallback";
+
+    window[callbackName] = () => {
+      if (document.getElementById("recaptcha-container")) {
+        try {
+          window.grecaptcha.render("recaptcha-container", {
+            sitekey: RECAPTCHA_SITE_KEY,
+            callback: (token) => setCaptchaToken(token),
+            "expired-callback": () => setCaptchaToken(""),
+            "error-callback": () => setCaptchaToken(""),
+          });
+        } catch (e) {
+          // widget already rendered
+        }
+      }
+    };
+
+    if (!document.querySelector('script[src*="recaptcha/api.js"]')) {
+      const script = document.createElement("script");
+      script.src = `https://www.google.com/recaptcha/api.js?onload=${callbackName}&render=explicit`;
+      script.async = true;
+      script.defer = true;
+      document.head.appendChild(script);
+    } else if (window.grecaptcha?.render) {
+      window[callbackName]();
     }
-    const script = document.createElement("script");
-    script.src = `https://www.google.com/recaptcha/api.js?render=${RECAPTCHA_SITE_KEY}`;
-    script.async = true;
-    script.onload = () => window.grecaptcha.ready(() => setRecaptchaReady(true));
-    document.head.appendChild(script);
+
+    return () => {
+      delete window[callbackName];
+    };
   }, []);
 
   const handleChange = (e) => {
@@ -71,7 +92,8 @@ export default function ContactClient() {
       formData.name.trim() !== "" &&
       validateEmail(formData.email) &&
       formData.type.trim() !== "" &&
-      formData.reason.trim() !== ""
+      formData.reason.trim() !== "" &&
+      captchaToken !== ""
     );
   };
 
@@ -89,15 +111,18 @@ export default function ContactClient() {
     setMessage({ type: "", text: "" });
 
     try {
-      const token = await window.grecaptcha.execute(RECAPTCHA_SITE_KEY, { action: "contact" });
-      await contact({ ...formData, captcha: token });
+      await contact({ ...formData, captcha: captchaToken });
       setMessage({ type: "success", text: t("contact.contactForm.successMessage") });
       setFormData({ name: "", email: "", type: "", reason: "" });
       setTouched({ name: false, email: false, type: false, reason: false });
+      setCaptchaToken("");
+      window.grecaptcha?.reset();
     } catch (err) {
       console.error("Submit contact error:", err);
       const errorMsg = err?.response?.data?.message || "Failed to send message. Please try again later.";
       setMessage({ type: "error", text: errorMsg });
+      setCaptchaToken("");
+      window.grecaptcha?.reset();
     } finally {
       setLoading(false);
     }
@@ -230,28 +255,19 @@ export default function ContactClient() {
                 </div>
               )}
 
-              <div className="flex flex-col gap-3">
-                <button
-                  type="submit"
-                  disabled={loading || !isFormValid() || !recaptchaReady}
-                  className="px-6 py-3 bg-[#0067B1] hover:bg-[#00348D] text-white rounded-full font-medium shadow-md transition-all w-fit flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
-                >
-                  {loading ? "Sending..." : t("contact.contactForm.submit")}
-                  <i className={`pi ${lang === "en" ? "pi-arrow-right" : "pi-arrow-left"}`}></i>
-                </button>
+              <div id="recaptcha-container" className="my-2" />
+              {touched.reason && !captchaToken && (
+                <small className="text-red-500 block -mt-1">Please complete the CAPTCHA</small>
+              )}
 
-                <p className="text-xs text-gray-400 leading-relaxed">
-                  This site is protected by reCAPTCHA and the Google{" "}
-                  <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="underline hover:text-gray-600">
-                    Privacy Policy
-                  </a>{" "}
-                  and{" "}
-                  <a href="https://policies.google.com/terms" target="_blank" rel="noopener noreferrer" className="underline hover:text-gray-600">
-                    Terms of Service
-                  </a>{" "}
-                  apply.
-                </p>
-              </div>
+              <button
+                type="submit"
+                disabled={loading || !isFormValid()}
+                className="px-6 py-3 bg-[#0067B1] hover:bg-[#00348D] text-white rounded-full font-medium shadow-md transition-all w-fit flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+              >
+                {loading ? "Sending..." : t("contact.contactForm.submit")}
+                <i className={`pi ${lang === "en" ? "pi-arrow-right" : "pi-arrow-left"}`}></i>
+              </button>
             </form>
           </div>
 
